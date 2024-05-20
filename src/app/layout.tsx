@@ -1,5 +1,7 @@
+// import '@/app/ui/globals.css'
+
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
