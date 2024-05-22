@@ -1,5 +1,5 @@
 const { db } = require('@vercel/postgres')
-const { tours, categories } = require('../app/lib/placeholder-data.js')
+const { tours, categories, users } = require('../app/lib/placeholder-data.js')
 
 async function seedTours(client) {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
@@ -72,11 +72,44 @@ async function seedCategories(client) {
     }
 }
 
+async function seedUsers(client) {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
+
+    try {
+        const usersTable = await client.sql`
+		CREATE TABLE IF NOT EXISTS users (
+		id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+		passport TEXT NOT NULL,
+		name TEXT NOT NULL,
+		email TEXT NOT NULL UNIQUE,
+		password TEXT NOT NULL,
+		role TEXT DEFAULT 'user'
+		);`
+        console.log('users table created!')
+
+        const insertedUsers = await Promise.all(
+            users.map(async (user) => {
+                return client.sql`
+					INSERT INTO users VALUES (
+						${user.id}, ${user.passport}, ${user.name}, ${user.email}, ${user.password}, ${user.role}
+					) ON CONFLICT (id) DO NOTHING;
+				`
+            })
+        )
+        console.log('users inserted!')
+        return { usersTable, insertedUsers }
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
 async function main() {
     const client = await db.connect()
 
     await seedTours(client)
     await seedCategories(client)
+    await seedUsers(client)
 
     await client.end()
 }

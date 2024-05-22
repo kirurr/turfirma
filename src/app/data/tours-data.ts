@@ -3,6 +3,17 @@
 import { Tour } from '@/app/lib/definitions'
 import { sql, db } from '@vercel/postgres'
 
+export async function fetchTourByAlias(alias: string) {
+    try {
+        const tour = await sql<Tour>`SELECT * FROM tours WHERE alias=${alias}`
+        return tour.rows[0]
+    } catch (error) {
+        console.log(error)
+        throw new Error('failed to fetch tour')
+    }
+}
+
+
 export async function fetchTours(alias: string, params?: string) {
     const client = await db.connect()
     try {
@@ -22,15 +33,5 @@ export async function fetchTours(alias: string, params?: string) {
     } catch (error) {
         console.log(error)
         throw new Error('failed to fetch tours')
-    }
-}
-
-export async function fetchTourByAlias(alias: string) {
-    try {
-        const tour = await sql<Tour>`SELECT * FROM tours WHERE alias=${alias}`
-        return tour.rows[0]
-    } catch (error) {
-        console.log(error)
-        throw new Error('failed to fetch tour')
     }
 }
