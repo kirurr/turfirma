@@ -5,6 +5,7 @@ export default function TopNav() {
     <div>
       <nav>
         <ul>
+				<TopNavItem href="/" title="домой" />
           <TopNavItem href="/profile" title="личный кабинет" />
           <TopNavItem href="/about" title="о нас" />
         </ul>

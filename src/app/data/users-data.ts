@@ -1,5 +1,3 @@
-'use server'
-
 import { sql } from '@vercel/postgres'
 import { User } from '@/app/lib/definitions'
 

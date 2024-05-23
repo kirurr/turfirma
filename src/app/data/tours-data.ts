@@ -1,5 +1,3 @@
-'use server'
-
 import { Tour, TourWithHotel } from '@/app/lib/definitions'
 import { sql, db } from '@vercel/postgres'
 
@@ -50,9 +48,15 @@ export async function fetchTourAndHotels(alias: string) {
     }
 }
 
-export async function fetchTours(alias: string, params?: string) {
-    const client = await db.connect()
+const ITEMS_PER_PAGE = 3
+export async function fetchTours(
+    alias: string,
+    page?: number,
+    params?: string
+) {
+    const offset = page ? (page - 1) * ITEMS_PER_PAGE : 0
     try {
+        const client = await db.connect()
         let query = `SELECT * FROM tours`
         if (alias !== 'tours') {
             query += ` WHERE (category_alias = '${alias}')`
@@ -64,8 +68,34 @@ export async function fetchTours(alias: string, params?: string) {
                 query += ` WHERE title ILIKE '%${params}%'`
             }
         }
+        query += ` LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset};`
         const tours = await client.query(query)
         return tours.rows
+    } catch (error) {
+        console.log(error)
+        throw new Error('failed to fetch tours')
+    }
+}
+
+export async function fetchToursPages(alias: string, params?: string) {
+    try {
+        const client = await db.connect()
+        let query = `SELECT COUNT(*) FROM tours`
+        if (alias !== 'tours') {
+            query += ` WHERE (category_alias = '${alias}')`
+            if (params) {
+                query += ` AND (title ILIKE '%${params}%')`
+            }
+        } else {
+            if (params) {
+                query += ` WHERE title ILIKE '%${params}%'`
+            }
+        }
+        const tours = await client.query(query)
+        const totalPages = Math.ceil(
+            Number(tours.rows[0].count) / ITEMS_PER_PAGE
+        )
+        return totalPages
     } catch (error) {
         console.log(error)
         throw new Error('failed to fetch tours')

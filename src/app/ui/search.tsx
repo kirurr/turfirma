@@ -10,6 +10,7 @@ export default function Search() {
   function handleSearch(formData: FormData) {
     const params = new URLSearchParams(searchParams)
     const query = formData.get('query')
+		params.set('page', '1')
     if (query) {
       params.set('query', query.toString())
     } else {

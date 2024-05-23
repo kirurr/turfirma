@@ -1,13 +1,10 @@
-'use server'
-
 import { sql } from '@vercel/postgres'
 import { Category } from '@/app/lib/definitions'
 
-const categoriesNumber = 6
-export async function fetchCategories() {
+export async function fetchCategories(limit: number = 6) {
     try {
         const categories =
-            await sql<Category>`SELECT * FROM categories LIMIT ${categoriesNumber}`
+            await sql<Category>`SELECT * FROM categories LIMIT ${limit}`
         return categories.rows
     } catch (error) {
         console.log(error)

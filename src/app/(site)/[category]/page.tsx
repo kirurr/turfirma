@@ -1,22 +1,38 @@
 import Link from 'next/link'
-import { fetchTours } from '@/app/data/tours-data'
+import { fetchTours, fetchToursPages } from '@/app/data/tours-data'
 import { formatDateFromPostgreSQL } from '@/app/lib/utils'
 import { notFound } from 'next/navigation'
-import { fetchCategoryByAlias } from '@/app/data/categories-data'
+import {
+  fetchCategories,
+  fetchCategoryByAlias
+} from '@/app/data/categories-data'
 import Search from '@/app/ui/search'
+import Pagination from '@/app/ui/pagination'
+
+export async function generateStaticParams() {
+  const data = await fetchCategories()
+
+  return data.map((category) => ({ category: category.alias }))
+}
+
 export default async function Page({
   params,
   searchParams
 }: {
   params: { category: string }
-  searchParams: { query: string }
+  searchParams: { query: string; page?: string }
 }) {
   const category = await fetchCategoryByAlias(params.category)
 
   if (!category) {
     notFound()
   }
-  const tours = await fetchTours(params.category, searchParams.query)
+  const tours = await fetchTours(
+    params.category,
+    searchParams.page ? +searchParams.page : undefined,
+    searchParams.query
+  )
+  const pages = await fetchToursPages(params.category, searchParams.query)
 
   return (
     <>
@@ -35,6 +51,7 @@ export default async function Page({
       ) : (
         <h2>Туров не найдено</h2>
       )}
+      {pages != 1 && <Pagination totalPages={pages} />}
     </>
   )
 }
