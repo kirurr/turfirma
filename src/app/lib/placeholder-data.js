@@ -16,8 +16,27 @@ const tours = [
         images_urls: ['1', '2'],
         included: ['stuff', 'stuff2'],
         excluded: ['ex', 'ex'],
-        hotels_ids: ['3958dc9e-742f-4377-85e9-fec4b6a6442a'],
-        duration: '1'
+        hotels_ids: [
+            '3958dc9e-742f-4377-85e9-fec4b6a6442a',
+            '3958dc9e-742f-4377-85e9-fec4b6a6442b'
+        ],
+        duration: '1',
+        price: '100'
+    },
+    {
+        id: '410544b2-4001-4271-9855-fec4b6a6444a',
+        title: 'пример тура без отеля',
+        alias: 'primer_tura_bez_otelya',
+        category_alias: 'kategoria',
+        description: 'example description',
+        date: '2022-06-05',
+        program: 'example program',
+        images_urls: ['1', '2'],
+        included: ['stuff', 'stuff2'],
+        excluded: ['ex', 'ex'],
+        hotels_ids: [],
+        duration: '1',
+        price: '100'
     },
     {
         id: '410544b2-4001-4271-9855-fec4b6a6443a',
@@ -31,15 +50,15 @@ const tours = [
         included: ['stuff', 'stuff2'],
         excluded: ['ex', 'ex'],
         hotels_ids: ['3958dc9e-742f-4377-85e9-fec4b6a6442a'],
-        duration: '1'
+        duration: '1',
+        price: '3000'
     }
 ]
 
 const categories = [
     {
         id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
-        title: 'категория',
-        alias: 'kategoria',
+        title: 'категория', alias: 'kategoria',
         description: 'sample',
         image_url: '1'
     },
@@ -71,8 +90,26 @@ const users = [
     }
 ]
 
+const hotels = [
+    {
+        id: '3958dc9e-742f-4377-85e9-fec4b6a6442a',
+        title: 'example title',
+        description: 'example',
+        image_url: '1',
+        map_url: '1'
+    },
+    {
+        id: '3958dc9e-742f-4377-85e9-fec4b6a6442b',
+        title: 'example title 2',
+        description: 'example 2',
+        image_url: '2',
+        map_url: '2'
+    }
+]
+
 module.exports = {
     tours,
     categories,
-    users
+    users,
+    hotels
 }

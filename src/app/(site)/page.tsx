@@ -13,7 +13,7 @@ export default async function Page() {
 	}
 
   return (
-    <main>
+    <>
 			{session?.user && ( <span>{session.user.name}</span>)}
 			<AuthForms />
       <SignOutForm />
@@ -31,6 +31,6 @@ export default async function Page() {
           </li>
         ))}
       </ul>
-    </main>
+    </>
   )
 }

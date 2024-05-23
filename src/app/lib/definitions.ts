@@ -9,8 +9,32 @@ export type Tour = {
     images_urls: string[]
     included: string[]
     excluded: string[]
-    hotels_ids: string[]
+    hotels_ids?: string[]
     duration: number
+    price: number
+}
+
+export type TourWithHotel = {
+    tour_id: string
+    tour_title: string
+    tour_alias: string
+    tour_category_alias: string
+    tour_description: string
+    tour_date: string
+    tour_program: string
+    tour_images: string[]
+    tour_included: string[]
+    tour_excluded: string[]
+    tour_hotels_ids?: string[]
+    tour_duration: number
+    tour_price: number
+    hotels_info?: {
+        hotel_id: string
+        hotel_title: string
+        hotel_description: string
+        hotel_image: string
+        hotel_map: string
+    }[]
 }
 
 export type Hotel = {

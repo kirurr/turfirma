@@ -1,8 +1,6 @@
 'use client'
 
 import { createUser, authenticate } from '@/app/actions/user-actions'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 import { useFormState } from 'react-dom'
 
 export default function AuthForms() {
@@ -37,7 +35,7 @@ function SignUpForm() {
   const initialState: any = { message: null, errors: {} }
   const [createUserState, dispatchCreateUser] = useFormState(
     createUser,
-    initialState 
+    initialState
   )
 
   return (
@@ -50,7 +48,8 @@ function SignUpForm() {
       <div>
         <label htmlFor="password-signup">пароль</label>
         <input name="password" id="password-signup" type="password" required />
-        {createUserState && createUserState.errors &&
+        {createUserState &&
+          createUserState.errors &&
           createUserState.errors.password?.map((error: any) => (
             <span key={0}>{error}</span>
           ))}
@@ -58,7 +57,8 @@ function SignUpForm() {
       <div>
         <label htmlFor="email-signup">электронная почта</label>
         <input required name="email" id="email-signup" type="email" />
-        {createUserState && createUserState.errors &&
+        {createUserState &&
+          createUserState.errors &&
           createUserState.errors.email?.map((error: any) => (
             <span key={0}>{error}</span>
           ))}
