@@ -18,10 +18,13 @@ export default async function Page() {
       <h1>profile</h1>
       <p>{user?.name}</p>
       {orders.length !== 0 ? (
-        <ul>
-          {orders &&
-            orders.map((order) => <Order key={order.id} order={order} />)}
-        </ul>
+        <>
+          <h2>заказы:</h2>
+          <ul>
+            {orders &&
+              orders.map((order) => <Order key={order.id} order={order} />)}
+          </ul>
+        </>
       ) : (
         <h2>у вас нет заказов</h2>
       )}
@@ -44,9 +47,12 @@ async function Order({ order }: { order: Order }) {
       ) : (
         <></>
       )}
-			<Link href={`tours/${data.tour_alias}`}>открыть страницу тура</Link>
-			<Link href={`profile/${order.id}`}>внести оплату</Link>
-      <p>{order.status}</p>
+      <Link href={`tours/${data.tour_alias}`}>открыть страницу тура</Link>
+      {order.status === 'pending' && (
+        <Link href={`profile/${order.id}`}>внести оплату</Link>
+      )}
+      {order.status === 'paid' && <p>заказ оплачен</p>}
+      {order.status === 'canceled' && <p>отменен</p>}
     </li>
   )
 }

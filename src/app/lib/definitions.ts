@@ -69,3 +69,12 @@ export type Order = {
 	hotel_id: string
 	status: 'canceled' | 'paid' | 'pending'
 }
+
+export type Review = {
+	id: string
+	user_id: string
+	title: string
+	content: string
+	is_positive: boolean
+	is_accepted: boolean
+}

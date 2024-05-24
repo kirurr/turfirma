@@ -154,10 +154,22 @@ const orders = [
     }
 ]
 
+const reviews = [
+    {
+        id: '8958dc9e-742f-4377-85e9-fec4b6a6442c',
+        user_id: '3958dc9e-712f-4377-85e9-fec4b6a6443a',
+		title: 'tour',
+        content: 'cool tour',
+        is_positive: true,
+        is_accepted: true
+    }
+]
+
 module.exports = {
     tours,
     categories,
     users,
     hotels,
-    orders
+    orders,
+	reviews
 }
