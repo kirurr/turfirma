@@ -61,3 +61,11 @@ export type User = {
     password: string
     role: 'user' | 'admin'
 }
+
+export type Order = {
+	id: string
+	user_id: string
+	tour_alias: string
+	hotel_id: string
+	status: 'canceled' | 'paid' | 'pending'
+}

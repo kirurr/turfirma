@@ -21,6 +21,10 @@ export async function middleware(request: NextRequest) {
     ) {
         return Response.redirect(new URL('/', request.url))
     }
+
+    if (!userData && request.nextUrl.pathname.includes('/book')) {
+        return Response.redirect(new URL('/', request.url))
+    }
 }
 
 export const config = {

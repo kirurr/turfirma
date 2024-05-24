@@ -144,9 +144,20 @@ const hotels = [
     }
 ]
 
+const orders = [
+    {
+        id: '8958dc9e-742f-4377-85e9-fec4b6a6442b',
+        user_id: '3958dc9e-712f-4377-85e9-fec4b6a6447a',
+        tour_alias: 'primer_tura',
+        hotel_id: '3958dc9e-742f-4377-85e9-fec4b6a6442a',
+        status: 'pending'
+    }
+]
+
 module.exports = {
     tours,
     categories,
     users,
-    hotels
+    hotels,
+    orders
 }

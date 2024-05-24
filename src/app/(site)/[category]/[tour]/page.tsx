@@ -1,9 +1,14 @@
+import BookButton from '@/app/ui/book-button'
 import { fetchTourAndHotels } from '@/app/data/tours-data'
 import { notFound } from 'next/navigation'
+import { auth } from '@/auth'
 
 export default async function Page({ params }: { params: { tour: string } }) {
   const tour = await fetchTourAndHotels(params.tour)
   if (!tour) notFound()
+
+  const session = await auth()
+  const signedIn = session?.user ? true : false
 
   return (
     <>
@@ -22,6 +27,11 @@ export default async function Page({ params }: { params: { tour: string } }) {
         <div>
           <h2>отелей нет</h2>
         </div>
+      )}
+      {signedIn ? (
+        <BookButton title="купить" />
+      ) : (
+        <p>для покупки тура авторизируйтесь</p>
       )}
     </>
   )

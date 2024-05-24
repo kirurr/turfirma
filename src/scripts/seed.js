@@ -3,7 +3,8 @@ const {
     tours,
     categories,
     users,
-    hotels
+    hotels,
+    orders
 } = require('../app/lib/placeholder-data.js')
 
 async function seedTours(client) {
@@ -140,6 +141,37 @@ async function seedHotels(client) {
     }
 }
 
+async function seedOrders(client) {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
+
+    try {
+        const ordersTable = await client.sql`
+			CREATE TABLE IF NOT EXISTS orders (
+			id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+			user_id UUID NOT NULL,
+			tour_alias TEXT NOT NULL,
+			hotel_id UUID,
+			status TEXT NOT NULL DEFAULT 'pending'
+			);`
+        console.log('orders table created!')
+
+        const insertedOrders = await Promise.all(
+            orders.map(async (order) => {
+                return client.sql`
+					INSERT INTO orders VALUES (
+						${order.id}, ${order.user_id}, ${order.tour_alias}, ${order.hotel_id}, ${order.status}
+					) ON CONFLICT (id) DO NOTHING;
+				`
+            })
+        )
+        console.log('orders inserted!')
+        return { usersTable: ordersTable, insertedUsers: insertedOrders }
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
 async function main() {
     const client = await db.connect()
 
@@ -147,6 +179,7 @@ async function main() {
     await seedCategories(client)
     await seedUsers(client)
     await seedHotels(client)
+    await seedOrders(client)
 
     await client.end()
 }

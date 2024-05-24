@@ -2,16 +2,6 @@ import { Tour, TourWithHotel } from '@/app/lib/definitions'
 import { sql, db } from '@vercel/postgres'
 import { cache } from 'react'
 
-// export async function fetchTourByAlias(alias: string) {
-//     try {
-//         const tour = await sql<Tour>`SELECT * FROM tours WHERE alias=${alias}`
-//         return tour.rows[0]
-//     } catch (error) {
-//         console.log(error)
-//         throw new Error('failed to fetch tour')
-//     }
-// }
-
 export const fetchTourAndHotels = cache(async (alias: string) => {
     try {
         const tour = await sql<TourWithHotel>`
