@@ -45,6 +45,7 @@ async function Order({ order }: { order: Order }) {
         <></>
       )}
 			<Link href={`tours/${data.tour_alias}`}>открыть страницу тура</Link>
+			<Link href={`profile/${order.id}`}>внести оплату</Link>
       <p>{order.status}</p>
     </li>
   )
