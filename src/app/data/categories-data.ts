@@ -1,7 +1,8 @@
 import { sql } from '@vercel/postgres'
+import { cache } from 'react'
 import { Category } from '@/app/lib/definitions'
 
-export async function fetchCategories(limit: number = 6) {
+export const fetchCategories = cache(async (limit: number = 6) => {
     try {
         const categories =
             await sql<Category>`SELECT * FROM categories LIMIT ${limit}`
@@ -10,9 +11,9 @@ export async function fetchCategories(limit: number = 6) {
         console.log(error)
         throw new Error('failed to fetch categories')
     }
-}
+})
 
-export async function fetchCategoryByAlias(alias: string) {
+export const fetchCategoryByAlias = cache(async (alias: string) => {
     if (alias === 'tours') {
         return { title: 'все туры' }
     }
@@ -24,4 +25,4 @@ export async function fetchCategoryByAlias(alias: string) {
         console.log(error)
         throw new Error('failed to fetch category')
     }
-}
+})

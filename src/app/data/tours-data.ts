@@ -1,17 +1,18 @@
 import { Tour, TourWithHotel } from '@/app/lib/definitions'
 import { sql, db } from '@vercel/postgres'
+import { cache } from 'react'
 
-export async function fetchTourByAlias(alias: string) {
-    try {
-        const tour = await sql<Tour>`SELECT * FROM tours WHERE alias=${alias}`
-        return tour.rows[0]
-    } catch (error) {
-        console.log(error)
-        throw new Error('failed to fetch tour')
-    }
-}
+// export async function fetchTourByAlias(alias: string) {
+//     try {
+//         const tour = await sql<Tour>`SELECT * FROM tours WHERE alias=${alias}`
+//         return tour.rows[0]
+//     } catch (error) {
+//         console.log(error)
+//         throw new Error('failed to fetch tour')
+//     }
+// }
 
-export async function fetchTourAndHotels(alias: string) {
+export const fetchTourAndHotels = cache(async (alias: string) => {
     try {
         const tour = await sql<TourWithHotel>`
 			SELECT
@@ -46,38 +47,36 @@ export async function fetchTourAndHotels(alias: string) {
         console.log(error)
         throw new Error('failed to fetch tour')
     }
-}
+})
 
 const ITEMS_PER_PAGE = 3
-export async function fetchTours(
-    alias: string,
-    page?: number,
-    params?: string
-) {
-    const offset = page ? (page - 1) * ITEMS_PER_PAGE : 0
-    try {
-        const client = await db.connect()
-        let query = `SELECT * FROM tours`
-        if (alias !== 'tours') {
-            query += ` WHERE (category_alias = '${alias}')`
-            if (params) {
-                query += ` AND (title ILIKE '%${params}%')`
+export const fetchTours = cache(
+    async (alias: string, page?: number, params?: string) => {
+        const offset = page ? (page - 1) * ITEMS_PER_PAGE : 0
+        try {
+            const client = await db.connect()
+            let query = `SELECT * FROM tours`
+            if (alias !== 'tours') {
+                query += ` WHERE (category_alias = '${alias}')`
+                if (params) {
+                    query += ` AND (title ILIKE '%${params}%')`
+                }
+            } else {
+                if (params) {
+                    query += ` WHERE title ILIKE '%${params}%'`
+                }
             }
-        } else {
-            if (params) {
-                query += ` WHERE title ILIKE '%${params}%'`
-            }
+            query += ` LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset};`
+            const tours = await client.query<Tour>(query)
+            return tours.rows
+        } catch (error) {
+            console.log(error)
+            throw new Error('failed to fetch tours')
         }
-        query += ` LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset};`
-        const tours = await client.query(query)
-        return tours.rows
-    } catch (error) {
-        console.log(error)
-        throw new Error('failed to fetch tours')
     }
-}
+)
 
-export async function fetchToursPages(alias: string, params?: string) {
+export const fetchToursPages = cache(async (alias: string, params?: string) => {
     try {
         const client = await db.connect()
         let query = `SELECT COUNT(*) FROM tours`
@@ -100,4 +99,4 @@ export async function fetchToursPages(alias: string, params?: string) {
         console.log(error)
         throw new Error('failed to fetch tours')
     }
-}
+})

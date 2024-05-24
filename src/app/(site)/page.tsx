@@ -4,6 +4,7 @@ import AuthForms from '@/app/ui/auth-forms'
 import SignOutForm from '@/app/ui/sign-out-button'
 import { auth } from '@/auth'
 
+export const revalidate = 3600
 
 export default async function Page() {
   const categories = await fetchCategories()

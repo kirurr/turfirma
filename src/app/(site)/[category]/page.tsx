@@ -2,18 +2,11 @@ import Link from 'next/link'
 import { fetchTours, fetchToursPages } from '@/app/data/tours-data'
 import { formatDateFromPostgreSQL } from '@/app/lib/utils'
 import { notFound } from 'next/navigation'
-import {
-  fetchCategories,
-  fetchCategoryByAlias
-} from '@/app/data/categories-data'
+import { fetchCategoryByAlias } from '@/app/data/categories-data'
 import Search from '@/app/ui/search'
 import Pagination from '@/app/ui/pagination'
 
-export async function generateStaticParams() {
-  const data = await fetchCategories()
-
-  return data.map((category) => ({ category: category.alias }))
-}
+export const revalidate = 3600
 
 export default async function Page({
   params,
