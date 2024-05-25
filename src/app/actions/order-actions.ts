@@ -62,13 +62,15 @@ export async function generateTourDocument(
         const hotelData = tourData.hotels_info?.find(
             (hotel) => hotel.hotel_id === orderData.hotel_id
         )
-        page.drawText(`отель ${hotelData?.hotel_title}`, {
-            x: 50,
-            y: height - 6 * fontSize,
-            size: fontSize,
-            font: customFont,
-            color: rgb(0, 0, 0)
-        })
+        if (hotelData) {
+            page.drawText(`отель ${hotelData?.hotel_title}`, {
+                x: 50,
+                y: height - 6 * fontSize,
+                size: fontSize,
+                font: customFont,
+                color: rgb(0, 0, 0)
+            })
+        }
 
         page.drawText(`турист ${userData.name}`, {
             x: 50,
