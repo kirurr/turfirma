@@ -10,3 +10,4 @@ export async function fetchUserByEmail(email: string) {
         throw new Error('failed to fetch user by email')
     }
 }
+
