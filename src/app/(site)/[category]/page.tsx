@@ -1,12 +1,21 @@
 import { fetchToursPages } from '@/app/data/tours-data'
 import { notFound } from 'next/navigation'
-import { fetchCategoryById, fetchCategoryIdByAlias } from '@/app/data/categories-data'
+import { fetchCategories, fetchCategoryById, fetchCategoryIdByAlias } from '@/app/data/categories-data'
 import Search from '@/app/ui/category/search'
 import Pagination from '@/app/ui/category/pagination'
 import ToursWrapper from '@/app/ui/category/tours'
 import CategoryBreadcumbs from '@/app/ui/category/breadcrumbs'
+import { Category } from '@/app/lib/definitions'
 
 export const revalidate = 3600
+export const dynamicParams = false
+
+export async function generateStaticParams() {
+  const categories = await fetchCategories(null)
+  categories.push({alias: 'tours'} as Category)
+  
+  return categories.map(category => ({category: category.alias}))
+} 
 
 export default async function Page({
   params,

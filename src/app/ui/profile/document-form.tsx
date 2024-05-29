@@ -36,7 +36,7 @@ export default function DocumentForm({
           <FormButton title='Получить документ по туру' />
         </form>
       ) : (
-        <Button color='primary' as={Link} target='_blank' href={state.message} download={`document-${tourData.alias}.pdf`}>Скачать документ</Button>
+        <Link className='link' target='_blank' href={state.message} download={`document-${tourData.alias}.pdf`}>Скачать документ</Link>
       )}
     </>
   )

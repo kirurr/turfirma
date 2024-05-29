@@ -8,14 +8,14 @@ export default function Navigation({
 }: {
   links: { name: string; href: string }[]
 }) {
-  const pathname = usePathname()
+  const pathname = usePathname().split('/')[2]
 
   return (
     <nav>
-      <ul className='flex justify-evenly'>
+      <ul className="flex justify-evenly">
         {links.map((link, index) => {
           let classList = 'link'
-          if (pathname === link.href) classList += ' active'
+          if (pathname === link.href.split('/')[2]) classList += ' active'
           return (
             <li key={index}>
               <Link className={classList} href={link.href}>

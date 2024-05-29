@@ -1,5 +1,5 @@
 import { fetchOrdersByUserId } from '@/app/data/orders-data'
-import { fetchUserById } from '@/app/data/users-data'
+import { fetchUserByEmail } from '@/app/data/users-data'
 import { User, type Order } from '@/app/lib/definitions'
 import { auth } from '@/auth'
 import { fetchTourAndHotels } from '@/app/data/tours-data'
@@ -8,8 +8,8 @@ import OrdersAccordion from '@/app/ui/profile/orders-accordion'
 
 export default async function Page() {
   const session = await auth()
-  const userId = session?.user.user_id
-  const user = await fetchUserById(userId!)
+  const userEmail = session?.user.email
+  const user = await fetchUserByEmail(userEmail!)
 
   const orders = await fetchOrdersByUserId(user?.id)
 

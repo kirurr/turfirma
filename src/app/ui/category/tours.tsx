@@ -46,7 +46,7 @@ async function TourItem({
   return (
     <li className="flex flex-1 h-32 items-center shadow-md rounded overflow-hidden mb-8">
       <div className="relative h-full w-40">
-        <Image alt="tour image" fill src={firstImage?.url!} />
+        <Image className='object-cover' alt="tour image" fill src={firstImage?.url!} />
       </div>
       <div className="flex flex-1 items-center p-4 h-full">
         <div className="h-full">

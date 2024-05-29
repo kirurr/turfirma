@@ -103,7 +103,7 @@ export async function updateCategory(
             blob.pathname.includes(prevData.image)
         )
         await deleteBlob(oldImage?.url!)
-        imageName = image.name
+        imageName = image.name.split('.')[0]
     } else {
         imageName = prevData.image
     }
@@ -129,12 +129,12 @@ export async function updateCategory(
 
 export async function deleteCategory(category: Category) {
     const blob = await fetchCategoriesBlobs()
-    const image = blob.find(blob => blob.pathname.includes(category.image))
+    const image = blob.find((blob) => blob.pathname.includes(category.image))
     try {
         await deleteBlob(image?.url!)
-        
+
         await sql`DELETE FROM categories WHERE alias = ${category.alias}`
-    } catch(error) {
+    } catch (error) {
         console.log(error)
         throw new Error('failed to delete category')
     }

@@ -70,7 +70,7 @@ export async function createUser(
         return { message: 'Успешно' }
     } catch (error) {
         console.log(error)
-        throw error
+        return {message: 'Произошла ошибка. Попробуйте позже.', errors: {}}
     }
 }
 
