@@ -1,24 +1,35 @@
 import { Tour, TourWithHotel } from '@/app/lib/definitions'
+import { list } from '@vercel/blob'
 import { sql, db } from '@vercel/postgres'
 import { cache } from 'react'
 
-export const fetchTourAndHotels = cache(async (alias: string) => {
+export const fetchTourIdByAlias = cache(async(alias: string) => {
+    try {
+        const tour = await sql<{id: string}>`SELECT id FROM tours WHERE alias = ${alias}`
+        return tour.rows[0].id
+    } catch(error) {
+        console.log(error)
+        throw new Error('failed to fetch tour id')
+    }
+})
+
+export const fetchTourAndHotels = cache(async (id: string) => {
     try {
         const tour = await sql<TourWithHotel>`
 			SELECT
-				t.id AS tour_id, t.title AS tour_title, t.alias AS tour_alias,
-				t.category_alias AS tour_category_alias, t.description AS tour_description,
-				t.date AS tour_date, t.program AS tour_program, t.images_urls AS tour_images,
-				t.included AS tour_included, t.excluded AS tour_excluded,
-				t.duration AS tour_duration, t.price AS tour_price,
+				t.id, t.title, t.alias,
+				t.category_id, t.description,
+				t.date, t.program, t.images,
+				t.included, t.excluded,
+				t.duration, t.price,
 				COALESCE(
 					json_agg(
 						json_build_object(
-						'hotel_id', h.id,
-						'hotel_title', h.title,
-						'hotel_description', h.description,
-						'hotel_image', h.image_url,
-						'hotel_map', h.map_url
+						'id', h.id,
+						'title', h.title,
+						'description', h.description,
+						'image', h.image,
+						'map_url', h.map_url
 						) 
 					) FILTER (WHERE h.id IS NOT NULL), '[]'
 				) AS hotels_info
@@ -29,7 +40,7 @@ export const fetchTourAndHotels = cache(async (alias: string) => {
 			LEFT JOIN
 				hotels h ON h.id = hotel_id
 			WHERE
-				t.alias = ${alias} 
+				t.id = ${id} 
 			GROUP BY t.id;
 		`
         return tour.rows[0]
@@ -39,15 +50,15 @@ export const fetchTourAndHotels = cache(async (alias: string) => {
     }
 })
 
-const ITEMS_PER_PAGE = 3
+const ITEMS_PER_PAGE = 1
 export const fetchTours = cache(
-    async (alias: string, page?: number, params?: string) => {
+    async (category_id: string, page?: number, params?: string) => {
         const offset = page ? (page - 1) * ITEMS_PER_PAGE : 0
         try {
             const client = await db.connect()
             let query = `SELECT * FROM tours`
-            if (alias !== 'tours') {
-                query += ` WHERE (category_alias = '${alias}')`
+            if (category_id !== 'tours') {
+                query += ` WHERE (category_id = '${category_id}')`
                 if (params) {
                     query += ` AND (title ILIKE '%${params}%')`
                 }
@@ -66,12 +77,12 @@ export const fetchTours = cache(
     }
 )
 
-export const fetchToursPages = cache(async (alias: string, params?: string) => {
+export const fetchToursPages = cache(async (category_id: string | null, params?: string) => {
     try {
         const client = await db.connect()
         let query = `SELECT COUNT(*) FROM tours`
-        if (alias !== 'tours') {
-            query += ` WHERE (category_alias = '${alias}')`
+        if (category_id !== null) {
+            query += ` WHERE (category_id = '${category_id}')`
             if (params) {
                 query += ` AND (title ILIKE '%${params}%')`
             }
@@ -88,5 +99,25 @@ export const fetchToursPages = cache(async (alias: string, params?: string) => {
     } catch (error) {
         console.log(error)
         throw new Error('failed to fetch tours')
+    }
+})
+
+export const fetchTourBlobs = cache(async (alias: string) => {
+    try {
+        const { blobs } = await list({ prefix: `tours/${alias}/` })
+        return blobs
+    } catch (error) {
+        console.log(error)
+        throw new Error('failed to fetch blobs')
+    }
+})
+
+export const fetchTourCountByCategory = cache(async (category_id: string) => {
+    try {
+        const count = await sql`SELECT COUNT(*) FROM tours WHERE category_id = ${category_id}`
+        return count.rows[0].count
+    } catch(error) {
+        console.log(error)
+        throw new Error('failed to fetch tours count')
     }
 })

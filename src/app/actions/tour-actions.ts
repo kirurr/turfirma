@@ -1,25 +1,62 @@
 'use server'
 
 import { sql } from '@vercel/postgres'
-import { revalidatePath } from 'next/cache';
+import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
 
-export async function bookTour(
-    ids: { user_id?: string; tour_alias: string },
-    _prevState: any,
+const OrderSchema = z.object({
+    id: z.string(),
+    user_id: z.string(),
+    tour_id: z.string(),
+    hotel_id: z.nullable(z.string({message: 'Выберите отель.'})),
+    status: z.string()
+})
+const CreateOrder = OrderSchema.omit({ id: true, status: true })
+
+export type CreateOrderState = {
+    status: boolean
+    message: string
+    errors: {
+        user_id?: string[]
+        hotel_id?: string[]
+        tour_id?: string[]
+    }
+}
+
+export async function createOrder(
+    ids: { user_id?: string; tour_id: string },
+    _prevState: CreateOrderState,
     formData: FormData
 ) {
-    const { user_id, tour_alias } = ids
-    let hotel_id = formData.get('hotel_id')
-	if(hotel_id === null) hotel_id = null
-	else hotel_id = hotel_id.toString()
+    const validatedFields = CreateOrder.safeParse({
+        user_id: ids.user_id,
+        tour_id: ids.tour_id,
+        hotel_id: formData.get('hotel_id')?.toString()
+    })
+
+    if (!validatedFields.success) {
+        return {
+            status: false,
+            message: 'Ошибка!',
+            errors: validatedFields.error.flatten().fieldErrors
+        }
+    }
+
+    let { user_id, tour_id, hotel_id } = validatedFields.data
+    if(hotel_id === 'no_hotel') hotel_id = null
+
 
     try {
-        const query = await sql`INSERT INTO orders (user_id, tour_alias, hotel_id)
-		VALUES (${user_id}, ${tour_alias}, ${hotel_id?.toString()})`
-		revalidatePath('/profile')
-		return {message: 'успешно! заказ можно посмотреть в вашем личнмо кабинете'}
+        await sql`INSERT INTO orders (user_id, tour_id, hotel_id)
+		VALUES (${user_id}, ${tour_id}, ${hotel_id})`
+        revalidatePath('/profile')
+        return {
+            status: true,
+            message: 'Успешно! заказ можно посмотреть в вашем личном кабинете.',
+            errors: {}
+        }
     } catch (error) {
         console.log(error)
-		return {message: 'ошибка'}
+        return { status: false, message: 'Произошла ошибка, попробуйте позже.', errors: {} }
     }
 }

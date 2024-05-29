@@ -1,10 +1,10 @@
-import Link from 'next/link'
-import { fetchTours, fetchToursPages } from '@/app/data/tours-data'
-import { formatDateFromPostgreSQL } from '@/app/lib/utils'
+import { fetchToursPages } from '@/app/data/tours-data'
 import { notFound } from 'next/navigation'
-import { fetchCategoryByAlias } from '@/app/data/categories-data'
-import Search from '@/app/ui/search'
-import Pagination from '@/app/ui/pagination'
+import { fetchCategoryById, fetchCategoryIdByAlias } from '@/app/data/categories-data'
+import Search from '@/app/ui/category/search'
+import Pagination from '@/app/ui/category/pagination'
+import ToursWrapper from '@/app/ui/category/tours'
+import CategoryBreadcumbs from '@/app/ui/category/breadcrumbs'
 
 export const revalidate = 3600
 
@@ -15,36 +15,28 @@ export default async function Page({
   params: { category: string }
   searchParams: { query: string; page?: string }
 }) {
-  const category = await fetchCategoryByAlias(params.category)
+  const id = await fetchCategoryIdByAlias(params.category)
+  const category = await fetchCategoryById(params.category === 'tours' ? 'tours' : id!)
 
-  if (!category) {
+  if (category === undefined) {
     notFound()
   }
-  const tours = await fetchTours(
-    params.category,
-    searchParams.page ? +searchParams.page : undefined,
+
+  const pages = await fetchToursPages(
+    category === null ? null : category.id,
     searchParams.query
   )
-  const pages = await fetchToursPages(params.category, searchParams.query)
+  const title = category === null ? 'tours' : category.title
 
   return (
     <>
+      <CategoryBreadcumbs category={category} />
+      <h1 className="h1 text-center">{title}</h1>
       <Search />
-      <h1>{category.title}</h1>
-      {tours.length !== 0 ? (
-        <ul>
-          {tours.map((tour) => (
-            <li key={tour.id}>
-              <p>{tour.title}</p>
-              <p>{formatDateFromPostgreSQL(tour.date.toString())}</p>
-              <Link href={`${params.category}/${tour.alias}`}>открыть</Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <h2>Туров не найдено</h2>
+      <ToursWrapper params={params} searchParams={searchParams} />
+      {pages > 1 && (
+        <Pagination className="mx-auto size-fit" totalPages={pages} />
       )}
-      {pages != 1 && <Pagination totalPages={pages} />}
     </>
   )
 }

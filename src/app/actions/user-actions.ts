@@ -5,24 +5,27 @@ import { z } from 'zod'
 import bcrypt from 'bcryptjs'
 import { signIn } from '@/auth'
 import { AuthError } from 'next-auth'
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 
 const UserSchema = z.object({
     id: z.string(),
-    passport: z.string(),
-    name: z.string(),
-    email: z.string().email({ message: 'некорректная почта' }),
+    passport: z.string().trim().min(1, 'Введите данные паспорта.'),
+    name: z.string().trim().min(1, 'Введите ваше ФИО.'),
+    email: z
+        .string()
+        .trim()
+        .email({ message: 'Некорректная почта.' })
+        .min(1, 'Введите вашу почту.'),
     password: z
         .string()
-        .min(6, { message: 'пароль должен быть длиннее 6 символов' }),
+        .trim()
+        .min(6, { message: 'Пароль должен быть длиннее 6 символов.' }),
     is_admin: z.boolean()
 })
 
 const CreateUser = UserSchema.omit({ id: true, is_admin: true })
 
 export type CreateUserState = {
-    message?: string | null
+    message?: string
     errors?: {
         passport?: string[]
         name?: string[]
@@ -40,9 +43,9 @@ export async function createUser(
 
     if (!validatedFields.success) {
         return {
-            message: 'ошибка, проверьте правильность полей',
+            message: 'Ошибка! Проверьте правильность полей.',
             errors: validatedFields.error.flatten().fieldErrors
-        }
+        } as CreateUserState
     }
     let { passport, name, email, password } = validatedFields.data
     const hashPassword = bcrypt.hashSync(password, 10)
@@ -50,8 +53,8 @@ export async function createUser(
         const isExist = await sql`SELECT * FROM users WHERE email = ${email}`
         if (isExist.rows.length !== 0) {
             return {
-                message: 'такой пользователь уже существует',
-                errors: { email: ['такой пользователь уже сущестует'] }
+                message: 'Ошибка! Проверьте правильность полей.',
+                errors: { email: ['Такой пользователь уже сущестует'] }
             }
         }
 
@@ -64,7 +67,7 @@ export async function createUser(
             email: email,
             password: password
         })
-        return { message: 'успешно' }
+        return { message: 'Успешно' }
     } catch (error) {
         console.log(error)
         throw error
@@ -72,26 +75,37 @@ export async function createUser(
 }
 
 export async function authenticate(
-    _prevState?: string,
+    _prevState?: { status: boolean; message: string },
     formData?: FormData,
     data?: { email: string; password: string }
 ) {
     try {
         if (data) {
-            const newFormData = new FormData()
-            newFormData.append('email', data.email)
-            newFormData.append('password', data.password)
-            await signIn('credentials', newFormData)
+            await signIn('credentials', {
+                email: data.email,
+                password: data.password,
+                redirect: false
+            })
         } else {
-            await signIn('credentials', formData)
+            const email = formData?.get('email')
+            const password = formData?.get('password')
+            await signIn('credentials', {
+                email: email,
+                password: password,
+                redirect: false
+            })
         }
+        return { status: true, message: 'Успешно' }
     } catch (error) {
         if (error instanceof AuthError) {
             switch (error.type) {
                 case 'CredentialsSignin':
-                    return 'неправильная почта или пароль'
+                    return {
+                        status: false,
+                        message: 'Неправильная почта или пароль'
+                    }
                 default:
-                    return 'Something went wrong.'
+                    return { status: false, message: 'Что-то пошло не так.' }
             }
         }
         throw error

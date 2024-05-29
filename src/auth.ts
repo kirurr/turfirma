@@ -3,7 +3,7 @@ import { JWT } from 'next-auth/jwt'
 import { authConfig } from './auth.config'
 import Credentials from 'next-auth/providers/credentials'
 import { z } from 'zod'
-import { fetchUserByEmail } from '@/app/data/users-data'
+import { fetchUserById } from '@/app/data/users-data'
 import bcrypt from 'bcryptjs'
 
 declare module 'next-auth' {
@@ -43,7 +43,7 @@ export const { auth, signIn, signOut } = NextAuth({
 
                 if (parsedCredentials.success) {
                     const { email, password } = parsedCredentials.data
-                    const user = await fetchUserByEmail(email)
+                    const user = await fetchUserById(email)
                     if (!user) return null
                     const passwordsMatch = await bcrypt.compare(
                         password,

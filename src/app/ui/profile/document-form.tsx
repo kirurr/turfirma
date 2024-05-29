@@ -1,8 +1,11 @@
 'use client'
 
 import { useFormState } from 'react-dom'
-import { Order, TourWithHotel, User } from '../lib/definitions'
-import { generateTourDocument } from '../actions/order-actions'
+import { Order, TourWithHotel, User } from '@/app//lib/definitions'
+import { generateTourDocument } from '@/app/actions/order-actions'
+import { Button } from '@nextui-org/react'
+import { FormButton } from '@/app/ui/auth/auth-forms'
+import Link from 'next/link'
 
 export default function DocumentForm({
   orderData,
@@ -30,15 +33,10 @@ export default function DocumentForm({
     <>
       {!state.status ? (
         <form action={dispatch}>
-          <button type="submit">получить документ по туру</button>
+          <FormButton title='Получить документ по туру' />
         </form>
       ) : (
-        <a
-          href={state.message}
-          download={`document-${tourData.tour_alias}.pdf`}
-        >
-          скачать документ
-        </a>
+        <Button color='primary' as={Link} target='_blank' href={state.message} download={`document-${tourData.alias}.pdf`}>Скачать документ</Button>
       )}
     </>
   )

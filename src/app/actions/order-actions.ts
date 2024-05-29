@@ -15,10 +15,10 @@ export async function changeOrderStatus(
     try {
         await sql`UPDATE orders SET status = ${status} WHERE id = ${orderId};`
         revalidatePath('/profile')
-        return { status: true, message: 'оплачено!' }
+        return { status: true, message: 'Оплачено!' }
     } catch (error) {
         console.log(error)
-        return { status: false, message: 'ошибка!' }
+        return { status: false, message: 'Ошибка! Попробуйте позже.' }
     }
 }
 
@@ -52,7 +52,7 @@ export async function generateTourDocument(
 
         // Draw a string of text toward the top of the page
         const fontSize = 30
-        page.drawText(`документ по туру ${tourData.tour_title}`, {
+        page.drawText(`документ по туру ${tourData.title}`, {
             x: 50,
             y: height - 4 * fontSize,
             size: fontSize,
@@ -60,10 +60,10 @@ export async function generateTourDocument(
             color: rgb(0, 0.53, 0.71)
         })
         const hotelData = tourData.hotels_info?.find(
-            (hotel) => hotel.hotel_id === orderData.hotel_id
+            (hotel) => hotel.id === orderData.hotel_id
         )
         if (hotelData) {
-            page.drawText(`отель ${hotelData?.hotel_title}`, {
+            page.drawText(`отель ${hotelData?.title}`, {
                 x: 50,
                 y: height - 6 * fontSize,
                 size: fontSize,

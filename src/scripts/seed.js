@@ -4,7 +4,6 @@ const {
     categories,
     users,
     hotels,
-    orders,
     reviews
 } = require('../app/lib/placeholder-data.js')
 
@@ -17,11 +16,11 @@ async function seedTours(client) {
 		id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
 		title VARCHAR(255) NOT NULL,
 		alias VARCHAR(255) NOT NULL UNIQUE,
-		category_alias TEXT NOT NULL,
+		category_id UUID NOT NULL,
 		description TEXT NOT NULL,
 		date DATE NOT NULL,
 		program TEXT NOT NULL,
-		images_urls TEXT[] NOT NULL,
+		images TEXT[] NOT NULL,
 		included TEXT[] NOT NULL,
 		excluded TEXT[] NOT NULL,
 		hotels_ids UUID[] NOT NULL,
@@ -33,9 +32,9 @@ async function seedTours(client) {
         const insertedTours = await Promise.all(
             tours.map(async (tour) => {
                 return client.sql`
-					INSERT INTO tours VALUES ( ${tour.id}, ${tour.title}, ${tour.alias}, ${tour.category_alias},
+					INSERT INTO tours VALUES ( ${tour.id}, ${tour.title}, ${tour.alias}, ${tour.category_id},
 						${tour.description}, ${tour.date}, ${tour.program},
-						${tour.images_urls}, ${tour.included}, ${tour.excluded},
+						${tour.images}, ${tour.included}, ${tour.excluded},
 						${tour.hotels_ids}, ${tour.duration}, ${tour.price})
 					ON CONFLICT (id) DO NOTHING;
 				`
@@ -59,7 +58,7 @@ async function seedCategories(client) {
 		title VARCHAR(255) NOT NULL,
 		alias VARCHAR(255) NOT NULL UNIQUE,
 		description TEXT NOT NULL,
-		image_url TEXT NOT NULL
+		image TEXT NOT NULL
 		);`
         console.log('category table created!')
 
@@ -67,7 +66,7 @@ async function seedCategories(client) {
             categories.map(async (category) => {
                 return client.sql`
 					INSERT INTO categories VALUES (
-						${category.id}, ${category.title}, ${category.alias}, ${category.description}, ${category.image_url}
+						${category.id}, ${category.title}, ${category.alias}, ${category.description}, ${category.image}
 					) ON CONFLICT (id) DO NOTHING;
 				`
             })
@@ -121,7 +120,7 @@ async function seedHotels(client) {
 		id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
 		title TEXT NOT NULL,
 		description TEXT NOT NULL,
-		image_url TEXT NOT NULL UNIQUE,
+		image TEXT NOT NULL UNIQUE,
 		map_url TEXT NOT NULL);`
         console.log('hotels table created!')
 
@@ -129,7 +128,7 @@ async function seedHotels(client) {
             hotels.map(async (hotel) => {
                 return client.sql`
 					INSERT INTO hotels VALUES (
-						${hotel.id}, ${hotel.title}, ${hotel.description}, ${hotel.image_url}, ${hotel.map_url}
+						${hotel.id}, ${hotel.title}, ${hotel.description}, ${hotel.image}, ${hotel.map_url}
 					) ON CONFLICT (id) DO NOTHING;
 				`
             })
@@ -150,23 +149,12 @@ async function seedOrders(client) {
 			CREATE TABLE IF NOT EXISTS orders (
 			id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
 			user_id UUID NOT NULL,
-			tour_alias TEXT NOT NULL,
+			tour_id TEXT NOT NULL,
 			hotel_id UUID,
 			status TEXT NOT NULL DEFAULT 'pending'
 			);`
         console.log('orders table created!')
 
-        const insertedOrders = await Promise.all(
-            orders.map(async (order) => {
-                return client.sql`
-					INSERT INTO orders VALUES (
-						${order.id}, ${order.user_id}, ${order.tour_alias}, ${order.hotel_id}, ${order.status}
-					) ON CONFLICT (id) DO NOTHING;
-				`
-            })
-        )
-        console.log('orders inserted!')
-        return { usersTable: ordersTable, insertedUsers: insertedOrders }
     } catch (error) {
         console.log(error)
         throw error

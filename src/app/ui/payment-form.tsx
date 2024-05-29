@@ -2,26 +2,26 @@
 import { useFormState } from 'react-dom'
 import Link from 'next/link'
 import { changeOrderStatus } from '@/app/actions/order-actions'
+import { Button, Input } from '@nextui-org/react'
 
 export default function PaymentForm({ orderId }: { orderId: string }) {
   const changeOrderStatusWithId = changeOrderStatus.bind(null, orderId)
   const [state, dispatch] = useFormState(changeOrderStatusWithId, undefined)
   return (
     <form action={dispatch}>
-      <div>
-        <label htmlFor="card">номер карты</label>
-        <input id="card" type="text" required />
-      </div>
-      <button type="submit">оплатить</button>
+      <Input isRequired required label="Номер карты" />
+      <Button color="primary" className='my-4' type="submit">
+        Оплатить
+      </Button>
       <div>
         {state?.status ? (
           <>
-            <span>{state.message}</span>
-            <Link href="/profile">личный кабинет</Link>
+            <p className="p">{state.message}</p>
+            <Link href="/profile">Личный кабинет</Link>
           </>
         ) : (
           <>
-            <span>{state?.message}</span>
+            <p className="p">{state?.message}</p>
           </>
         )}
       </div>

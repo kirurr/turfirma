@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.h1 {
+	@apply text-2xl mb-4 font-bold
+}
+
+.h2 {
+	@apply text-xl mb-4 font-bold
+}
+
+.section {
+	@apply py-8
+}
+
+.p {
+	@apply mb-2 block
+}
+
+.link {
+	@apply transition-all text-primary-500 hover:text-primary-400 p-2 underline rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500
+}
+
+.active {
+	@apply bg-primary-50 hover:bg-primary-100
+}
+
+.input-file {
+	@apply transition-all file:transition-all block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:bg-primary-500 file:text-white hover:file:bg-primary-400
+}

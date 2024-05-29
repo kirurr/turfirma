@@ -9,11 +9,11 @@ const tours = [
         id: '410544b2-4001-4271-9855-fec4b6a6442a',
         title: 'пример тура',
         alias: 'primer_tura',
-        category_alias: 'kategoria',
+        category_id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
         description: 'example description',
         date: '2022-06-05',
         program: 'example program',
-        images_urls: ['1', '2'],
+        images: ['tour-1', 'tour-1'],
         included: ['stuff', 'stuff2'],
         excluded: ['ex', 'ex'],
         hotels_ids: [
@@ -25,69 +25,18 @@ const tours = [
     },
     {
         id: '710544b2-4001-4271-9855-fec4b6a6442a',
-        title: 'пример тура ctvm',
-        alias: 'primer_tura2222',
-        category_alias: 'kategoria',
+        title: 'пример тура без отеля',
+        alias: 'primer_tura_bez_otelya',
+        category_id: '3958dc9e-712f-4377-85e9-fec4b6a6443a',
         description: 'example description',
         date: '2023-06-05',
         program: 'example program',
-        images_urls: ['1', '2'],
-        included: ['stuff', 'stuff2'],
-        excluded: ['ex', 'ex'],
-        hotels_ids: [
-            '3958dc9e-742f-4377-85e9-fec4b6a6442a',
-            '3958dc9e-742f-4377-85e9-fec4b6a6442b'
-        ],
-        duration: '1',
-        price: '300'
-    },
-    {
-        id: '610544b2-4001-4271-9855-fec4b6a6442a',
-        title: 'пример тура 3',
-        alias: 'primer_tura3',
-        category_alias: 'kategoria_dva',
-        description: 'example description',
-        date: '2022-06-05',
-        program: 'example program',
-        images_urls: ['1', '2'],
-        included: ['stuff', 'stuff2'],
-        excluded: ['ex', 'ex'],
-        hotels_ids: [
-            '3958dc9e-742f-4377-85e9-fec4b6a6442a',
-            '3958dc9e-742f-4377-85e9-fec4b6a6442b'
-        ],
-        duration: '1',
-        price: '100'
-    },
-    {
-        id: '410544b2-4001-4271-9855-fec4b6a6444a',
-        title: 'пример тура без отеля',
-        alias: 'primer_tura_bez_otelya',
-        category_alias: 'kategoria',
-        description: 'example description',
-        date: '2022-06-05',
-        program: 'example program',
-        images_urls: ['1', '2'],
+        images: ['tour-2', 'tour-2'],
         included: ['stuff', 'stuff2'],
         excluded: ['ex', 'ex'],
         hotels_ids: [],
         duration: '1',
-        price: '100'
-    },
-    {
-        id: '410544b2-4001-4271-9855-fec4b6a6443a',
-        title: 'пример тура два',
-        alias: 'primer_tura_dva',
-        category_alias: 'kategoria_dva',
-        description: 'example description',
-        date: '2022-06-05',
-        program: 'example program',
-        images_urls: ['1', '2'],
-        included: ['stuff', 'stuff2'],
-        excluded: ['ex', 'ex'],
-        hotels_ids: ['3958dc9e-742f-4377-85e9-fec4b6a6442a'],
-        duration: '1',
-        price: '3000'
+        price: '300'
     }
 ]
 
@@ -97,14 +46,14 @@ const categories = [
         title: 'категория',
         alias: 'kategoria',
         description: 'sample',
-        image_url: '1'
+        image: 'example-1'
     },
     {
         id: '3958dc9e-712f-4377-85e9-fec4b6a6443a',
         title: 'категория два',
         alias: 'kategoria_dva',
         description: 'sample',
-        image_url: '1'
+        image: 'example-2'
     }
 ]
 
@@ -116,14 +65,6 @@ const users = [
         email: 'turfirma@gmail.com',
         password: hashPassword('123456'),
         role: 'admin'
-    },
-    {
-        id: '3958dc9e-712f-4377-85e9-fec4b6a6447a',
-        passport: '01111111111',
-        name: 'Паровозов Аркадий Михайлович',
-        email: 'arcadii@gmail.com',
-        password: hashPassword('arcadii'),
-        role: 'user'
     }
 ]
 
@@ -132,25 +73,15 @@ const hotels = [
         id: '3958dc9e-742f-4377-85e9-fec4b6a6442a',
         title: 'example title',
         description: 'example',
-        image_url: '1',
+        image: 'hotel-1',
         map_url: '1'
     },
     {
         id: '3958dc9e-742f-4377-85e9-fec4b6a6442b',
         title: 'example title 2',
         description: 'example 2',
-        image_url: '2',
+        image: 'hotel-2',
         map_url: '2'
-    }
-]
-
-const orders = [
-    {
-        id: '8958dc9e-742f-4377-85e9-fec4b6a6442b',
-        user_id: '3958dc9e-712f-4377-85e9-fec4b6a6447a',
-        tour_alias: 'primer_tura',
-        hotel_id: '3958dc9e-742f-4377-85e9-fec4b6a6442a',
-        status: 'pending'
     }
 ]
 
@@ -158,7 +89,7 @@ const reviews = [
     {
         id: '8958dc9e-742f-4377-85e9-fec4b6a6442c',
         user_id: '3958dc9e-712f-4377-85e9-fec4b6a6443a',
-		title: 'tour',
+        title: 'tour',
         content: 'cool tour',
         is_positive: true,
         is_accepted: true
@@ -170,6 +101,5 @@ module.exports = {
     categories,
     users,
     hotels,
-    orders,
-	reviews
+    reviews
 }

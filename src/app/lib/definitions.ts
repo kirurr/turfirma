@@ -2,11 +2,11 @@ export type Tour = {
     id: string
     title: string
     alias: string
-    category_alias: string
+    category_id: string
     description: string
     date: string
     program: string
-    images_urls: string[]
+    images: string[]
     included: string[]
     excluded: string[]
     hotels_ids?: string[]
@@ -15,33 +15,14 @@ export type Tour = {
 }
 
 export type TourWithHotel = {
-    tour_id: string
-    tour_title: string
-    tour_alias: string
-    tour_category_alias: string
-    tour_description: string
-    tour_date: string
-    tour_program: string
-    tour_images: string[]
-    tour_included: string[]
-    tour_excluded: string[]
-    tour_hotels_ids?: string[]
-    tour_duration: number
-    tour_price: number
-    hotels_info?: {
-        hotel_id: string
-        hotel_title: string
-        hotel_description: string
-        hotel_image: string
-        hotel_map: string
-    }[]
-}
+    hotels_info: Hotel[]
+} & Tour
 
 export type Hotel = {
     id: string
     title: string
     description: string
-    image_url: string
+    image: string
     map_url: string
 }
 
@@ -50,7 +31,7 @@ export type Category = {
     title: string
     alias: string
     description: string
-    image_url: string
+    image: string
 }
 
 export type User = {
@@ -63,18 +44,18 @@ export type User = {
 }
 
 export type Order = {
-	id: string
-	user_id: string
-	tour_alias: string
-	hotel_id: string
-	status: 'canceled' | 'paid' | 'pending'
+    id: string
+    user_id: string
+    tour_id: string
+    hotel_id: string
+    status: 'canceled' | 'paid' | 'pending'
 }
 
 export type Review = {
-	id: string
-	user_id: string
-	title: string
-	content: string
-	is_positive: boolean
-	is_accepted: boolean
+    id: string
+    user_id: string
+    title: string
+    content: string
+    is_positive: boolean
+    is_accepted: boolean
 }

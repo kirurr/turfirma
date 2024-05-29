@@ -14,15 +14,15 @@ export default async function Page({
   const orders = await fetchOrdersByUserId(session?.user?.user_id)
   const order = orders.find((order) => order.id === params.orderId)
   if (!order) notFound()
-  const tourData = await fetchTourAndHotels(order.tour_alias)
+  const tourData = await fetchTourAndHotels(order.tour_id)
   const hotelData = tourData.hotels_info?.find(
-    (hotel) => hotel.hotel_id === order.hotel_id
+    (hotel) => hotel.id === order.hotel_id
   )
   return (
     <>
-      <h2>вы оплачиваете тур {tourData.tour_title}</h2>
-      <p>цена {tourData.tour_price} рублей</p>
-      {hotelData && <p>выбранный отель: {hotelData?.hotel_title}</p>}
+      <h1 className='h1'>Вы оплачиваете тур: {tourData.title}.</h1>
+      <p className='p'>Цена {tourData.price} рублей.</p>
+      {hotelData && <p className='p'>Выбранный отель: {hotelData?.title}.</p>}
 			<PaymentForm orderId={order.id}/>
     </>
   )
