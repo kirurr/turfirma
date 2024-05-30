@@ -7,7 +7,7 @@ import PaymentForm from '@/app/ui/payment-form'
 export async function generateStaticParams() {
   const data = await fetchOrdersId()
 
-  return data.map((id) => ({ orderId: id }))
+  return data.map((id) => ({ orderId: id.id }))
 }
 
 export default async function Page({
