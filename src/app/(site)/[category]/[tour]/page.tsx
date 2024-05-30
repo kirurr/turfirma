@@ -1,8 +1,13 @@
-import { fetchTourAndHotels, fetchTourBlobs, fetchTourIdByAlias } from '@/app/data/tours-data'
+import {
+  fetchTourAndHotels,
+  fetchTourBlobs,
+  fetchTourIdByAlias,
+  fetchToursForParams
+} from '@/app/data/tours-data'
 import { notFound } from 'next/navigation'
 import { auth } from '@/auth'
 import TourBreadcumbs from '@/app/ui/tour/breadcrumbs'
-import { fetchCategoryById } from '@/app/data/categories-data'
+import { fetchCategories, fetchCategoryById } from '@/app/data/categories-data'
 import { Category } from '@/app/lib/definitions'
 import TourSlider from '@/app/ui/tour/slider'
 import { ListBlobResultBlob } from '@vercel/blob'
@@ -11,13 +16,28 @@ import TourHotels from '@/app/ui/tour/hotels'
 import Link from 'next/link'
 import { Button } from '@nextui-org/react'
 
+export const dynamicParams = false
+
+export async function generateStaticParams() {
+  const tours = await fetchToursForParams()
+  const categories = await fetchCategories(null)
+
+  const result = tours.map((tour) => {
+    const category = categories.find(
+      (category) => category.id === tour.category_id
+    )
+    return {tour: tour.alias, category: category?.alias}
+  })
+  return result
+}
+
 export default async function Page({
   params
 }: {
   params: { tour: string; category: string }
 }) {
   const id = await fetchTourIdByAlias(params.tour)
-  if(!id) notFound()
+  if (!id) notFound()
   const tour = await fetchTourAndHotels(id)
 
   const category = await fetchCategoryById(tour.category_id)
@@ -61,11 +81,11 @@ export default async function Page({
           </div>
         )}
         <div>
-          <h2 className='h2'>Описание тура</h2>
+          <h2 className="h2">Описание тура</h2>
           <p>{tour.description}</p>
         </div>
         <div>
-          <h2 className='h2'>Программа тура</h2>
+          <h2 className="h2">Программа тура</h2>
           <p>{tour.program}</p>
         </div>
       </section>
