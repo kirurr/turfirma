@@ -16,7 +16,6 @@ import TourHotels from '@/app/ui/tour/hotels'
 import Link from 'next/link'
 import { Button } from '@nextui-org/react'
 
-export const dynamicParams = false
 
 export async function generateStaticParams() {
   const tours = await fetchToursForParams()

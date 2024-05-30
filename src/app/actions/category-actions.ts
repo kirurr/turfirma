@@ -70,8 +70,7 @@ export async function createCategory(
         }
     }
 
-    revalidatePath('/')
-    revalidatePath('admin/categories/')
+    revalidatePath('/', 'layout')
     redirect('/admin/categories/')
 }
 
@@ -122,8 +121,7 @@ export async function updateCategory(
             errors: {}
         }
     }
-    revalidatePath('/')
-    revalidatePath('admin/categories')
+    revalidatePath('/', 'layout')
     redirect('/admin/categories')
 }
 
@@ -138,7 +136,6 @@ export async function deleteCategory(category: Category) {
         console.log(error)
         throw new Error('failed to delete category')
     }
-    revalidatePath('/')
-    revalidatePath('admin/categories/')
+    revalidatePath('/', 'layout')
     redirect('/admin/categories/')
 }

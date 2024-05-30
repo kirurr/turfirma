@@ -7,9 +7,6 @@ import ToursWrapper from '@/app/ui/category/tours'
 import CategoryBreadcumbs from '@/app/ui/category/breadcrumbs'
 import { Category } from '@/app/lib/definitions'
 
-export const revalidate = 3600
-export const dynamicParams = false
-
 export async function generateStaticParams() {
   const categories = await fetchCategories(null)
   categories.push({alias: 'tours'} as Category)

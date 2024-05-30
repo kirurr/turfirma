@@ -7,6 +7,10 @@ const links = [
 	{
 		name: 'Категории',
 		href: '/admin/categories'
+	},
+	{
+		name: 'Туры',
+		href: '/admin/tours'
 	}
 ]
 

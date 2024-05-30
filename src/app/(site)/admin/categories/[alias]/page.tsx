@@ -3,8 +3,6 @@ import { Category } from '@/app/lib/definitions'
 import { notFound } from 'next/navigation'
 import EditForm from '@/app/ui/admin/categories/edit-form'
 
-export const dynamicParams = false
-
 export async function generateStaticParams() {
   const categories = await fetchCategories(null)
   
