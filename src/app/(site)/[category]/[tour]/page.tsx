@@ -16,20 +16,6 @@ import TourHotels from '@/app/ui/tour/hotels'
 import Link from 'next/link'
 import { Button } from '@nextui-org/react'
 
-export const dynamicParams = false
-
-export async function generateStaticParams() {
-  const tours = await fetchToursForParams()
-  const categories = await fetchCategories(null)
-
-  const result = tours.map((tour) => {
-    const category = categories.find(
-      (category) => category.id === tour.category_id
-    )
-    return {tour: tour.alias, category: category?.alias}
-  })
-  return result
-}
 
 export default async function Page({
   params
