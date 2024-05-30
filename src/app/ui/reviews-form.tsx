@@ -1,37 +1,38 @@
 'use client'
 import { sendReview } from '@/app/actions/review-actions'
 import { useFormState } from 'react-dom'
+import { Textarea, Input, RadioGroup, Radio } from '@nextui-org/react'
+import { FormButton } from '@/app/ui/auth/auth-forms'
 
 export default function ReviewsForm({ userId }: { userId: string }) {
   const sendReviewWithId = sendReview.bind(null, userId)
   const [state, dispatch] = useFormState(sendReviewWithId, undefined)
   return (
-    <form action={dispatch}>
-      <h2>оставить отзыв</h2>
-      <div>
-        <label htmlFor="title">название тура</label>
-        <input id="title" name="title" type="text" required />
-      </div>
-      <div>
-        <label htmlFor="content">отзыв</label>
-        <textarea name="content" id="content" required></textarea>
-      </div>
+    <form action={dispatch} className="flex flex-col gap-4 w-1/2 mx-auto">
+      <h2 className="h2 text-center">Оставить отзыв</h2>
+      <Input
+        name="title"
+        label="Название"
+        isRequired
+        placeholder="Название тура, дата"
+      />
+      <Textarea
+        name="content"
+        label="Отзыв"
+        isRequired
+        placeholder="Отзыв о туре"
+      />
 
-      <div>
-        <label htmlFor="positive">позитивный</label>
-        <input
-          type="radio"
-          id="positive"
-          name="isPositive"
-          value="true"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="negative">негативный</label>
-        <input type="radio" id="negative" name="isPositive" value="false" />
-      </div>
-      <button type="submit">отправить отзыв</button>
+      <RadioGroup
+        label="Характер отзыва"
+        isRequired
+        defaultValue="true"
+        name="isPositive"
+      >
+        <Radio value="true">Позитивный</Radio>
+        <Radio value="false">Негативный</Radio>
+      </RadioGroup>
+      <FormButton title="Отправить отзыв" className="w-fit mx-auto" />
       {state && <p>{state.message}</p>}
     </form>
   )

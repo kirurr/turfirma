@@ -20,9 +20,9 @@ export async function sendReview(
 			VALUES (${userId}, ${title.toString()}, ${content.toString()}, ${isPositive.toString()}, true);
 		`
         revalidatePath('/reviews')
-        return { status: true, message: 'ваш отзыв отправлен на проверку!' }
+        return { status: true, message: 'Успешно! Ваш отзыв отправлен на проверку.' }
     } catch (error) {
         console.log(error)
-        return { status: false, message: 'ошибка!' }
+        return { status: false, message: 'Ошибка. Попробуйте позже.' }
     }
 }
