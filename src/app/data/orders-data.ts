@@ -16,3 +16,13 @@ export const fetchOrdersByUserId = cache(async (userId?: string) => {
         throw new Error('failed to fetch orders')
     }
 })
+
+export const fetchOrdersId = cache(async () => {
+    try {
+        const result = await sql<{id: string}>`SELECT id FROM orders`
+        return result.rows
+    } catch(error) {
+        console.log(error)
+        throw new Error('failed to fetch orders')
+    }
+})

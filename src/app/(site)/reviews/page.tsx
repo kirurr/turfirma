@@ -8,17 +8,19 @@ export default async function Page() {
   const session = await auth()
   return (
     <>
-      <section className='section'>
-        <h1 className="h1 text-center">отзывы</h1>
-        <ReviewsWrapper reviews={reviews} />
+      <section className="section">
+        <h1 className="h1 text-center">Отзывы</h1>
+        {reviews.length > 0 ? (
+          <ReviewsWrapper reviews={reviews} />
+        ) : (
+          <h2 className="h2 text-center">Еще нет отзывов, оставьте первый!</h2>
+        )}
       </section>
-      <section className='section'>
+      <section className="section">
         {session && session?.user.user_id ? (
           <ReviewsForm userId={session.user.user_id} />
         ) : (
-          <h2 className="h2 text-center">
-            Войдите чтобы оставить отзыв.
-          </h2>
+          <h2 className="h2 text-center">Войдите чтобы оставить отзыв.</h2>
         )}
       </section>
     </>

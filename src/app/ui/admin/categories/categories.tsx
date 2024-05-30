@@ -40,7 +40,7 @@ function CategoriesItem({
   toursCount: number
 }) {
   return (
-    <li className="p-4 my-4 shadow rounded flex items-center shrink-0 grow">
+    <li className="p-4 my-4 shadow rounded flex items-center">
     <div className='size-full'>
       <p>{category.title}</p>
     </div>

@@ -11,6 +11,10 @@ const links = [
 	{
 		name: 'Туры',
 		href: '/admin/tours'
+	},
+	{
+		name: 'Отзывы',
+		href: '/admin/reviews'
 	}
 ]
 
