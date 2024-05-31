@@ -74,14 +74,16 @@ const hotels = [
         title: 'example title',
         description: 'example',
         image: 'hotel-1',
-        map_url: '1'
+        map_url:
+            'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21038.59953864472!2d44.516577999999996!3d48.76613925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x411aca66b659c6c7%3A0x41c1658a919438f2!2z0JPQo9CXICLQk9C-0YDQvtC00YHQutCw0Y8g0LrQu9C40L3QuNGH0LXRgdC60LDRjyDQsdC-0LvRjNC90LjRhtCwINGB0LrQvtGA0L7QuSDQvNC10LTQuNGG0LjQvdGB0LrQvtC5INC_0L7QvNC-0YnQuCDihJYgMjUi!5e0!3m2!1sru!2sru!4v1717153213483!5m2!1sru!2sru'
     },
     {
         id: '3958dc9e-742f-4377-85e9-fec4b6a6442b',
         title: 'example title 2',
         description: 'example 2',
         image: 'hotel-2',
-        map_url: '2'
+        map_url:
+            'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d64909.52767632605!2d44.487585042307764!3d48.75250535935282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x411acbbf9ecd05b1%3A0x61d7e3fa4d57d8f6!2z0KHQvtGB0L3QvtCy0YvQuSDQsdC-0YA!5e0!3m2!1sru!2sru!4v1717153711682!5m2!1sru!2sru'
     }
 ]
 

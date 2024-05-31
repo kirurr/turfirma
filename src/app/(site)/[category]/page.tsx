@@ -1,6 +1,10 @@
 import { fetchToursPages } from '@/app/data/tours-data'
 import { notFound } from 'next/navigation'
-import { fetchCategories, fetchCategoryById, fetchCategoryIdByAlias } from '@/app/data/categories-data'
+import {
+  fetchCategories,
+  fetchCategoryById,
+  fetchCategoryIdByAlias
+} from '@/app/data/categories-data'
 import Search from '@/app/ui/category/search'
 import Pagination from '@/app/ui/category/pagination'
 import ToursWrapper from '@/app/ui/category/tours'
@@ -9,10 +13,10 @@ import { Category } from '@/app/lib/definitions'
 
 export async function generateStaticParams() {
   const categories = await fetchCategories(null)
-  categories.push({alias: 'tours'} as Category)
-  
-  return categories.map(category => ({category: category.alias}))
-} 
+  categories.push({ alias: 'tours' } as Category)
+
+  return categories.map((category) => ({ category: category.alias }))
+}
 
 export default async function Page({
   params,
@@ -22,7 +26,9 @@ export default async function Page({
   searchParams: { query: string; page?: string }
 }) {
   const id = await fetchCategoryIdByAlias(params.category)
-  const category = await fetchCategoryById(params.category === 'tours' ? 'tours' : id!)
+  const category = await fetchCategoryById(
+    params.category === 'tours' ? 'tours' : id!
+  )
 
   if (category === undefined) {
     notFound()
@@ -36,13 +42,17 @@ export default async function Page({
 
   return (
     <>
-      <CategoryBreadcumbs category={category} />
-      <h1 className="h1 text-center">{title}</h1>
-      <Search />
-      <ToursWrapper params={params} searchParams={searchParams} />
-      {pages > 1 && (
-        <Pagination className="mx-auto size-fit" totalPages={pages} />
-      )}
+      <section className="section">
+        <CategoryBreadcumbs category={category} />
+        <h1 className="h1 text-center">{title}</h1>
+        <Search />
+      </section>
+      <section className="section !pt-0">
+        <ToursWrapper params={params} searchParams={searchParams} />
+        {pages > 1 && (
+          <Pagination className="mx-auto size-fit" totalPages={pages} />
+        )}
+      </section>
     </>
   )
 }

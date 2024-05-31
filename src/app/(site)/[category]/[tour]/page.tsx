@@ -16,7 +16,6 @@ import TourHotels from '@/app/ui/tour/hotels'
 import Link from 'next/link'
 import { Button } from '@nextui-org/react'
 
-
 export async function generateStaticParams() {
   const tours = await fetchToursForParams()
   const categories = await fetchCategories(null)
@@ -54,44 +53,82 @@ export default async function Page({
   )
   return (
     <>
-      <TourBreadcumbs category={category as Category} tour={tour} />
-      <section className="grid grid-cols-3">
-        <h1 className="h1 text-center col-span-3">{tour.title}</h1>
-        <TourSlider
-          className="size-full min-h-80 col-span-2 row-span-2"
-          images={images as ListBlobResultBlob[]}
+      <article className="grid grid-cols-3 section gap-8">
+        <TourBreadcumbs
+          category={category as Category}
+          tour={tour}
+          className="col-span-3"
         />
-        <div className="row-span-2">
-          <p>цена {tour.price} рублей</p>
-          <p>дата {formatDateFromPostgreSQL(tour.date)}</p>
-          <p>продолжительность {tour.duration} день</p>
-          <div>
-            {signedIn ? (
-              <Button href={`${tour.alias}/book`} as={Link} color="primary">
-                Забронировать
-              </Button>
-            ) : (
-              <p>для покупки тура авторизируйтесь</p>
-            )}
-          </div>
-        </div>
-
-        {tour?.hotels_info?.length !== 0 ? (
-          <TourHotels hotels={tour.hotels_info!} />
-        ) : (
-          <div>
-            <h2>отелей нет</h2>
-          </div>
-        )}
-        <div>
+        <TourSlider
+          images={images as ListBlobResultBlob[]}
+          className="col-span-2 size-full"
+        />
+        <section className="flex flex-col gap-4">
+          <h1 className="text-3xl font-bold">{tour.title}</h1>
+          <p className="text-xl">
+            <strong>Дата:</strong> {formatDateFromPostgreSQL(tour.date)}
+          </p>
+          <p className="text-xl">
+            <strong>Продолжительность:</strong> {tour.duration} день
+          </p>
+          <p className="text-xl">
+            <strong>Цена с человека:</strong> {tour.price} рублей
+          </p>
+          {signedIn ? (
+            <Button
+              href={`${tour.alias}/book`}
+              as={Link}
+              color="primary"
+              size="lg"
+              className="w-full mt-4"
+            >
+              Забронировать
+            </Button>
+          ) : (
+            <p className="p">Для покупки тура войдите</p>
+          )}
+        </section>
+        <section className="col-span-2">
           <h2 className="h2">Описание тура</h2>
-          <p>{tour.description}</p>
-        </div>
-        <div>
+          <p className="p">{tour.description}</p>
+        </section>
+        <section className="row-span-3">
+          <div className="mb-7">
+            <h2 className="h2">Что включено в стоимость:</h2>
+            <ul className="list-inside list-disc">
+              {tour.included.map((item, index) => (
+                <li className="text-xl mt-2" key={index}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h2 className="h2">Что не включено в стоимость:</h2>
+            <ul className="list-inside list-disc">
+              {tour.excluded.map((item, index) => (
+                <li className="text-xl mt-2" key={index}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+        <section className="col-span-2">
           <h2 className="h2">Программа тура</h2>
-          <p>{tour.program}</p>
-        </div>
-      </section>
+          <p className="p">{tour.program}</p>
+        </section>
+        <section className="col-span-2">
+          {tour.hotels_info.length > 0 ? (
+            <>
+              <h2 className="h2">Проживание</h2>
+              <TourHotels hotels={tour.hotels_info} />
+            </>
+          ) : (
+            <h2 className="h2">В этом туре нельзя выбрать проживание</h2>
+          )}
+        </section>
+      </article>
     </>
   )
 }

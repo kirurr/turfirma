@@ -1,23 +1,31 @@
 'use client'
 
-import React from 'react'
-import Image from 'next/image'
-import { ListBlobResultBlob } from '@vercel/blob'
+import * as React from "react"
 
-export default function TourSlider({
-  images,
-	className
-}: {
-  images: ListBlobResultBlob[]
-	className?: string
-}) {
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import { ListBlobResultBlob } from "@vercel/blob"
+import Image from "next/image"
+
+export default function TourSlider({images, className}: {images: ListBlobResultBlob[], className?: string}) {
   return (
-    <div className={`${className} flex overflow-x-scroll snap-x snap-mandatory`}>
-      {images.map((image, index) => (
-        <div className="relative h-full w-full flex-shrink-0 snap-start" key={index}>
-          <Image className='object-cover' fill src={image.url} alt="tour image" />
-        </div>
-      ))}
-    </div>
+    <Carousel className={`${className} max-w-[90%] rounded-lg mx-auto`} opts={{ loop: true }}>
+      <CarouselContent className="rounded-lg">
+        {images.map((image) => (
+          <CarouselItem className="rounded-lg" key={image.pathname}>
+            <div className="relative w-90 aspect-video rounded-lg overflow-hidden">
+              <Image src={image.url} alt={image.pathname} className="object-cover" fill/>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
   )
 }

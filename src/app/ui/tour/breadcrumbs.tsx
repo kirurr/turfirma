@@ -5,13 +5,15 @@ import React from 'react'
 
 export default function TourBreadcumbs({
   category,
-  tour
+  tour,
+  className
 }: {
   category: Category
-  tour: TourWithHotel
+  tour: TourWithHotel,
+  className?: string
 }) {
   return (
-    <Breadcrumbs>
+    <Breadcrumbs className={className} size='lg'>
       <BreadcrumbItem href="/">Главная</BreadcrumbItem>
       {category === null ? (
         <BreadcrumbItem href="/tours">Все туры</BreadcrumbItem>

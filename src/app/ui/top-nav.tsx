@@ -3,10 +3,31 @@
 import Link from 'next/link'
 import React from 'react'
 import { SignInModal, SignUpModal } from '@/app/ui/auth/auth-forms'
-import AuthButtons from './auth/auth-buttons'
-import { useDisclosure } from '@nextui-org/react'
+import AuthButtons from '@/app/ui/auth/auth-buttons'
+import {
+  useDisclosure,
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Dropdown,
+  DropdownItem,
+  DropdownTrigger,
+  Button,
+  DropdownMenu
+} from '@nextui-org/react'
+import { ChevronDown } from '@/app/ui/icons'
+import { Category } from '@/app/lib/definitions'
 
-export default function TopNav({ isAuth, isAdmin }: { isAuth: boolean, isAdmin: boolean }) {
+export default function TopNav({
+  isAuth,
+  isAdmin,
+  categories
+}: {
+  isAuth: boolean
+  isAdmin: boolean
+  categories: Category[]
+}) {
   const {
     isOpen: isSignInOpen,
     onOpen: onSignInOpen,
@@ -21,20 +42,77 @@ export default function TopNav({ isAuth, isAdmin }: { isAuth: boolean, isAdmin: 
   } = useDisclosure()
   return (
     <>
-      <nav className='flex w-2/3 mx-auto'>
-        <ul className="flex p-4 gap-8 justify-evenly w-full">
-          <TopNavItem href="/" title="домой" />
-          <TopNavItem href="/about" title="о нас" />
-          <TopNavItem href="/reviews" title="отзывы" />
-        </ul>
-        <AuthButtons
-					className='flex p-4'
-          isAuth={isAuth}
-          isAdmin={isAdmin}
-          onSignInOpen={onSignInOpen}
-          onSignUpOpen={onSignUpOpen}
-        />
-      </nav>
+      <Navbar maxWidth="xl">
+        <NavbarBrand>
+          <Link href="/" className="!font-bold !text-2xl top-nav-link">
+            Турфирма Travel
+          </Link>
+        </NavbarBrand>
+        <NavbarContent justify="center" className="flex gap-8">
+          <NavbarItem>
+            <Link
+              href="/tours"
+              className="top-nav-link"
+            >
+              Все туры
+            </Link>
+          </NavbarItem>
+          <Dropdown>
+            <NavbarItem>
+              <DropdownTrigger>
+                <Button
+                  disableRipple
+                  className="p-0 bg-transparent data-[hover=true]:bg-transparent text-lg font-semibold"
+                  endContent={<ChevronDown fill="currentColor" size={16} />}
+                  radius="sm"
+                  variant="light"
+                >
+                  Категории
+                </Button>
+              </DropdownTrigger>
+            </NavbarItem>
+            <DropdownMenu>
+              {categories.map((category, index) => (
+                <DropdownItem key={index}>
+                  <Link
+                    className=" rounded-lg text-lg font-semibold w-full block focus-visible:outline focus-visible:outline-blue-500"
+                    href={`/${category.alias}`}
+                  >
+                    {category.title}
+                  </Link>
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          </Dropdown>
+          <NavbarItem>
+            <Link
+              href="/about"
+              className="top-nav-link"
+            >
+              О нас
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link
+              href="/reviews"
+              className="top-nav-link"
+            >
+              Отзывы
+            </Link>
+          </NavbarItem>
+        </NavbarContent>
+        <NavbarContent justify="end">
+          <NavbarItem>
+            <AuthButtons
+              className="flex p-4"
+              isAuth={isAuth}
+              isAdmin={isAdmin}
+              onSignInOpen={onSignInOpen}
+              onSignUpOpen={onSignUpOpen}
+            />
+          </NavbarItem>
+        </NavbarContent>
+      </Navbar>
       <SignInModal
         isOpen={isSignInOpen}
         onOpen={onSignInOpen}
@@ -44,7 +122,6 @@ export default function TopNav({ isAuth, isAdmin }: { isAuth: boolean, isAdmin: 
       <SignUpModal
         isOpen={isSignUpOpen}
         onOpen={onSignUpOpen}
-        onOpenChange={onSignUpOpenChange}
         onClose={onSignUpClose}
       />
     </>

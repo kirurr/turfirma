@@ -4,7 +4,6 @@ import HotelsWrapper from '@/app/ui/tour/hotels-wrapper'
 
 export default async function TourHotels({
   hotels,
-  className
 }: {
   hotels: Hotel[]
   className?: string
@@ -18,9 +17,6 @@ export default async function TourHotels({
     })
   )
   return (
-    <div className={className}>
-      <h2 className="h2">Отели</h2>
       <HotelsWrapper hotels={newHotelsArray} />
-    </div>
   )
 }

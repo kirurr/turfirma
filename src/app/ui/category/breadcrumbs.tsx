@@ -9,7 +9,7 @@ export default function CategoryBreadcumbs({
   category: Category | null
 }) {
   return (
-    <Breadcrumbs>
+    <Breadcrumbs size='lg'>
       <BreadcrumbItem href="/">Главная</BreadcrumbItem>
       <BreadcrumbItem>{category === null ? 'Все туры': category.title}</BreadcrumbItem>
     </Breadcrumbs>
