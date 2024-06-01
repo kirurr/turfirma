@@ -2,7 +2,7 @@ import { fetchUserById, fetchUsers } from '@/app/data/users-data'
 import EditUsersForm from '@/app/ui/admin/users/edit-user-form'
 import { notFound } from 'next/navigation'
 
-export async function GenerateStaticParams() {
+export async function generateStaticParams() {
   const users = await fetchUsers()
 
   return users.map((user) => ({
