@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { Pagination } from '@nextui-org/react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
@@ -22,7 +23,6 @@ export default function ToursPagination({
     (pageNumber: number | string) => {
       const params = new URLSearchParams(searchParams)
       params.set('page', pageNumber.toString())
-      // if (pageNumber === 1) return `${pathname}`
       return `${pathname}?${params.toString()}`
     },
     [pathname, searchParams]
@@ -39,7 +39,6 @@ export default function ToursPagination({
         loop={true}
         showControls={true}
         total={totalPages}
-        initialPage={1}
         page={currentPage}
         onChange={setPageState}
       />

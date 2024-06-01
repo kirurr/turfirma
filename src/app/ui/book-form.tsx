@@ -15,12 +15,11 @@ export default function BookForm({
   tourData: TourWithHotel
 }) {
   const bookTourWithId = createOrder.bind(null, ids)
-  const isHotels = tourData.hotels_info !== undefined
 
   const inititalState: CreateOrderState = {status: false, message: '', errors: {}}
   const [errorMessage, dispatch] = useFormState(bookTourWithId, inititalState)
   return (
-    <form action={dispatch}>
+    <form action={dispatch} className='flex flex-col gap-4'>
       {tourData.hotels_info && tourData.hotels_info?.length > 0 ? (
         <Select name="hotel_id" label='Выберите отель' isRequired>
           {tourData.hotels_info.map((hotel) => (
@@ -32,7 +31,7 @@ export default function BookForm({
       ) : (
       <>
         <input name='hotel_id' value='no_hotel' readOnly className='hidden' />
-        <p>в этом туре нельзя выбрать отель</p>
+        <p className='text-center text-xl'></p>
       </>
       )}
       <Button color='primary' type="submit">Забронировать</Button>
