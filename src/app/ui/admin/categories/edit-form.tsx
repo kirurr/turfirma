@@ -7,6 +7,7 @@ import { useFormState } from 'react-dom'
 import { FormButton } from '@/app/ui/auth/auth-forms'
 import { ListBlobResultBlob } from '@vercel/blob'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function EditForm({
   category,
@@ -46,7 +47,13 @@ export default function EditForm({
           />
           <div className="">
             <FormButton title="Применить" />
-            <Button color="danger" className="ml-4" variant="bordered">
+            <Button
+              as={Link}
+              href="/admin/categories"
+              color="danger"
+              className="ml-4"
+              variant="bordered"
+            >
               Отмена
             </Button>
           </div>

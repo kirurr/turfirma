@@ -5,6 +5,9 @@ import { z } from 'zod'
 import bcrypt from 'bcryptjs'
 import { signIn } from '@/auth'
 import { AuthError } from 'next-auth'
+import { revalidatePath } from 'next/cache'
+import { User } from '../lib/definitions'
+import { redirect } from 'next/navigation'
 
 const UserSchema = z.object({
     id: z.string(),
@@ -19,12 +22,12 @@ const UserSchema = z.object({
         .string()
         .trim()
         .min(6, { message: 'Пароль должен быть длиннее 6 символов.' }),
-    is_admin: z.boolean()
+    role: z.enum(['user', 'admin'])
 })
 
-const CreateUser = UserSchema.omit({ id: true, is_admin: true })
+const CreateUser = UserSchema.omit({ id: true, role: true })
 
-export type CreateUserState = {
+export type UserState = {
     message?: string
     errors?: {
         passport?: string[]
@@ -32,12 +35,10 @@ export type CreateUserState = {
         email?: string[]
         password?: string[]
     }
+    status?: boolean
 }
 
-export async function createUser(
-    _initialState: CreateUserState,
-    formData: FormData
-) {
+export async function createUser(_initialState: UserState, formData: FormData) {
     const data = Object.fromEntries(formData.entries())
     const validatedFields = CreateUser.safeParse(data)
 
@@ -45,7 +46,7 @@ export async function createUser(
         return {
             message: 'Ошибка! Проверьте правильность полей.',
             errors: validatedFields.error.flatten().fieldErrors
-        } as CreateUserState
+        } as UserState
     }
     let { passport, name, email, password } = validatedFields.data
     const hashPassword = bcrypt.hashSync(password, 10)
@@ -70,7 +71,7 @@ export async function createUser(
         return { message: 'Успешно' }
     } catch (error) {
         console.log(error)
-        return {message: 'Произошла ошибка. Попробуйте позже.', errors: {}}
+        return { message: 'Произошла ошибка. Попробуйте позже.', errors: {} }
     }
 }
 
@@ -110,4 +111,52 @@ export async function authenticate(
         }
         throw error
     }
+}
+
+export async function deleteUser(id: string) {
+    try {
+        await sql`DELETE FROM users WHERE id = ${id}`
+        revalidatePath('/', 'layout')
+        return { message: 'Успешно' }
+    } catch (error) {
+        console.log(error)
+        return { message: 'Произошла ошибка. Попробуйте позже.', errors: {} }
+    }
+}
+
+const UpdateUser = UserSchema.omit({ id: true, password: true})
+
+export async function updateUser(
+    prevData: User,
+    _prevState: UserState,
+    formData: FormData
+) {
+    const validatedFields = UpdateUser.safeParse(
+        Object.fromEntries(formData.entries())
+    )
+
+    if (!validatedFields.success) {
+        return {
+            status: false,
+            message: 'Ошибка. Проверьте правильность полей.',
+            errors: validatedFields.error.flatten().fieldErrors
+        } as UserState
+    }
+
+    const { name, email, passport, role } = validatedFields.data
+
+    try {
+        await sql`UPDATE users SET 
+        (name, email, passport, role) = (${name}, ${email}, ${passport}, ${role})
+        WHERE id = ${prevData.id}`
+    } catch (error) {
+        console.log(error)
+        return {
+            status: false,
+            message: 'Ошибка. Попробуйте позже.',
+            errors: {}
+        }
+    }
+    revalidatePath('/', 'layout')
+    redirect('/admin/users')
 }

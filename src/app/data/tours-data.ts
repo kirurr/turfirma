@@ -16,7 +16,7 @@ export const fetchToursForParams = cache(async() => {
 export const fetchTourIdByAlias = cache(async(alias: string) => {
     try {
         const tour = await sql<{id: string}>`SELECT id FROM tours WHERE alias = ${alias}`
-        return tour.rows[0].id
+        return tour.rows[0]
     } catch(error) {
         console.log(error)
         throw new Error('failed to fetch tour id')

@@ -1,6 +1,6 @@
 'use client'
-import React from 'react'
-import { Chip, Button } from '@nextui-org/react'
+import React, { useState } from 'react'
+import { Chip, Button, Spinner } from '@nextui-org/react'
 import { Review } from '@/app/lib/definitions'
 import Link from 'next/link'
 import { deleteReview } from '@/app/actions/review-actions'
@@ -16,8 +16,15 @@ export function AdminReviewsWrapper({ reviews }: { reviews: Review[] }) {
 }
 
 function ReviewItem({ review }: { review: Review }) {
+  const [isLoading, setIsLoading] = useState(false)
   return (
-    <li className="p-4 my-4 rounded flex items-center shadow gap-4">
+    <li className="relative p-4 my-4 rounded flex items-center shadow gap-4">
+      {isLoading && (
+        <Spinner
+          size="lg"
+          className="size-full absolute top-0 left-0 z-10 backdrop-blur-sm"
+        />
+      )}
       <p className="font-bold w-full">Название: {review.title}</p>
       <p className="w-full">Содержание: {review.content}</p>
       <div className="flex  gap-2 items-center w-full">
@@ -55,6 +62,7 @@ function ReviewItem({ review }: { review: Review }) {
               `Удалить отзыв? Это действие отменить нельзя.`
             )
             if (shure) {
+              setIsLoading(true)
               await deleteReview(review.id)
             }
           }}

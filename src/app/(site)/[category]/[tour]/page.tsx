@@ -40,7 +40,7 @@ export default async function Page({
 }) {
   const id = await fetchTourIdByAlias(params.tour)
   if (!id) notFound()
-  const tour = await fetchTourAndHotels(id)
+  const tour = await fetchTourAndHotels(id.id)
 
   const category = await fetchCategoryById(tour.category_id)
 

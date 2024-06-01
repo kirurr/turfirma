@@ -29,10 +29,11 @@ export default function OrdersAccordion({
             key={index}
             title={`Тур: ${orderTour?.title}`}
             startContent={<OrderStatus status={order.status} />}
+            className='py-8'
           >
-            <p className="p">{orderTour?.title}</p>
+            <h3 className="h3">{orderTour?.title}</h3>
             {orderHotel && (
-              <p className="p">Выбранный отель: {orderHotel.title}</p>
+              <p className="p"><strong className='font-semibold'>Выбранный отель: </strong>{orderHotel.title}</p>
             )}
             <div className='flex gap-2'>
               {order.status === 'pending' && (

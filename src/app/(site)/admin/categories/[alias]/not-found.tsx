@@ -7,9 +7,9 @@ export default function Page() {
   const router = useRouter()
 
   return (
-    <main>
-      <h1 className='h1 text-center'>Такой категории нет :(</h1>
-      <Button color='primary' onPress={() => router.back()}>Назад</Button>
-    </main>
+    <section className='section text-center'>
+      <h1 className='h1 mb-8'>Такой категории нет :(</h1>
+      <Button color='primary' size='lg' onPress={() => router.back()}>Назад</Button>
+    </section>
   )
 }

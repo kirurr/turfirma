@@ -50,10 +50,7 @@ export default function TopNav({
         </NavbarBrand>
         <NavbarContent justify="center" className="flex gap-8">
           <NavbarItem>
-            <Link
-              href="/tours"
-              className="top-nav-link"
-            >
+            <Link href="/tours" className="top-nav-link">
               Все туры
             </Link>
           </NavbarItem>
@@ -85,18 +82,12 @@ export default function TopNav({
             </DropdownMenu>
           </Dropdown>
           <NavbarItem>
-            <Link
-              href="/about"
-              className="top-nav-link"
-            >
+            <Link href="/about" className="top-nav-link">
               О нас
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link
-              href="/reviews"
-              className="top-nav-link"
-            >
+            <Link href="/reviews" className="top-nav-link">
               Отзывы
             </Link>
           </NavbarItem>

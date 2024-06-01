@@ -49,7 +49,7 @@ export async function createOrder(
     try {
         await sql`INSERT INTO orders (user_id, tour_id, hotel_id)
 		VALUES (${user_id}, ${tour_id}, ${hotel_id})`
-        revalidatePath('/profile')
+        revalidatePath('/', 'layout')
         return {
             status: true,
             message: 'Успешно! заказ можно посмотреть в вашем личном кабинете.',

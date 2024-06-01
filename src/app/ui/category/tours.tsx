@@ -4,7 +4,10 @@ import { formatDateFromPostgreSQL } from '@/app/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@nextui-org/react'
-import { fetchCategoryIdByAlias } from '@/app/data/categories-data'
+import {
+  fetchCategoryById,
+  fetchCategoryIdByAlias
+} from '@/app/data/categories-data'
 
 export default async function ToursWrapper({
   params,
@@ -22,13 +25,13 @@ export default async function ToursWrapper({
   return (
     <>
       {tours.length !== 0 ? (
-        <ul className="my-16">
+        <ul>
           {tours.map((tour) => (
             <TourItem key={tour.id} tour={tour} params={params} />
           ))}
         </ul>
       ) : (
-        <h2 className='h2 text-center mt-4'>Туров не найдено</h2>
+        <h2 className="h2 text-center mt-4">Туров не найдено</h2>
       )}
     </>
   )
@@ -43,29 +46,49 @@ async function TourItem({
 }) {
   const images = await fetchTourBlobs(tour.alias)
   const firstImage = images.find((img) => img.pathname.includes(tour.images[0]))
+  const category = await fetchCategoryById(tour.category_id)
   return (
-    <li className="flex flex-1 h-32 items-center shadow-md rounded overflow-hidden mb-8">
-      <div className="relative h-full w-40">
-        <Image className='object-cover' alt="tour image" fill src={firstImage?.url!} />
+    <li className="flex flex-1 items-center shadow-lg rounded-lg overflow-hidden mb-8">
+      <div className="relative w-1/4 min-h-[20rem]">
+        <Image
+          className="object-cover"
+          alt="tour image"
+          fill
+          src={firstImage?.url!}
+        />
       </div>
-      <div className="flex flex-1 items-center p-4 h-full">
-        <div className="h-full">
-          <h2 className="h2">{tour.title}</h2>
-          <p>Дата: {formatDateFromPostgreSQL(tour.date.toString())}</p>
-          <p>Длительность: {tour.duration} день</p>
+      <div className="flex items-center p-4 w-2/4 h-full">
+        <div className="h-full flex flex-col gap-8">
+          <h2 className="h2 !mb-0">{tour.title}</h2>
+          <Link className="link block size-fit text-lg !font-normal" href={`/${category?.alias}`}>
+            #{category?.title}
+          </Link>
+          <div>
+            <p className="text-xl">{tour.description}</p>
+          </div>
+          <div>
+            <p className="text-xl mb-2">
+              <strong>Дата: </strong>
+              {formatDateFromPostgreSQL(tour.date.toString())}
+            </p>
+            <p className="text-xl">
+              <strong>Продолжительность: </strong>
+              {tour.duration} день
+            </p>
+          </div>
         </div>
-        <div className="h-full">
-          <h2 className="h2">Описание</h2>
-          <p>{tour.description}</p>
-        </div>
+      </div>
+      <div className="w-1/4 p-4 h-full flex flex-col gap-4">
+        <p className='text-xl'>Цена на человека:</p>
+        <p className='font-semibold text-xl text-primary-500'>{tour.price} рублей</p>
         <Button
-          className="ml-auto"
+          className="mt-8"
           as={Link}
           href={`${params.category}/${tour.alias}`}
-					color='primary'
+          color="primary"
+          size="lg"
         >
-          {' '}
-          открыть{' '}
+          Подробнее
         </Button>
       </div>
     </li>

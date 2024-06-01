@@ -27,7 +27,7 @@ export default async function Page({
 }) {
   const id = await fetchCategoryIdByAlias(params.category)
   const category = await fetchCategoryById(
-    params.category === 'tours' ? 'tours' : id!
+    params.category === 'tours' ? 'tours' : id?.id!
   )
 
   if (category === undefined) {
@@ -47,10 +47,10 @@ export default async function Page({
         <h1 className="h1 text-center">{title}</h1>
         <Search />
       </section>
-      <section className="section !pt-0">
+      <section className="section !my-16 !pt-0">
         <ToursWrapper params={params} searchParams={searchParams} />
         {pages > 1 && (
-          <Pagination className="mx-auto size-fit" totalPages={pages} />
+          <Pagination className="mx-auto my-16 size-fit" totalPages={pages} />
         )}
       </section>
     </>

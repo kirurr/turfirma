@@ -2,27 +2,36 @@ import NextAuth from 'next-auth'
 import { authConfig } from './auth.config'
 import { NextRequest } from 'next/server'
 import { auth } from './auth'
+import { fetchUserById } from './app/data/users-data'
+import { signOut } from 'next-auth/react'
 export default NextAuth(authConfig).auth
 
 export async function middleware(request: NextRequest) {
-    const userData = await auth()
+    const userSession = await auth()
+    let userData
+    if (userSession) userData = await fetchUserById(userSession.user.user_id!)
 
-    if (!userData && request.nextUrl.pathname.startsWith('/profile')) {
+    if (userSession && !userData) {
+        signOut()
         return Response.redirect(new URL('/', request.url))
     }
-    if (!userData && request.nextUrl.pathname.startsWith('/admin')) {
+
+    if (!userSession && request.nextUrl.pathname.startsWith('/profile')) {
+        return Response.redirect(new URL('/', request.url))
+    }
+    if (!userSession && request.nextUrl.pathname.startsWith('/admin')) {
         return Response.redirect(new URL('/', request.url))
     }
 
     if (
-        userData &&
-        userData.user.role !== 'admin' &&
+        userSession &&
+        userSession.user.role !== 'admin' &&
         request.nextUrl.pathname.startsWith('/admin')
     ) {
         return Response.redirect(new URL('/', request.url))
     }
 
-    if (!userData && request.nextUrl.pathname.includes('/book')) {
+    if (!userSession && request.nextUrl.pathname.includes('/book')) {
         return Response.redirect(new URL('/', request.url))
     }
 }

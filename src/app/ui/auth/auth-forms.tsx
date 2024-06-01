@@ -3,7 +3,7 @@
 import {
   createUser,
   authenticate,
-  CreateUserState
+  UserState
 } from '@/app/actions/user-actions'
 import { useFormState, useFormStatus } from 'react-dom'
 import React, { useEffect, useState } from 'react'
@@ -78,7 +78,7 @@ export function SignInModal({ isOpen, onOpen, onOpenChange, onClose }: any) {
   )
 }
 export function SignUpModal({ isOpen, onOpen, onOpenChange, onClose }: any) {
-  const initialState: CreateUserState = { message: '', errors: undefined }
+  const initialState: UserState = { message: '', errors: undefined }
   const [state, dispatch] = useFormState(createUser, initialState)
   const [errorState, setErrorState] = useState(initialState)
 

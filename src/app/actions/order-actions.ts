@@ -6,15 +6,25 @@ import { PDFDocument, rgb } from 'pdf-lib'
 import fontkit from '@pdf-lib/fontkit'
 import { Order, TourWithHotel, User } from '../lib/definitions'
 
+export async function deleteOrder(orderId: string) {
+    try {
+        await sql`DELETE FROM orders WHERE id = ${orderId};`
+        revalidatePath('/', 'layout')
+    } catch (error) {
+        console.log(error)
+        throw new Error('failed to delete order')
+    }
+}
+
 export async function changeOrderStatus(
     orderId: string,
-    _prevState: any,
-    _formData: FormData,
+    _prevState?: any,
+    _formData?: FormData,
     status: string = 'paid'
 ) {
     try {
         await sql`UPDATE orders SET status = ${status} WHERE id = ${orderId};`
-        revalidatePath('/profile')
+        revalidatePath('/', 'layout')
         return { status: true, message: 'Оплачено!' }
     } catch (error) {
         console.log(error)

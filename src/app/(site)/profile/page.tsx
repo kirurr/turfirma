@@ -5,6 +5,7 @@ import { auth } from '@/auth'
 import { fetchTourAndHotels } from '@/app/data/tours-data'
 import SignOutForm from '@/app/ui/auth/sign-out-button'
 import OrdersAccordion from '@/app/ui/profile/orders-accordion'
+import { Divider } from '@nextui-org/react'
 
 export default async function Page() {
   const session = await auth()
@@ -15,14 +16,23 @@ export default async function Page() {
 
   return (
     <>
-      <section className="section">
+      <section className="section !pb-0">
         <h1 className="h1 text-center">Личный кабинет</h1>
-        <h2 className="h2">{user?.name}</h2>
-        <p className="p">Электронная почта: {user?.email}</p>
-        <p className="p">Данные паспорта: {user?.passport}</p>
+        <div className="my-8">
+          <h2 className="h2">{user?.name}</h2>
+          <p className="p">
+            <strong className="font-semibold">Электронная почта: </strong>
+            {user?.email}
+          </p>
+          <p className="p">
+            <strong className="font-semibold">Данные паспорта: </strong>
+            {user?.passport}
+          </p>
+        </div>
         <SignOutForm />
+        <Divider className='my-16'/>
       </section>
-      <section className="section">
+      <section className="section !pt-0">
         {orders.length > 0 ? (
           <>
             <h2 className="h2">Ваши заказы:</h2>

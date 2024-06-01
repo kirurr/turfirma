@@ -11,6 +11,8 @@ export default function Page() {
   const [result, dispatch] = useFormState(createCategory, initialState)  
   
   return (
+  <section className='section !max-w-lg'>
+    <h2 className='h2 text-center'>Создание категории</h2>
     <form action={dispatch} className='flex flex-col gap-4'>
       <div>
         <label className='mb-2 block' htmlFor="image">Изображение <span className='text-red-500'>*</span></label>
@@ -21,5 +23,6 @@ export default function Page() {
       <FormButton title='Создать' className="mx-auto" />
       {!result.status && <p>{result.message}</p>}
     </form>
+  </section>
   )
 }

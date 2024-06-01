@@ -1,7 +1,7 @@
 'use client'
 
-import React from 'react'
-import { Button, Tooltip } from '@nextui-org/react'
+import React, { useState } from 'react'
+import { Button, Spinner, Tooltip } from '@nextui-org/react'
 import Link from 'next/link'
 
 import { Category } from '@/app/lib/definitions'
@@ -39,21 +39,32 @@ function CategoriesItem({
   category: Category
   toursCount: number
 }) {
+  const [isLoading, setIsLoading] = useState(false)
   return (
-    <li className="p-4 my-4 shadow rounded flex items-center">
-    <div className='size-full'>
-      <p>{category.title}</p>
-    </div>
-    <div className='size-full'>
-
-      {toursCount > 0 ? (
-        <p className="ml-8">Количество туров: {toursCount}</p>
-      ) : (
-        ''
+    <li className="relative p-4 my-4 shadow rounded flex items-center">
+      {isLoading && (
+        <Spinner
+          size="lg"
+          className="size-full absolute top-0 left-0 z-50 backdrop-blur-sm"
+        />
       )}
+      <div className="size-full">
+        <p>{category.title}</p>
+      </div>
+      <div className="size-full">
+        {toursCount > 0 ? (
+          <p className="ml-8">Количество туров: {toursCount}</p>
+        ) : (
+          ''
+        )}
       </div>
       <div className="size-full text-end">
-        <Button as={Link} href={`categories/${category.alias}`} color="primary" className=''>
+        <Button
+          as={Link}
+          href={`categories/${category.alias}`}
+          color="primary"
+          className=""
+        >
           Редактировать
         </Button>
         {toursCount > 0 ? (
@@ -73,6 +84,7 @@ function CategoriesItem({
                 `Удалить категорию: ${category.title}? Это действие отменить нельзя.`
               )
               if (shure) {
+                setIsLoading(true)
                 await deleteCategory(category)
               }
             }}
