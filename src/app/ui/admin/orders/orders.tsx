@@ -36,20 +36,21 @@ export function AdminOrder({
         />
       )}
       <div className="w-full">
-        <p className="font-semibold text-xl">Тур: {tour.title}</p>
+        <p className="text-xl">
+          <strong className="font-semibold">Тур:</strong> {tour.title}
+        </p>
         {tour.hotels_info.length > 0 && (
-          <p className="font-semibold text-xl mt-2">
-            Отель:{' '}
+          <p className="text-xl mt-2">
+            <strong className="font-semibold">Отель:</strong>{' '}
             {
-              tour.hotels_info.find((hotel) => hotel.id === order.hotel_id)
-                ?.title
+              tour.hotels_info.find((hotel) => hotel.id === order.hotel_id)?.title
             }
           </p>
         )}
       </div>
       <div className="w-full">
-        <p className="font-semibold text-xl">Пользователь: {user.name}</p>
-        <p className="font-semibold text-xl mt-2">Почта: {user.email}</p>
+        <p className="text-xl"><strong className='font-semibold'>Пользователь:</strong> {user.name}</p>
+        <p className="text-xl mt-2"><strong className='font-semibold'>Почта:</strong> {user.email}</p>
       </div>
       <div className="w-full text-end">
         <Dropdown>

@@ -25,15 +25,17 @@ function ReviewItem({ review }: { review: Review }) {
           className="size-full absolute top-0 left-0 z-10 backdrop-blur-sm"
         />
       )}
-      <p className="font-bold w-full">Название: {review.title}</p>
-      <p className="w-full">Содержание: {review.content}</p>
+      <p className="text-xl w-full">
+        <strong className="font-semibold">Название тура:</strong> {review.title}
+      </p>
+      <p className="w-full text-xl">{review.content}</p>
       <div className="flex  gap-2 items-center w-full">
         {review.is_positive ? (
-          <Chip size="lg" color="success" variant="bordered">
+          <Chip size="lg" color="success" variant="bordered" className='ml-auto'>
             Позитивный
           </Chip>
         ) : (
-          <Chip size="lg" color="danger" variant="bordered">
+          <Chip size="lg" color="danger" variant="bordered" className='ml-auto'>
             Негативный
           </Chip>
         )}

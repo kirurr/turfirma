@@ -23,9 +23,12 @@ export function AdminUserWrapper({
         />
       )}
       <div className="w-2/4">
-        <p className="font-semibold text-xl mb-2">ФИО: {user.name}</p>
-        <p className="font-semibold text-xl">
-          Электронная почта: {user.email}
+        <p className="text-xl mb-2">
+          <strong className="font-semibold">ФИО:</strong> {user.name}
+        </p>
+        <p className="text-xl">
+          <strong className="font-semibold">Электронная почта:</strong>{' '}
+          {user.email}
         </p>
       </div>
       <div className="w-1/4">
@@ -34,8 +37,9 @@ export function AdminUserWrapper({
             Количество заказов: {ordersCount}
           </p>
         )}
-        <p className="font-semibold text-xl">
-          Роль: {user.role === 'admin' ? 'Администратор' : 'Пользователь'}
+        <p className="text-xl">
+          <strong className="font-semibold">Роль:</strong>{' '}
+          {user.role === 'admin' ? 'Администратор' : 'Пользователь'}
         </p>
       </div>
       <div className="w-1/4 h-full text-end">

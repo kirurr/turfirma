@@ -18,7 +18,7 @@ export default async function ToursWrapper({
 }) {
   const id = await fetchCategoryIdByAlias(params.category)
   const tours = await fetchTours(
-    params.category === 'tours' ? 'tours' : id!,
+    params.category === 'tours' ? 'tours' : id?.id!,
     searchParams.page ? +searchParams.page : undefined,
     searchParams.query
   )

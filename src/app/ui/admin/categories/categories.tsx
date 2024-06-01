@@ -49,11 +49,18 @@ function CategoriesItem({
         />
       )}
       <div className="size-full">
-        <p>{category.title}</p>
+        <p className="text-xl">
+          <strong className="font-semibold">Название: </strong>
+          {category.title}
+        </p>
       </div>
-      <div className="size-full">
+      <div className="size-full text-center">
         {toursCount > 0 ? (
-          <p className="ml-8">Количество туров: {toursCount}</p>
+          <p className="text-xl">
+            <strong className="font-semibold">
+              Количество туров: {toursCount}
+            </strong>
+          </p>
         ) : (
           ''
         )}
