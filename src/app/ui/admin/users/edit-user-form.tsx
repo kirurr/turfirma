@@ -4,7 +4,7 @@ import { UserState, updateUser } from '@/app/actions/user-actions'
 import { User } from '@/app/lib/definitions'
 import { Button, Input, Radio, RadioGroup } from '@nextui-org/react'
 import { useFormState } from 'react-dom'
-import { FormButton } from '../../auth/auth-forms'
+import { FormButton } from '@/app/ui/auth/auth-forms'
 import Link from 'next/link'
 
 export default function EditUserForm({ userData }: { userData: User }) {

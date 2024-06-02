@@ -21,6 +21,10 @@ const links = [
     href: '/admin/users'
   },
   {
+    name: 'Отели',
+    href: '/admin/hotels'
+  },
+  {
     name: 'Заказы',
     href: '/admin/orders'
   }
@@ -29,7 +33,7 @@ const links = [
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <article className="section">
-      <h1 className="h1 text-center">Панель администратора</h1>
+      <h1 className="h1 text-center !mb-8">Панель администратора</h1>
       <Navigation links={links} />
       {children}
     </article>
