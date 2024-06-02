@@ -13,6 +13,16 @@ export const fetchHotelBlob = cache(async (id: string) => {
     }
 })
 
+export const fetchHotelsBlobs = cache(async () => {
+    try {
+        const blobs = await list({ prefix: 'hotels/' })
+        return blobs.blobs
+    } catch (error) {
+        console.log(error)
+        throw new Error('failed to fetch blobs')
+    }
+})
+
 export const fetchHotels = cache(async () => {
     try {
         const hotels = await sql<Hotel>`SELECT * FROM hotels`

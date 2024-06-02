@@ -3,12 +3,15 @@
 import { sql } from '@vercel/postgres'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
+import { redirect } from 'next/navigation'
+import { put } from '@vercel/blob'
+import { generateAlias } from '../lib/utils'
 
 const OrderSchema = z.object({
     id: z.string(),
     user_id: z.string(),
     tour_id: z.string(),
-    hotel_id: z.nullable(z.string({message: 'Выберите отель.'})),
+    hotel_id: z.nullable(z.string({ message: 'Выберите отель.' })),
     status: z.string()
 })
 const CreateOrder = OrderSchema.omit({ id: true, status: true })
@@ -43,8 +46,7 @@ export async function createOrder(
     }
 
     let { user_id, tour_id, hotel_id } = validatedFields.data
-    if(hotel_id === 'no_hotel') hotel_id = null
-
+    if (hotel_id === 'no_hotel') hotel_id = null
 
     try {
         await sql`INSERT INTO orders (user_id, tour_id, hotel_id)
@@ -57,6 +59,108 @@ export async function createOrder(
         }
     } catch (error) {
         console.log(error)
-        return { status: false, message: 'Произошла ошибка, попробуйте позже.', errors: {} }
+        return {
+            status: false,
+            message: 'Произошла ошибка, попробуйте позже.',
+            errors: {}
+        }
     }
+}
+
+async function uploadBLob(alias: string, image: File) {
+    return await put(`tours/${alias}/${image.name}`, image, {
+        access: 'public'
+    })
+}
+
+export type TourState = {
+    status: boolean
+    message: string
+    errors: {
+        title?: string[]
+        description?: string[]
+        price?: string[]
+        programm?: string[]
+        category?: string[]
+        included?: string[]
+        excluded?: string[]
+        date?: string[]
+        duration?: string[]
+    }
+}
+
+const TourSchema = z.object({
+    id: z.string(),
+    title: z.string().trim().min(1),
+    alias: z.string().trim().min(1),
+    description: z.string().trim().min(1),
+    price: z.string().min(1),
+    program: z.string().trim().min(1),
+    category: z.string().trim().min(1),
+    included: z.string().trim().min(1),
+    excluded: z.string().trim().min(1),
+    date: z.string().trim().min(1),
+    duration: z.string().min(1)
+})
+
+const CreateTour = TourSchema.omit({ id: true, alias: true })
+
+export async function createTour(_prevState: TourState, formData: FormData) {
+    const validatedFields = CreateTour.safeParse(
+        Object.fromEntries(formData.entries())
+    )
+
+    if (!validatedFields.success) {
+        console.log(validatedFields.error.flatten().fieldErrors)
+        return {
+            status: false,
+            message: 'Ошибка. Проверьте правильность полей',
+            errors: validatedFields.error.flatten().fieldErrors
+        }
+    }
+
+    const {
+        title,
+        description,
+        price,
+        program,
+        category,
+        included,
+        excluded,
+        date,
+        duration
+    } = validatedFields.data
+
+    const alias = generateAlias(title)
+
+    const images = formData.getAll('image') as File[]
+    const imagesArray = images.map((item) => item.name)
+
+    const hotelsArray = formData.getAll('hotels') as string[]
+
+    const includedArray = included.split(';').map((item) => item.trim())
+    const excludedArray = excluded.split(';').map((item) => item.trim())
+
+    try {
+        await sql`INSERT INTO tours (title, description, price, program,
+            category_id, included, excluded, date,
+            duration, hotels_ids, images, alias)
+            VALUES (${title}, ${description}, ${price}, ${program},
+            ${category}, ${includedArray as any}, ${excludedArray as any},
+            ${date}, ${duration}, ${hotelsArray as any},
+            ${imagesArray as any}, ${alias})`
+
+        await Promise.all(
+            images.map(async (image) => await uploadBLob(alias, image))
+        )
+    } catch (error) {
+        console.log(error)
+        return {
+            status: false,
+            message: 'Произошла ошибка, попробуйте позже.',
+            errors: {}
+        }
+    }
+    revalidatePath('/', 'layout')
+    redirect('/admin/tours')
 }

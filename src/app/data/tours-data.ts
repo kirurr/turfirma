@@ -3,6 +3,16 @@ import { list } from '@vercel/blob'
 import { sql, db } from '@vercel/postgres'
 import { cache } from 'react'
 
+export const fetchAllTours = cache(async () => {
+    try {
+        const tours = await sql<Tour>`SELECT * FROM tours`
+        return tours.rows
+    } catch(error) {
+        console.log(error)
+        throw new Error('failed to fetch tours')
+    }
+})
+
 export const fetchToursForParams = cache(async() => {
     try {
         const ids = await sql<{alias: string, category_id: string}>`SELECT alias, category_id FROM tours`

@@ -1,3 +1,5 @@
+import { ListBlobResultBlob } from '@vercel/blob'
+
 export type Tour = {
     id: string
     title: string
@@ -25,6 +27,10 @@ export type Hotel = {
     image: string
     map_url: string
 }
+
+export type HotelWithBlob = {
+    image: ListBlobResultBlob
+} & Hotel
 
 export type Category = {
     id: string

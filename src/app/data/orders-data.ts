@@ -19,9 +19,9 @@ export const fetchOrdersByUserId = cache(async (userId?: string) => {
 
 export const fetchOrdersId = cache(async () => {
     try {
-        const result = await sql<{id: string}>`SELECT id FROM orders`
+        const result = await sql<{ id: string }>`SELECT id FROM orders`
         return result.rows
-    } catch(error) {
+    } catch (error) {
         console.log(error)
         throw new Error('failed to fetch orders')
     }
@@ -31,7 +31,18 @@ export const fetchOrders = cache(async () => {
     try {
         const result = await sql<Order>`SELECT * FROM orders`
         return result.rows
-    } catch(error) {
+    } catch (error) {
+        console.log(error)
+        throw new Error('failed to fetch orders')
+    }
+})
+
+export const fetchOrdersCountByTourId = cache(async (tourId: string) => {
+    try {
+        const result =
+            await sql<Order>`SELECT * FROM orders WHERE tour_id = ${tourId}`
+        return result.rowCount
+    } catch (error) {
         console.log(error)
         throw new Error('failed to fetch orders')
     }
