@@ -4,7 +4,8 @@ import { Tour } from '@/app/lib/definitions'
 import { Button, Spinner, Tooltip } from '@nextui-org/react'
 import Link from 'next/link'
 import { useState } from 'react'
-import { formatDateFromPostgreSQL } from '../../../lib/utils'
+import { formatDateFromPostgreSQL } from '@/app/lib/utils'
+import { deleteTour } from '@/app/actions/tour-actions'
 
 export function AdminToursWrapper({
   tour,
@@ -82,9 +83,7 @@ export function AdminToursWrapper({
               )
               if (shure) {
                 setIsLoading(true)
-              // удаление
-              // удаление
-              // удаление
+                deleteTour(tour.id, tour.alias)
               }
             }}
             className="ml-4"

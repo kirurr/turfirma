@@ -7,35 +7,64 @@ import {
   Textarea,
   Select,
   SelectItem,
-  DateInput
+  DateInput,
+  Button
 } from '@nextui-org/react'
 import { FormButton } from '@/app/ui/auth/auth-forms'
-import { Category, HotelWithBlob } from '@/app/lib/definitions'
+import { Category, HotelWithBlob, TourWithHotel } from '@/app/lib/definitions'
 import Image from 'next/image'
-import { TourState, createTour } from '@/app/actions/tour-actions'
+import { TourState, updateTour } from '@/app/actions/tour-actions'
+import { parseDate } from '@internationalized/date'
+import Link from 'next/link'
 
-export default function NewTourForm({
+export default function EditTourForm({
   hotels,
-  categories
+  categories,
+  tour
 }: {
   hotels: HotelWithBlob[]
   categories: Category[]
+  tour: TourWithHotel
 }) {
   const initialState: TourState = { status: false, message: '', errors: {} }
-  const [result, dispatch] = useFormState(createTour, initialState)
+  const updateTourWithPrevData = updateTour.bind(null, tour)
+  const [result, dispatch] = useFormState(updateTourWithPrevData, initialState)
+
+  const date = parseDate(new Date(tour.date).toISOString().split('T')[0])
 
   return (
     <section className="section !max-w-3xl">
-      <h2 className="h2 text-center">Создание тура</h2>
+      <h2 className="h2 text-center">Редактирование тура {tour.title}</h2>
       <form action={dispatch} className="flex flex-wrap">
         <div className="w-1/2 flex flex-col gap-4 pr-2">
-          <Input name="title" label="Название тура" isRequired />
-          <Textarea name="description" label="Описание тура" isRequired />
-          <Input name="price" type='number' label="Цена тура" isRequired />
-          <Textarea name="program" label="Программа тура" isRequired />
+          <Input
+            name="title"
+            label="Название тура"
+            isRequired
+            defaultValue={tour.title}
+          />
+          <Textarea
+            name="description"
+            label="Описание тура"
+            isRequired
+            defaultValue={tour.description}
+          />
+          <Input
+            name="price"
+            type="number"
+            label="Цена тура"
+            isRequired
+            defaultValue={tour.price.toString()}
+          />
+          <Textarea
+            name="program"
+            label="Программа тура"
+            isRequired
+            defaultValue={tour.program}
+          />
           <div>
             <label className="mb-2 block" htmlFor="image">
-              Изображения <span className="text-red-500">*</span>
+              Изображения
             </label>
             <input
               className="input-file"
@@ -44,8 +73,11 @@ export default function NewTourForm({
               multiple
               name="image"
               accept="image/*"
-              required
             />
+            <p className="text-md mt-2">
+              Внимание! При загрузке новых изображений, предыдущие будут
+              удалены.
+            </p>
           </div>
         </div>
         <div className="w-1/2 flex flex-col gap-4 pl-2">
@@ -55,6 +87,7 @@ export default function NewTourForm({
             name="hotels"
             selectionMode="multiple"
             description="Не обязательно"
+            selectedKeys={tour.hotels_info.map((hotel) => hotel.id)}
           >
             {(hotel) => (
               <SelectItem
@@ -80,6 +113,7 @@ export default function NewTourForm({
             items={categories}
             label="Выберите категорию"
             name="category"
+            selectedKeys={new Set([tour.category_id])}
             isRequired
           >
             {categories.map((category) => (
@@ -96,21 +130,42 @@ export default function NewTourForm({
             isRequired
             name="included"
             label="Что включено в стоимость"
-            placeholder='Еда;Страховка;Пиво'
+            placeholder="Еда;Страховка;Пиво"
             description="Перечислить через ;"
+            defaultValue={tour.included.join(';')}
           />
           <Textarea
             isRequired
             name="excluded"
-            placeholder='Страховка;Пиво'
+            placeholder="Страховка;Пиво"
             label="Что не включено в стоимость"
             description="Перечислить через ;"
+            defaultValue={tour.excluded.join(';')}
           />
-          <DateInput label="Дата начала" name="date" isRequired />
-          <Input name="duration" type='number' label="Продолжительность" isRequired />
+          <DateInput
+            label="Дата начала"
+            name="date"
+            isRequired
+            defaultValue={date}
+          />
+          <Input
+            name="duration"
+            type="number"
+            label="Продолжительность"
+            isRequired
+            defaultValue={tour.duration.toString()}
+          />
         </div>
-        <div className="w-full flex flex-col gap-4 mt-4">
-          <FormButton title="Создать" className="mx-auto" />
+        <div className="w-full flex justify-center gap-2 mt-4">
+          <FormButton title="Применить" />
+          <Button
+            as={Link}
+            href="/admin/tours"
+            variant="bordered"
+            color="danger"
+          >
+            Отмена
+          </Button>
           {!result.status && <p>{result.message}</p>}
         </div>
       </form>
