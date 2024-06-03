@@ -25,11 +25,11 @@ export default async function Page({
     (hotel) => hotel.id === order.hotel_id
   )
   return (
-    <>
-      <h1 className="h1">Вы оплачиваете тур: {tourData.title}.</h1>
+    <section className="section !max-w-lg text-center">
+      <h1 className="h1">Вы оплачиваете тур:<br />{tourData.title}.</h1>
       <p className="p">Цена {tourData.price} рублей.</p>
       {hotelData && <p className="p">Выбранный отель: {hotelData?.title}.</p>}
       <PaymentForm orderId={order.id} />
-    </>
+    </section>
   )
 }
