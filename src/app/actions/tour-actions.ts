@@ -180,14 +180,10 @@ export async function deleteTour(id: string, alias: string) {
         )
     } catch (error) {
         console.log(error)
-        return {
-            status: false,
-            message: 'Произошла ошибка, попробуйте позже.',
-            errors: {}
-        }
+        throw new Error('failed to delete tour')
     }
     revalidatePath('/', 'layout')
-    redirect('/admin/tours')
+    redirect('/admin/tours/')
 }
 
 const UpdateTour = TourSchema.omit({ id: true, alias: true })

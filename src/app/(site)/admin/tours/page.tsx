@@ -16,8 +16,8 @@ export default async function Page() {
         </Button>
       </section>
       <section className="section">
-        {tours.map((tour) => (
-          <TourWrapper key={tour.id} tour={tour} />
+        {tours.map((tour, index) => (
+          <TourWrapper key={index} tour={tour} />
         ))}
       </section>
     </>

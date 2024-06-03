@@ -40,6 +40,12 @@ function CategoriesItem({
   toursCount: number
 }) {
   const [isLoading, setIsLoading] = useState(false)
+  const [prevState, setPrevState] = useState(category)
+
+  if (category.id !== prevState.id) {
+    setIsLoading(false)
+    setPrevState(category)
+  }
   return (
     <li className="relative p-4 my-4 shadow rounded flex items-center">
       {isLoading && (

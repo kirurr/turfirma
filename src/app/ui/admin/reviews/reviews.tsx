@@ -17,6 +17,13 @@ export function AdminReviewsWrapper({ reviews }: { reviews: Review[] }) {
 
 function ReviewItem({ review }: { review: Review }) {
   const [isLoading, setIsLoading] = useState(false)
+
+  const [prevState, setPrevState] = useState(review)
+
+  if (review.id !== prevState.id) {
+    setIsLoading(false)
+    setPrevState(review)
+  }
   return (
     <li className="relative p-4 my-4 rounded flex items-center shadow gap-4">
       {isLoading && (

@@ -15,6 +15,13 @@ export function AdminToursWrapper({
   orders: number
 }) {
   const [isLoading, setIsLoading] = useState(false)
+  const [prevState, setPrevState] = useState(tour)
+
+  if (tour.id !== prevState.id) {
+    setIsLoading(false)
+    setPrevState(tour)
+  }
+
   return (
     <li className="relative p-4 my-4 rounded z-0 flex items-center shadow gap-4">
       {isLoading && (
@@ -44,7 +51,7 @@ export function AdminToursWrapper({
       <div className="w-1/4">
         {orders > 0 && (
           <p className="font-semibold text-xl mb-2">
-            Количество туров: {orders}
+            Количество заказов: {orders}
           </p>
         )}
         <p className="text-xl mb-2">
@@ -83,7 +90,7 @@ export function AdminToursWrapper({
               )
               if (shure) {
                 setIsLoading(true)
-                deleteTour(tour.id, tour.alias)
+                await deleteTour(tour.id, tour.alias)
               }
             }}
             className="ml-4"

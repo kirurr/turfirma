@@ -14,6 +14,12 @@ export function AdminHotelWrapper({
   toursCount: number
 }) {
   const [isLoading, setIsLoading] = useState(false)
+  const [prevState, setPrevState] = useState(hotel)
+
+  if (hotel.id !== prevState.id) {
+    setIsLoading(false)
+    setPrevState(hotel)
+  }
   return (
     <li className="relative p-4 my-4 rounded z-0 flex items-center shadow gap-4">
       {isLoading && (

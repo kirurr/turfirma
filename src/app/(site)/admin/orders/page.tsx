@@ -5,7 +5,12 @@ import { Order } from '@/app/lib/definitions'
 import { AdminOrder } from '@/app/ui/admin/orders/orders'
 
 export default async function Page() {
-  const orders = await fetchOrders()
+  const orders = (await fetchOrders()).sort((a, b) => {
+    if (a.status === 'paid') return -1
+    if (b.status === 'paid') return 1
+    return 0
+  })
+
   return (
     <>
       <section className="section">

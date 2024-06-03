@@ -24,9 +24,12 @@ export function AdminOrder({
 }) {
   const [isLoading, setIsLoading] = useState(false)
 
-  useEffect(() => {
+  const [prevState, setPrevState] = useState(order)
+
+  if (order.id !== prevState.id || order.status !== prevState.status) {
     setIsLoading(false)
-  }, [order.status])
+    setPrevState(order)
+  }
   return (
     <li className="relative p-4 my-4 rounded z-0 flex items-center shadow gap-4">
       {isLoading && (
