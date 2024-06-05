@@ -12,7 +12,7 @@ export function CategoriesWrapper({
   toursPerCategory
 }: {
   categories: Category[]
-  toursPerCategory: { id: string; toursCount: string }[]
+  toursPerCategory: { id: string; toursCount: number }[]
 }) {
   return (
     <ul>
