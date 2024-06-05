@@ -5,6 +5,7 @@ import MainSearch from '../ui/admin/main-search'
 import ToursList from '../ui/tours-list'
 import ContactForm from '../ui/contact-form'
 import AboutIcons from '../ui/about-icons'
+import ReviewsList from '../ui/reviews-list'
 
 export default async function Page() {
   const categories = await fetchCategories(null)
@@ -30,6 +31,7 @@ export default async function Page() {
       </section>
       <section className='section text-center full-width bg-triary-color'>
         <h2 className='h2'>Последние отзывы</h2>
+        <ReviewsList />
       </section>
       <section className="section text-center">
         <h2 className="h2">Почему мы?</h2>

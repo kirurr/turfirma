@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import { Button, Spinner, Tooltip } from '@nextui-org/react'
 import Link from 'next/link'
-
 import { Category } from '@/app/lib/definitions'
 import { deleteCategory } from '@/app/actions/category-actions'
 
