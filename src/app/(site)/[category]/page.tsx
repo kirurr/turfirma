@@ -2,6 +2,7 @@ import { fetchToursPages } from '@/app/data/tours-data'
 import { notFound } from 'next/navigation'
 import {
   fetchCategories,
+  fetchCategoriesBlobs,
   fetchCategoryById,
   fetchCategoryIdByAlias
 } from '@/app/data/categories-data'
@@ -10,6 +11,8 @@ import Pagination from '@/app/ui/category/pagination'
 import ToursWrapper from '@/app/ui/category/tours'
 import CategoryBreadcumbs from '@/app/ui/category/breadcrumbs'
 import { Category } from '@/app/lib/definitions'
+import Hero from '@/app/ui/hero'
+import clsx from 'clsx';
 
 export async function generateStaticParams() {
   const categories = await fetchCategories(null)
@@ -38,16 +41,28 @@ export default async function Page({
     category === null ? null : category.id,
     searchParams.query
   )
-  const title = category === null ? 'tours' : category.title
+  const title = category === null ? 'Все туры' : category.title
+  let image
+  if (category !== null) {
+    image = (await fetchCategoriesBlobs()).find((blob) =>
+      blob.pathname.includes(category!.image)
+    )?.url
+  }
 
   return (
     <>
+      <Hero
+        imageUrl={image}
+        title={title}
+        isFullHeight={false}
+        isButton={false}
+        isParagraph={false}
+      />
       <section className="section">
         <CategoryBreadcumbs category={category} />
-        <h1 className="h1 text-center">{title}</h1>
-        <Search />
+        <Search className='mt-8' />
       </section>
-      <section className="section !my-16 !pt-0">
+      <section className="section">
         <ToursWrapper params={params} searchParams={searchParams} />
         {pages > 1 && (
           <Pagination className="mx-auto my-16 size-fit" totalPages={pages} />

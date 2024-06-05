@@ -1,10 +1,10 @@
 'use client'
 
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
-import { Input, Button } from '@nextui-org/react'
+import { Input} from '@nextui-org/react'
 import { FormButton } from '@/app/ui/auth/auth-forms'
 
-export default function Search() {
+export default function Search({className}: {className?: string}) {
   const searchParams = useSearchParams()
   const pathName = usePathname()
   const { replace } = useRouter()
@@ -22,11 +22,9 @@ export default function Search() {
   }
 
   return (
-    <div>
-      <form action={handleSearch} className='flex gap-2 items-center'>
+      <form action={handleSearch} className={className + ' flex gap-2 items-center'}>
 				<Input label="Поиск" name='query' type='text' defaultValue={searchParams.get('query')?.toString()} />
 				<FormButton title='Искать'/>
       </form>
-    </div>
   )
 }

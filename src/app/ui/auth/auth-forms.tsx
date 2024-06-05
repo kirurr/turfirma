@@ -172,7 +172,8 @@ export function FormButton({
   title,
   color = 'primary',
   variant = 'solid',
-  className
+  className,
+  isBig = false
 }: {
   title: string
   color?:
@@ -192,11 +193,12 @@ export function FormButton({
     | 'shadow'
     | 'ghost'
     | undefined,
-    className?: string
+    className?: string,
+    isBig?: boolean
 }) {
   const { pending } = useFormStatus()
   return (
-    <Button className={className} type="submit" color={color} variant={variant} isLoading={pending}>
+    <Button className={`${className} ${isBig && 'text-xl'}`} size={isBig ? 'lg' : 'md'} type="submit" color={color} variant={variant} isLoading={pending}>
       {title}
     </Button>
   )

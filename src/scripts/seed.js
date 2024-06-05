@@ -149,7 +149,7 @@ async function seedOrders(client) {
 			CREATE TABLE IF NOT EXISTS orders (
 			id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
 			user_id UUID NOT NULL,
-			tour_id TEXT NOT NULL,
+			tour_id UUID NOT NULL,
 			hotel_id UUID,
 			status TEXT NOT NULL DEFAULT 'pending'
 			);`

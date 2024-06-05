@@ -49,8 +49,9 @@ async function TourItem({
   const category = await fetchCategoryById(tour.category_id)
   return (
     <li className="flex flex-1 items-center shadow-lg rounded-lg overflow-hidden mb-8">
-      <div className="relative w-1/4 min-h-[20rem]">
+      <div className="relative w-1/4 min-h-[17rem]">
         <Image
+          sizes="(max-width: 768px) 50vw, 33vw"
           className="object-cover"
           alt="tour image"
           fill
@@ -58,9 +59,12 @@ async function TourItem({
         />
       </div>
       <div className="flex items-center p-4 w-2/4 h-full">
-        <div className="h-full flex flex-col gap-8">
+        <div className="h-full flex flex-col gap-4">
           <h2 className="h2 !mb-0">{tour.title}</h2>
-          <Link className="link block size-fit text-lg !font-normal" href={`/${category?.alias}`}>
+          <Link
+            className="link block size-fit text-lg !font-normal"
+            href={`/${category?.alias}`}
+          >
             #{category?.title}
           </Link>
           <div>
@@ -79,8 +83,10 @@ async function TourItem({
         </div>
       </div>
       <div className="w-1/4 p-4 h-full flex flex-col gap-4">
-        <p className='text-xl'>Цена на человека:</p>
-        <p className='font-semibold text-xl text-primary-500'>{tour.price} рублей</p>
+        <p className="text-xl">Цена на человека:</p>
+        <p className="font-semibold text-xl text-primary-500">
+          {tour.price} рублей
+        </p>
         <Button
           className="mt-8"
           as={Link}

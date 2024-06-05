@@ -42,7 +42,7 @@ export default function TopNav({
   } = useDisclosure()
   return (
     <>
-      <Navbar maxWidth="xl">
+      <Navbar maxWidth="xl" shouldHideOnScroll height='5rem' isBordered isBlurred={false} >
         <NavbarBrand>
           <Link href="/" className="!font-bold !text-2xl top-nav-link">
             Турфирма Travel
@@ -64,7 +64,7 @@ export default function TopNav({
                   radius="sm"
                   variant="light"
                 >
-                  Категории
+                  Направления
                 </Button>
               </DropdownTrigger>
             </NavbarItem>
