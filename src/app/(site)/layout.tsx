@@ -1,6 +1,7 @@
 import TopNav from '@/app/ui/top-nav'
 import { auth } from '@/auth'
 import { fetchCategories } from '../data/categories-data'
+import Footer from '../ui/footer'
 
 export const revalidate = 3600
 
@@ -19,6 +20,7 @@ export default async function Layout({
       <main>
         {children}
       </main>
+      <Footer />
     </>
   )
 }

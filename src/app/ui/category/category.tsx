@@ -66,10 +66,9 @@ async function CategoryItem({
         </h3>
         <Chip
           variant="bordered"
-          size="sm"
           className="border-text-secondary text-text-secondary mt-[0.2rem] group-hover:text-primary-500 transition-all group-hover:border-primary-500"
         >
-          Количество туров: {categoryTours}
+          Туров: {categoryTours}
         </Chip>
       </div>
     </li>

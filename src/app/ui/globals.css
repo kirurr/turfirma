@@ -9,48 +9,52 @@
     --secondary-color: #050c28;
     --triary-color: #ebebeb;
   }
+
+  .h1 {
+    @apply text-4xl mb-16 font-bold;
+  }
+
+  .h2 {
+    @apply text-3xl mb-8 font-bold;
+  }
+  .h3 {
+    @apply text-xl mb-4 font-bold;
+  }
+
+  .section {
+    @apply py-[6rem] container mx-auto max-w-screen-xl;
+  }
+
+  .full-width {
+    box-shadow: 0 0 0 100vmax var(--secondary-color);
+    clip-path: inset(0 -100vmax);
+  }
+  .bg-triary-color.full-width {
+    box-shadow: 0 0 0 100vmax var(--triary-color);
+    clip-path: inset(0 -100vmax);
+  }
+
+  .p {
+    @apply mb-2 block text-lg;
+  }
+
+  .link {
+    @apply transition-all text-primary-500 font-semibold underline-offset-4 hover:text-primary-400 p-2 underline rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-500;
+  }
+
+  .top-nav-link {
+    @apply p-2 rounded-lg text-xl font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-500 underline-offset-2 hover:underline;
+  }
+
+  .active {
+    @apply bg-primary-50 hover:bg-primary-100;
+  }
+
+  .input-file {
+    @apply transition-all file:transition-all block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:bg-primary-500 file:text-text-secondary hover:file:bg-primary-400;
+  }
 }
 
-.h1 {
-  @apply text-4xl mb-16 font-bold;
-}
-
-.h2 {
-  @apply text-3xl mb-8 font-bold;
-}
-.h3 {
-  @apply text-xl mb-4 font-bold;
-}
-
-.section {
-  @apply py-16 container mx-auto max-w-screen-xl;
-}
-
-.full-width {
-  box-shadow: 0 0 0 100vmax var(--secondary-color);
-  clip-path: inset(0 -100vmax);
-}
-.bg-triary-color.full-width {
-  box-shadow: 0 0 0 100vmax var(--triary-color);
-  clip-path: inset(0 -100vmax);
-}
-
-.p {
-  @apply mb-2 block text-lg;
-}
-
-.link {
-  @apply transition-all text-primary-500 font-semibold underline-offset-4 hover:text-primary-400 p-2 underline rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-500;
-}
-
-.top-nav-link {
-  @apply p-2 rounded-lg text-xl font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-500 underline-offset-2 hover:underline;
-}
-
-.active {
-  @apply bg-primary-50 hover:bg-primary-100;
-}
-
-.input-file {
-  @apply transition-all file:transition-all block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:bg-primary-500 file:text-text-secondary hover:file:bg-primary-400;
+html {
+  scroll-behavior: smooth;
 }
