@@ -36,9 +36,9 @@ export default function BookForm({
       )}
       <Button color='primary' type="submit">Забронировать</Button>
       {errorMessage?.status && (
-        <div>
-          <p>{errorMessage.message}</p>
-          <Link href="/profile" >Личный кабинет</Link>
+        <div className='text-center'>
+          <p className='p font-semibold mt-4'>{errorMessage.message}</p>
+          <Link className='link text-xl' href="/profile" >Личный кабинет</Link>
         </div>
       )}
     </form>

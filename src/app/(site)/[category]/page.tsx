@@ -12,7 +12,6 @@ import ToursWrapper from '@/app/ui/category/tours'
 import CategoryBreadcumbs from '@/app/ui/category/breadcrumbs'
 import { Category } from '@/app/lib/definitions'
 import Hero from '@/app/ui/hero'
-import clsx from 'clsx'
 
 export async function generateStaticParams() {
   const categories = await fetchCategories(null)
@@ -58,11 +57,11 @@ export default async function Page({
         isButton={false}
         isParagraph={false}
       />
-      <section className="section">
+      <section className="section pb-8">
         <CategoryBreadcumbs category={category} />
         <Search className="mt-8" />
       </section>
-      <section className="section">
+      <section className="section pt-4">
         <ToursWrapper params={params} searchParams={searchParams} />
         {pages > 1 && (
           <Pagination className="mx-auto my-16 size-fit" totalPages={pages} />

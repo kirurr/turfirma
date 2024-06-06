@@ -6,6 +6,7 @@ import { fetchTourAndHotels } from '@/app/data/tours-data'
 import SignOutForm from '@/app/ui/auth/sign-out-button'
 import OrdersAccordion from '@/app/ui/profile/orders-accordion'
 import { Divider } from '@nextui-org/react'
+import Hero from '@/app/ui/hero'
 
 export default async function Page() {
   const session = await auth()
@@ -16,31 +17,35 @@ export default async function Page() {
 
   return (
     <>
-      <section className="section !pb-0">
-        <h1 className="h1 text-center">Личный кабинет</h1>
-        <div className="my-8">
-          <h2 className="h2">{user?.name}</h2>
-          <p className="p">
-            <strong className="font-semibold">Электронная почта: </strong>
-            {user?.email}
-          </p>
-          <p className="p">
-            <strong className="font-semibold">Данные паспорта: </strong>
-            {user?.passport}
-          </p>
+      <Hero
+        isParagraph={false}
+        isButton={false}
+        isFullHeight={false}
+        title="Личный кабинет"
+      />
+      <section className="section items-start flex gap-4">
+        <div className="w-full">
+            <h2 className="h2">{user?.name}</h2>
+            <p className="p">
+              <strong className="font-semibold">Электронная почта: </strong>
+              {user?.email}
+            </p>
+            <p className="p mb-8">
+              <strong className="font-semibold">Данные паспорта: </strong>
+              {user?.passport}
+            </p>
+          <SignOutForm />
         </div>
-        <SignOutForm />
-        <Divider className='my-16'/>
-      </section>
-      <section className="section !pt-0">
-        {orders.length > 0 ? (
-          <>
-            <h2 className="h2">Ваши заказы:</h2>
-            <OrdersWrapper orders={orders} user={user} />
-          </>
-        ) : (
-          <h2 className="h2">У вас нет заказов.</h2>
-        )}
+        <div className="w-full">
+          {orders.length > 0 ? (
+            <>
+              <h2 className="h2 text-center">Ваши заказы:</h2>
+              <OrdersWrapper orders={orders} user={user} />
+            </>
+          ) : (
+            <h2 className="h2">У вас нет заказов.</h2>
+          )}
+        </div>
       </section>
     </>
   )

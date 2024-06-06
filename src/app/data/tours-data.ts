@@ -19,7 +19,7 @@ export const fetchPopularTours = cache(async () => {
         FROM tours t
         LEFT JOIN orders o ON t.id = o.tour_id
         GROUP BY t.id
-        ORDER BY order_count DESC LIMIT 6
+        ORDER BY order_count DESC LIMIT 3
         `
         return tours.rows
     } catch (error) {

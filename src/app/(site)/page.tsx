@@ -14,7 +14,7 @@ export default async function Page() {
     <>
       <Hero />
       <section className="section full-width flex items-center bg-secondary-color">
-        <h2 className="h2 !text-2xl !mb-0 w-1/3 text-text-secondary">
+        <h2 className="h2 text-2xl mb-0 w-1/3 text-text-secondary">
           Куда вы хотите отправиться?
         </h2>
         <MainSearch categories={categories} />

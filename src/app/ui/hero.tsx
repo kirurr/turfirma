@@ -33,6 +33,7 @@ export default function Hero({
           alt="Изображение на главной странице"
           fill
           className="object-cover select-none pointer-events-none"
+          quality={100}
         />
         <div className="relative w-fit p-4 rounded-lg backdrop-blur-sm border-gray-50/10 border-2">
           <h1 className="font-bold text-6xl block text-text-secondary">

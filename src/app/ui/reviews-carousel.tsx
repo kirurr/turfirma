@@ -24,7 +24,7 @@ export default function ReviewsCarousel({
             <CarouselItem key={index}>
               <h3 className="mb-2 font-bold text-3xl">{review.title}</h3>
               <p className="text-2xl">{review.content}</p>
-              <p className='text-lg'>{user.name}</p>
+              <p className="text-lg">{user.name}</p>
             </CarouselItem>
           )
         })}

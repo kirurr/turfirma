@@ -15,7 +15,7 @@ export default function OrdersAccordion({
   user: User
 }) {
   return (
-    <Accordion>
+    <Accordion variant='shadow'>
       {orders.map((order, index) => {
         const orderTour = tours.find((tour) => tour.id === order.tour_id)
         let orderHotel

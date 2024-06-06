@@ -42,7 +42,13 @@ export default function TopNav({
   } = useDisclosure()
   return (
     <>
-      <Navbar maxWidth="xl" shouldHideOnScroll height='5rem' isBordered isBlurred={false} >
+      <Navbar
+        maxWidth="xl"
+        shouldHideOnScroll
+        height="5rem"
+        isBordered
+        isBlurred={false}
+      >
         <NavbarBrand>
           <Link href="/" className="!font-bold !text-2xl top-nav-link">
             Турфирма Travel
@@ -113,16 +119,9 @@ export default function TopNav({
       <SignUpModal
         isOpen={isSignUpOpen}
         onOpen={onSignUpOpen}
+        onOpenChange={onSignUpOpenChange}
         onClose={onSignUpClose}
       />
     </>
-  )
-}
-
-function TopNavItem({ href, title }: { href: string; title: string }) {
-  return (
-    <li>
-      <Link href={href}>{title}</Link>
-    </li>
   )
 }

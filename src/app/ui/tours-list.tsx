@@ -34,38 +34,41 @@ async function TourItem({
   const image = await fetchTourBlobs(tour.alias)
   const category = (await fetchCategoryById(tour.category_id)) as Category
   return (
-    <li className="flex flex-col rounded-lg overflow-hidden shadow">
+    <li className="flex flex-col rounded-lg shadow focus-within:outline-primary-500 focus-within:outline focus-within:outline-offset-2">
       <Link
         href={`/${category.alias}/${tour.alias}`}
-        className="block size-full"
+        className="block size-full focus-visible:outline-none"
       >
-        <div className="relative size-full min-h-[15rem] rounded-t-lg">
+        <div className="relative size-full min-h-[15rem] rounded-t-lg overflow-hidden">
           <Image
             src={image[0].url}
             alt={tour.title}
             fill
             className="object-cover"
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
       </Link>
       <div className="p-2 flex flex-col text-start">
         <div className="flex items-center">
-          <Link href={`/${category.alias}/${tour.alias}`}>
-            <h3 className="h3 !text-2xl !m-0 hover:text-primary-500 transition-all">
+          <Link
+            href={`/${category.alias}/${tour.alias}`}
+            className="focus-visible:outline-none"
+          >
+            <h3 className="h3 text-2xl mb-1 hover:text-primary-500 transition-all">
               {tour.title}
             </h3>
           </Link>
           <span className="font-semibold ml-auto text-xl">{tour.price} ₽</span>
         </div>
-          <p>
-            <Link
-              href={`/${category.alias}`}
-              className="hover:text-primary-500 transition-all"
-            >
-              #{category.title}
-            </Link>
-          </p>
+        <p>
+          <Link
+            href={`/${category.alias}`}
+            className="hover:text-primary-500 transition-all focus-visible:outline-primary-500 outline-2 p-1 rounded-lg"
+          >
+            #{category.title}
+          </Link>
+        </p>
         <div className="flex flex-wrap my-6">
           <p className="font-semibold p mb-4 w-1/2 text-nowrap">
             Количество заказов: {tour.order_count}
