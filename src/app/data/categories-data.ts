@@ -15,13 +15,15 @@ export const fetchCategories = cache(async (limit: number | null = 6) => {
 })
 
 export const fetchCategoryIdByAlias = cache(async (alias: string) => {
-    if(alias === 'tours') {
+    if (alias === 'tours') {
         return null
     }
     try {
-    const category = await sql<{id: string}>`SELECT id FROM categories WHERE alias = ${alias}`
-    return category.rows[0]
-    } catch(error) {
+        const category = await sql<{
+            id: string
+        }>`SELECT id FROM categories WHERE alias = ${alias}`
+        return category.rows[0]
+    } catch (error) {
         console.log(error)
         throw new Error('failed to fetch category id')
     }

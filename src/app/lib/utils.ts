@@ -13,3 +13,7 @@ export function formatDateFromPostgreSQL(date: string): string {
 export function generateAlias(title: string): string {
     return cyrillicToTranslit().transform(title, '_')
 }
+
+export function checkForActiveLink(pathname: string, link: string) {
+    return pathname.split('/')[2] === link.split('/')[2]
+}

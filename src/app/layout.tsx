@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en" className="light">
       <body
         className={cn(
-          'bg-background font-sans antialiased',
+          'bg-primary-color font-sans antialiased',
           fontSans.variable
         )}
       >

@@ -2,9 +2,8 @@ import { fetchCategoryById } from '../data/categories-data'
 import { fetchPopularTours, fetchTourBlobs } from '../data/tours-data'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Category } from '../lib/definitions'
-import { formatDateFromPostgreSQL } from '../lib/utils'
-import { Button } from '@nextui-org/react'
+import { Category } from '@/app/lib/definitions'
+import { Button, Divider } from '@nextui-org/react'
 
 export default async function ToursList() {
   const tours = await fetchPopularTours()
@@ -26,10 +25,11 @@ async function TourItem({
     alias: string
     order_count: number
     category_id: string
-    date: string
     duration: number
     price: number
+    description: string
   }
+
 }) {
   const image = await fetchTourBlobs(tour.alias)
   const category = (await fetchCategoryById(tour.category_id)) as Category
@@ -59,32 +59,28 @@ async function TourItem({
               {tour.title}
             </h3>
           </Link>
-          <span className="font-semibold ml-auto text-xl">{tour.price} ₽</span>
+          <span className="font-semibold ml-auto text-2xl text-primary-500">
+            {tour.price} ₽
+          </span>
         </div>
-        <p>
-          <Link
-            href={`/${category.alias}`}
-            className="hover:text-primary-500 transition-all focus-visible:outline-primary-500 outline-2 p-1 rounded-lg"
-          >
-            #{category.title}
-          </Link>
-        </p>
-        <div className="flex flex-wrap my-6">
-          <p className="font-semibold p mb-4 w-1/2 text-nowrap">
-            Количество заказов: {tour.order_count}
+        <div className="flex mb-4">
+          <p>
+            <Link
+              href={`/${category.alias}`}
+              className="hover:text-primary-500 transition-all focus-visible:outline-primary-500 outline-2  rounded-lg text-lg"
+            >
+              #{category.title}
+            </Link>
           </p>
-          <p className="font-semibold p !m-0 w-1/2 text-end">
-            Дата: {formatDateFromPostgreSQL(tour.date)}
-          </p>
-          <p className="font-semibold p !m-0">
-            Продолжительность: {tour.duration} день
-          </p>
+          <p className="text-lg ml-auto">{tour.duration} дней</p>
         </div>
+        <Divider />
+        <p className="text-xl mt-4 mb-8">{tour.description}</p>
         <Button
           color="primary"
           as={Link}
-          variant="bordered"
           href={`/${category.alias}/${tour.alias}`}
+          className="w-2/3 mx-auto text-lg"
         >
           Подробнее
         </Button>

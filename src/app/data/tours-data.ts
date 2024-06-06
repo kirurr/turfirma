@@ -11,11 +11,11 @@ export const fetchPopularTours = cache(async () => {
             alias: string
             order_count: number
             category_id: string
-            date: string
             duration: number
             price: number
+            description: string
         }>`
-        SELECT t.id, t.title, t.alias, t.category_id, t.date, t.duration, t.price, COUNT(o.id) AS order_count
+        SELECT t.id, t.title, t.alias, t.category_id, t.duration, t.price, t.description, COUNT(o.id) AS order_count
         FROM tours t
         LEFT JOIN orders o ON t.id = o.tour_id
         GROUP BY t.id

@@ -207,23 +207,21 @@ export async function updateTour(
     }
 
     const images = formData.getAll('image') as File[]
-    let imagesArray
-    if (images.length > 0) {
+    let imagesArray: string[] = []
+    if (images.length >= 1 && images[0].size > 0) {
         try {
-
             const oldImages = await fetchTourBlobs(prevData.alias)
             await Promise.all(
                 oldImages.map(async (image) => await deleteBlob(image.url))
             )
 
-            imagesArray = await Promise.all(
+            await Promise.all(
                 images.map(
                     async (image) => await uploadBLob(prevData.alias, image)
                 )
             )
 
             imagesArray = images.map((item) => item.name.split('.')[0])
-            
         } catch (error) {
             console.log(error)
             return {

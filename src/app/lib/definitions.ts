@@ -65,3 +65,8 @@ export type Review = {
     is_positive: boolean
     is_accepted: boolean
 }
+
+export type AdminLink = {
+    name: string
+    href: string
+}
