@@ -13,12 +13,5 @@ export async function generateStaticParams() {
 export default async function Page({ params }: { params: { id: string } }) {
   const user = await fetchUserById(params.id)
   if (!user) notFound()
-  return (
-    <section className="section !max-w-xl">
-      <h2 className="h2 text-center">
-        Редактирование пользователя {user.name}
-      </h2>
-      <EditUsersForm userData={user} />
-    </section>
-  )
+  return <EditUsersForm userData={user} />
 }

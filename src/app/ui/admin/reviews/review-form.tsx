@@ -1,17 +1,21 @@
 'use client'
 
-import { Review } from "@/app/lib/definitions";
-import { Input, Radio, RadioGroup, Textarea } from "@nextui-org/react";
-import { FormButton } from "@/app/ui/auth/auth-forms";
-import { useFormState } from "react-dom";
-import { updateReview } from "@/app/actions/review-actions";
+import { Review } from '@/app/lib/definitions'
+import { Button, Input, Radio, RadioGroup, Textarea } from '@nextui-org/react'
+import { FormButton } from '@/app/ui/auth/auth-forms'
+import { useFormState } from 'react-dom'
+import { updateReview } from '@/app/actions/review-actions'
+import Link from 'next/link'
 
-export function AdminReviewForm({review}: {review: Review}) {
+export function AdminReviewForm({ review }: { review: Review }) {
   const updateReviewWithId = updateReview.bind(null, review.id)
-  const [state, dispatch] = useFormState(updateReviewWithId, {status: false, message: '', errors: {}})
+  const [state, dispatch] = useFormState(updateReviewWithId, {
+    status: false,
+    message: '',
+    errors: {}
+  })
   return (
     <form action={dispatch} className="flex flex-col gap-4 w-1/2 mx-auto">
-      <h2 className="h2 text-center">Оставить отзыв</h2>
       <Input
         name="title"
         label="Название"
@@ -45,7 +49,17 @@ export function AdminReviewForm({review}: {review: Review}) {
         <Radio value="true">Принят</Radio>
         <Radio value="false">На рассмотрении</Radio>
       </RadioGroup>
-      <FormButton title="Отправить отзыв" className="w-fit mx-auto" />
+      <div className="flex items-center justify-center gap-4">
+        <FormButton title="Применить" />
+        <Button
+          variant="bordered"
+          color="danger"
+          as={Link}
+          href="/admin/reviews"
+        >
+          Отмена
+        </Button>
+      </div>
       {state && <p>{state.message}</p>}
     </form>
   )

@@ -12,10 +12,5 @@ export default async function Page({ params }: { params: { id: string } }) {
   const review = await fetchReview(params.id)
   if (!review) notFound()
 
-  return (
-    <section className="section">
-      <h2 className="h2 text-center">Редактирование отзыва</h2>
-      <AdminReviewForm review={review} />
-    </section>
-  )
+  return <AdminReviewForm review={review} />
 }

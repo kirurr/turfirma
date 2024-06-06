@@ -21,12 +21,5 @@ export default async function Page({ params }: { params: { alias: string } }) {
   if (!category) notFound()
   const images = await fetchCategoriesBlobs()
 
-  return (
-    <section className="section">
-      <h2 className="h2 text-center !mb-8">
-        Редактирование категории: {category.title}
-      </h2>
-      <EditForm images={images} category={category} />
-    </section>
-  )
+  return <EditForm images={images} category={category} />
 }

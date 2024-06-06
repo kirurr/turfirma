@@ -1,5 +1,16 @@
+import { Spinner } from "@nextui-org/react"
+import { Suspense } from "react"
+
 export default function Page() {
-	return (
-		<h1>hi hih ihi admin</h1>
+  return (
+    <Suspense fallback={<Spinner size="lg" className="size-full" />}>
+      <Main />
+    </Suspense>
+  )
+}
+
+async function Main() {
+  return (
+		<h1>hihi</h1>
 	)
 }

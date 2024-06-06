@@ -8,7 +8,7 @@ export default function Page() {
 
   return (
     <div className="text-center">
-      <h2 className="h2 my-8">Такого отзыва нет :(</h2>
+      <h2 className="h2 my-8">Такого отеля нет :(</h2>
       <Button color="primary" onPress={() => router.back()}>
         Назад
       </Button>

@@ -7,9 +7,11 @@ export default function Page() {
   const router = useRouter()
 
   return (
-    <section className='section text-center'>
-      <h1 className='h1 mb-8'>Такого тура нет :(</h1>
-      <Button color='primary' size='lg' onPress={() => router.back()}>Назад</Button>
-    </section>
+    <div className="text-center">
+      <h2 className="h2 my-8">Такого тура нет :(</h2>
+      <Button color="primary" onPress={() => router.back()}>
+        Назад
+      </Button>
+    </div>
   )
 }

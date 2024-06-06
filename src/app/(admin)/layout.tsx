@@ -2,6 +2,7 @@ import Navigation from '@/app/ui/admin/navigation'
 import Link from 'next/link'
 import Label from '@/app/ui/admin/label'
 import { AdminLink } from '@/app/lib/definitions'
+import { Suspense } from 'react'
 
 const links: AdminLink[] = [
   {

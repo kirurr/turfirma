@@ -31,13 +31,9 @@ export function AdminToursWrapper({
         />
       )}
       <div className="w-2/4">
-        <p className="text-xl">
+        <p className="text-xl mb-2">
           <strong className="font-semibold">Название: </strong>
           {tour.title}
-        </p>
-        <p className="text-xl my-2">
-          <strong className="font-semibold">Описание: </strong>
-          {tour.description}
         </p>
         {tour.hotels_ids?.length! > 0 ? (
           <p className="text-xl">
@@ -47,13 +43,13 @@ export function AdminToursWrapper({
         ) : (
           <p className="text-xl font-semibold">В этом туре нет отелей</p>
         )}
-      </div>
-      <div className="w-1/4">
         {orders > 0 && (
-          <p className="font-semibold text-xl mb-2">
+          <p className="font-semibold text-xl mt-2">
             Количество заказов: {orders}
           </p>
         )}
+      </div>
+      <div className="w-1/4">
         <p className="text-xl mb-2">
           <strong className="font-semibold">Дата: </strong>
           {formatDateFromPostgreSQL(tour.date)}

@@ -1,16 +1,13 @@
 'use client'
 
-import { AdminLink } from '@/app/lib/definitions';
-import { checkForActiveLink } from '@/app/lib/utils';
-import clsx from 'clsx';
+import { AdminLink } from '@/app/lib/definitions'
+import { checkForActiveLink } from '@/app/lib/utils'
+import { Button } from '@nextui-org/react'
+import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-export default function Navigation({
-  links
-}: {
-  links: AdminLink[]
-}) {
+export default function Navigation({ links }: { links: AdminLink[] }) {
   const pathname = usePathname()
   return (
     <nav>
@@ -18,10 +15,19 @@ export default function Navigation({
         {links.map((link, index) => {
           const isActive = checkForActiveLink(pathname, link.href)
           return (
-            <li key={index} className={clsx("w-full flex items-center rounded-lg bg-primary-50 border-2 border-primary-200", isActive ? "border-primary-500" : "")}>
-              <Link href={link.href} className='size-full px-2 py-4 rounded-lg text-lg font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-500 underline-offset-2'>
+            <li key={index}>
+              <Button
+                as={Link}
+                href={link.href}
+                variant="ghost"
+                className={clsx(
+                  'text-text-primary size-full',
+                  isActive && 'bg-primary-500 text-text-secondary'
+                )}
+                color="primary"
+              >
                 {link.name}
-              </Link>
+              </Button>
             </li>
           )
         })}

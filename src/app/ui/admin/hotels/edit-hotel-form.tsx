@@ -49,7 +49,7 @@ export default function EditHotelForm({
             <FormButton title="Применить" />
             <Button
               as={Link}
-              href="/admin/categories"
+              href="/admin/hotels"
               color="danger"
               className="ml-4"
               variant="bordered"

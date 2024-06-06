@@ -2,24 +2,24 @@ import { fetchOrdersCountByTourId } from '@/app/data/orders-data'
 import { fetchAllTours } from '@/app/data/tours-data'
 import { Tour } from '@/app/lib/definitions'
 import { AdminToursWrapper } from '@/app/ui/admin/tours/tours'
-import { Button } from '@nextui-org/react'
-import Link from 'next/link'
+import { Spinner } from '@nextui-org/react'
+import { Suspense } from 'react'
 
-export default async function Page() {
+export default function Page() {
+  return (
+    <Suspense fallback={<Spinner size="lg" className="size-full" />}>
+      <Tours />
+    </Suspense>
+  )
+}
+
+async function Tours() {
   const tours = await fetchAllTours()
   return (
     <>
-      <section className="section text-center">
-        <h2 className="h2 text-center">Туры</h2>
-        <Button color="primary" as={Link} href="tours/new">
-          Добавить
-        </Button>
-      </section>
-      <section className="section">
-        {tours.map((tour, index) => (
-          <TourWrapper key={index} tour={tour} />
-        ))}
-      </section>
+      {tours.map((tour, index) => (
+        <TourWrapper key={index} tour={tour} />
+      ))}
     </>
   )
 }
