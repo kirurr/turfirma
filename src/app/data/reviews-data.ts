@@ -14,6 +14,18 @@ export const fetchLastReviews = cache(async () => {
     }
 })
 
+export const fetchNotAcceptedReviews = cache(async () => {
+    try {
+        const reviews = await sql<Review>`
+			SELECT * FROM reviews WHERE is_accepted = false
+		`
+        return reviews.rows
+    } catch (error) {
+        console.log(error)
+        throw new Error('failed to fetch reviews')
+    }
+})
+
 export const fetchReviews = cache(async (isAccepted: boolean = true) => {
     try {
         const reviews = await sql<Review>`

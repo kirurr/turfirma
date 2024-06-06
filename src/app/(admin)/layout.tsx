@@ -37,13 +37,13 @@ const links: AdminLink[] = [
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <main className=" max-w-screen-xl bg-primary-100 rounded-lg mx-auto mt-8 admin-grid p-2">
-      <section className="col-start-1 p-2 flex items-center">
+    <main className=" max-w-screen-xl bg-primary-100 rounded-lg mx-auto mt-16 admin-grid p-2">
+      <section className="col-start-1 p-2 flex items-center rounded-lg bg-primary-500">
         <Link
           href="/"
-          className="text-xl mx-auto link text-text-primary hover:text-primary-500"
+          className="text-xl mx-auto link text-text-primary hover:text-primary-900"
         >
-          Обратно
+          Турфирма Travel
         </Link>
       </section>
       <Label links={links} />

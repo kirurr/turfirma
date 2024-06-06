@@ -2,6 +2,18 @@ import { sql } from '@vercel/postgres'
 import { Order } from '@/app/lib/definitions'
 import { cache } from 'react'
 
+export const fetchNotPaidOrders = cache(async () => {
+    try {
+        const orders = await sql<Order>`
+			SELECT * FROM orders WHERE status = 'pending'
+		`
+        return orders.rows
+    } catch (error) {
+        console.log(error)
+        throw new Error('failed to fetch orders')
+    }
+})
+
 export const fetchOrdersByUserId = cache(async (userId?: string) => {
     try {
         const orders = await sql<Order>`
