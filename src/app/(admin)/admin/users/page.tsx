@@ -1,4 +1,5 @@
 import { fetchOrdersByUserId } from '@/app/data/orders-data'
+import { fetchReveiwsByUser } from '@/app/data/reviews-data'
 import { fetchUsers } from '@/app/data/users-data'
 import { User } from '@/app/lib/definitions'
 import { AdminUserWrapper } from '@/app/ui/admin/users/users'
@@ -26,5 +27,6 @@ async function Users() {
 
 async function UserWrapper({ user }: { user: User }) {
   const ordersCount = (await fetchOrdersByUserId(user.id)).length
-  return <AdminUserWrapper user={user} ordersCount={ordersCount} />
+  const reviews = await fetchReveiwsByUser(user.id)
+  return <AdminUserWrapper user={user} ordersCount={ordersCount} reviews={reviews} />
 }

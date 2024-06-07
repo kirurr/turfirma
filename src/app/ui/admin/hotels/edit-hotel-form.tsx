@@ -21,65 +21,63 @@ export default function EditHotelForm({
   const [result, dispatch] = useFormState(updateHotelWithPrevData, initialState)
 
   return (
-    <form action={dispatch} className="flex flex-col gap-4">
-      <div className="flex gap-4">
-        <div className="size-full flex flex-col gap-4">
-          <Input
-            name="title"
-            label="Название отеля"
-            placeholder="Введите название отеля"
-            defaultValue={hotel.title}
-            isRequired
-          />
-          <Textarea
-            name="description"
-            label="Описание отеля"
-            placeholder="Введите описание отеля"
-            defaultValue={hotel.description}
-            isRequired
-          />
-          <Input
-            name="mapUrl"
-            label="Ссылка на гугл-карту"
-            description="Атрибут src для карты"
-            defaultValue={hotel.map_url}
-            isRequired
-          />
-          <div className="">
-            <FormButton title="Применить" />
-            <Button
-              as={Link}
-              href="/admin/hotels"
-              color="danger"
-              className="ml-4"
-              variant="bordered"
-            >
-              Отмена
-            </Button>
-          </div>
+    <form action={dispatch} className="flex flex-col-reverse sm:flex-row gap-4">
+      <div className="size-full flex flex-col gap-4">
+        <Input
+          name="title"
+          label="Название отеля"
+          placeholder="Введите название отеля"
+          defaultValue={hotel.title}
+          isRequired
+        />
+        <Textarea
+          name="description"
+          label="Описание отеля"
+          placeholder="Введите описание отеля"
+          defaultValue={hotel.description}
+          isRequired
+        />
+        <Input
+          name="mapUrl"
+          label="Ссылка на гугл-карту"
+          description="Атрибут src для карты"
+          defaultValue={hotel.map_url}
+          isRequired
+        />
+        <div className="">
+          <FormButton title="Применить" />
+          <Button
+            as={Link}
+            href="/admin/hotels"
+            color="danger"
+            className="ml-4"
+            variant="bordered"
+          >
+            Отмена
+          </Button>
         </div>
-        <div>
-          <p className="p">Текущее изображение:</p>
-          <div className="relative h-[20rem] w-[30rem] overflow-hidden rounded-lg mb-4">
-            <Image
-              src={image?.url!}
-              fill
-              alt="Изображение категории"
-              className="object-cover"
-            />
-          </div>
-          <div className="w-full">
-            <input
-              className="input-file"
-              type="file"
-              id="image"
-              name="image"
-              accept="image/*"
-            />
-            <p className="my-4">
-              Внимание! При загрузки нового изображения старое будет удалено.
-            </p>
-          </div>
+      </div>
+      <div>
+        <p className="p">Текущее изображение:</p>
+        <div className="relative h-[20rem] w-full sm:w-[30rem] overflow-hidden rounded-lg mb-4">
+          <Image
+            src={image?.url!}
+            fill
+            alt="Изображение категории"
+            className="object-cover"
+          />
+        </div>
+        <div className="w-full">
+          <input
+            className="input-file"
+            type="file"
+            id="image"
+            name="image"
+            accept="image/*"
+          />
+          <p className="my-4">
+            Внимание! При загрузки нового изображения старое будет удалено.
+          </p>
         </div>
       </div>
       {!result.status && <p>{result.message}</p>}

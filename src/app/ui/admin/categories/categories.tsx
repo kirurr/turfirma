@@ -46,7 +46,7 @@ function CategoriesItem({
     setPrevState(category)
   }
   return (
-    <li className="relative p-4 my-4 shadow rounded flex items-center">
+    <li className="relative p-2 sm:p-4 my-4 shadow rounded flex items-center">
       {isLoading && (
         <Spinner
           size="lg"
@@ -59,7 +59,7 @@ function CategoriesItem({
           {category.title}
         </p>
       </div>
-      <div className="size-full text-center">
+      <div className="hidden sm:block size-full text-center">
         {toursCount > 0 ? (
           <p className="text-xl">
             <strong className="font-semibold">
@@ -70,7 +70,7 @@ function CategoriesItem({
           ''
         )}
       </div>
-      <div className="size-full text-end">
+      <div className="size-full sm:text-end sm:block flex flex-col items-center gap-2 justify-center">
         <Button
           as={Link}
           href={`categories/${category.alias}`}
@@ -85,7 +85,7 @@ function CategoriesItem({
             content="Нельзя удалить категорию, в которой есть туры."
             closeDelay={1000}
           >
-            <Button className="ml-4" variant="bordered">
+            <Button className="sm:ml-4" variant="bordered">
               Удалить
             </Button>
           </Tooltip>
@@ -100,7 +100,7 @@ function CategoriesItem({
                 await deleteCategory(category)
               }
             }}
-            className="ml-4"
+            className="sm:ml-4"
             color="danger"
             variant="bordered"
           >

@@ -12,7 +12,7 @@ export default function Page() {
   const [result, dispatch] = useFormState(createHotel, initialState)
 
   return (
-    <form action={dispatch} className="flex flex-col gap-4 w-2/3 mx-auto">
+    <form action={dispatch} className="flex flex-col gap-4 w-full sm:w-2/3 mx-auto">
       <Input
         name="title"
         label="Название отеля"

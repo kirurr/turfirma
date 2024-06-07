@@ -16,7 +16,7 @@ export default function EditUserForm({ userData }: { userData: User }) {
   const updateUserWithPrevData = updateUser.bind(null, userData)
   const [result, dispatch] = useFormState(updateUserWithPrevData, initialState)
   return (
-    <form action={dispatch} className="flex flex-col gap-4 w-1/2 mx-auto">
+    <form action={dispatch} className="flex flex-col gap-4 w-full sm:w-1/2 mx-auto">
       <div className="flex gap-4">
         <div className="size-full flex flex-col gap-4">
           <Input

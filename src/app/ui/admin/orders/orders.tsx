@@ -31,7 +31,7 @@ export function AdminOrder({
     setPrevState(order)
   }
   return (
-    <li className="relative p-4 my-4 rounded z-0 flex items-center shadow gap-4">
+    <li className="relative p-2 sm:p-4 my-4 rounded z-0 flex items-center shadow flex-wrap sm:flex-nowrap sm:gap-4">
       {isLoading && (
         <Spinner
           size="lg"
@@ -39,23 +39,28 @@ export function AdminOrder({
         />
       )}
       <div className="w-full">
-        <p className="text-xl">
+        <p className="text-xl sm:mb-0 mb-2">
           <strong className="font-semibold">Тур:</strong> {tour.title}
         </p>
         {tour.hotels_info.length > 0 && (
-          <p className="text-xl mt-2">
+          <p className="text-xl sm:mb-0 my-2">
             <strong className="font-semibold">Отель:</strong>{' '}
             {
-              tour.hotels_info.find((hotel) => hotel.id === order.hotel_id)?.title
+              tour.hotels_info.find((hotel) => hotel.id === order.hotel_id)
+                ?.title
             }
           </p>
         )}
       </div>
       <div className="w-full">
-        <p className="text-xl"><strong className='font-semibold'>Пользователь:</strong> {user.name}</p>
-        <p className="text-xl mt-2"><strong className='font-semibold'>Почта:</strong> {user.email}</p>
+        <p className="text-xl">
+          <strong className="font-semibold">Пользователь:</strong> {user.name}
+        </p>
+        <p className="text-xl mt-2">
+          <strong className="font-semibold">Почта:</strong> {user.email}
+        </p>
       </div>
-      <div className="w-full text-end">
+      <div className="w-full mt-4 sm:m-0 text-center sm:text-end">
         <Dropdown>
           <DropdownTrigger>
             <Button

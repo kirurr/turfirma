@@ -28,7 +28,7 @@ export default function NewTourForm({
 
   return (
     <form action={dispatch} className="flex flex-wrap">
-      <div className="w-1/2 flex flex-col gap-4 pr-2">
+      <div className="w-full sm:w-1/2 flex flex-col gap-4 sm:pr-2">
         <Input name="title" label="Название тура" isRequired />
         <Textarea name="description" label="Описание тура" isRequired />
         <Input name="price" type="number" label="Цена тура" isRequired />
@@ -48,7 +48,7 @@ export default function NewTourForm({
           />
         </div>
       </div>
-      <div className="w-1/2 flex flex-col gap-4 pl-2">
+      <div className="w-full sm:w-1/2 flex flex-col gap-4 mt-4 sm:m-0 sm:pl-2">
         <Select
           items={hotels}
           label="Выберите отели"

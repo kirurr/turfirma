@@ -23,7 +23,7 @@ export function AdminToursWrapper({
   }
 
   return (
-    <li className="relative p-4 my-4 rounded z-0 flex items-center shadow gap-4">
+    <li className="relative p-2 sm:p-4 my-4 rounded z-0 flex items-center shadow gap-4">
       {isLoading && (
         <Spinner
           size="lg"
@@ -31,25 +31,24 @@ export function AdminToursWrapper({
         />
       )}
       <div className="w-2/4">
-        <p className="text-xl mb-2">
-          <strong className="font-semibold">Название: </strong>
-          {tour.title}
-        </p>
+        <p className="text-xl mb-2 font-semibold text-balance">{tour.title}</p>
         {tour.hotels_ids?.length! > 0 ? (
-          <p className="text-xl">
+          <p className="text-xl hidden sm:block">
             <strong className="font-semibold">Количество отелей: </strong>
             {tour.hotels_ids?.length}
           </p>
         ) : (
-          <p className="text-xl font-semibold">В этом туре нет отелей</p>
+          <p className="text-xl font-semibold hidden sm:block">
+            В этом туре нет отелей
+          </p>
         )}
         {orders > 0 && (
-          <p className="font-semibold text-xl mt-2">
+          <p className="font-semibold text-xl mt-2 hidden sm:block">
             Количество заказов: {orders}
           </p>
         )}
       </div>
-      <div className="w-1/4">
+      <div className="w-1/4 hidden sm:block">
         <p className="text-xl mb-2">
           <strong className="font-semibold">Дата: </strong>
           {formatDateFromPostgreSQL(tour.date)}
@@ -59,7 +58,7 @@ export function AdminToursWrapper({
           {tour.price} рублей
         </p>
       </div>
-      <div className="w-1/4 h-full text-end">
+      <div className="sm:w-1/4 sm:block flex flex-col gap-2 items-center justify-center h-full text-end">
         <Button as={Link} href={`tours/${tour.id}`} color="primary">
           Редактировать
         </Button>
@@ -70,7 +69,7 @@ export function AdminToursWrapper({
             closeDelay={1000}
           >
             <Button
-              className="ml-4"
+              className="sm:ml-4"
               variant="bordered"
               disableRipple
               disableAnimation
@@ -89,7 +88,7 @@ export function AdminToursWrapper({
                 await deleteTour(tour.id, tour.alias)
               }
             }}
-            className="ml-4"
+            className="sm:ml-4"
             color="danger"
             variant="bordered"
           >

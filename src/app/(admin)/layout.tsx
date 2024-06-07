@@ -6,7 +6,7 @@ import NavDropdown from '../ui/admin/nav-dropdown'
 
 const links: AdminLink[] = [
   {
-    name: 'Главная',
+    name: 'Админ',
     href: '/admin'
   },
   {
@@ -38,7 +38,7 @@ const links: AdminLink[] = [
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <main className=" max-w-screen-xl bg-primary-100 rounded-lg mx-auto sm:mt-16 flex flex-wrap sm:grid grid-cols-[20%_80%] grid-rows-[max-content_1fr] p-2">
-      <section className="col-start-1 py-2 sm:p-2 rounded-lg sm:bg-primary-500 w-full">
+      <section className="col-start-1 py-2 sm:p-0 rounded-lg sm:bg-primary-300 sm:outline-2 sm:outline-primary-500 sm:outline w-full">
         <>
           <div className="flex items-center gap-4 justify-between sm:hidden relative">
             <NavDropdown links={links} />
@@ -46,7 +46,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
           <Link
             href="/"
-            className=" hidden sm:block text-xl mx-auto link text-text-primary hover:text-primary-900"
+            className="text-center hidden sm:block text-xl size-full p-2 link text-text-primary hover:text-text-secondary rounded-lg hover:bg-primary-500 no-underline"
           >
             Турфирма Travel
           </Link>
@@ -59,7 +59,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <section className="hidden sm:block p-2">
         <Navigation links={links} />
       </section>
-      <section className="col-start-2 row-start-2 bg-primary-color rounded-lg p-2">
+      <section className="col-start-2 row-start-2 bg-primary-color rounded-lg p-2 w-full min-h-screen sm:w-auto sm:min-h-0">
         {children}
       </section>
     </main>

@@ -15,7 +15,7 @@ export function AdminReviewForm({ review }: { review: Review }) {
     errors: {}
   })
   return (
-    <form action={dispatch} className="flex flex-col gap-4 w-1/2 mx-auto">
+    <form action={dispatch} className="flex flex-col gap-4 w-full sm:w-1/2 mx-auto">
       <Input
         name="title"
         label="Название"

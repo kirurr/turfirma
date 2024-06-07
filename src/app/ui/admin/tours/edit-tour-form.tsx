@@ -34,7 +34,7 @@ export default function EditTourForm({
 
   return (
     <form action={dispatch} className="flex flex-wrap">
-      <div className="w-1/2 flex flex-col gap-4 pr-2">
+      <div className="w-full sm:w-1/2 flex flex-col gap-4 sm:pr-2">
         <Input
           name="title"
           label="Название тура"
@@ -77,7 +77,7 @@ export default function EditTourForm({
           </p>
         </div>
       </div>
-      <div className="w-1/2 flex flex-col gap-4 pl-2">
+      <div className="w-full sm:w-1/2 flex flex-col gap-4 mt-4 sm:m-0 sm:pl-2">
         <Select
           items={hotels}
           label="Выберите отели"

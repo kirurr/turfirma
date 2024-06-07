@@ -58,3 +58,13 @@ export const fetchReview = cache(async (id: string) => {
         throw new Error('failed to fetch review')
     }
 })
+
+export const fetchReveiwsByUser = cache(async (id: string) => {
+    try {
+        const review = await sql<Review>`SELECT * FROM reviews WHERE user_id = ${id}`
+        return review.rows
+    } catch (error) {
+        console.log(error)
+        throw new Error('failed to fetch review')
+    }
+})

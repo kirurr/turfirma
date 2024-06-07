@@ -21,30 +21,29 @@ export function AdminHotelWrapper({
     setPrevState(hotel)
   }
   return (
-    <li className="relative p-4 my-4 rounded z-0 flex items-center shadow gap-4">
+    <li className="relative p-2 sm:p-4 my-4 rounded z-0 flex items-center shadow gap-4">
       {isLoading && (
         <Spinner
           size="lg"
           className="size-full absolute top-0 left-0 z-50 backdrop-blur-sm"
         />
       )}
-      <div className="w-2/4">
-        <p className="text-xl mb-2">
-          <strong className="font-semibold">Название:</strong> {hotel.title}
-        </p>
-        <p className="text-xl">
+      <div className="sm:w-2/4 w-full text-balance">
+        <p className="font-semibold text-xl mb-2">{hotel.title}</p>
+        {toursCount > 0 && (
+          <p className="block sm:hidden font-semibold text-xl">Туров: {toursCount}</p>
+        )}
+        <p className="text-xl hidden sm:block">
           <strong className="font-semibold">Описание:</strong>{' '}
           {hotel.description}
         </p>
       </div>
-      <div className="w-1/4">
+      <div className="w-1/4 hidden sm:block">
         {toursCount > 0 && (
-          <p className="font-semibold text-xl mb-2">
-            Количество туров: {toursCount}
-          </p>
+          <p className="font-semibold text-xl mb-2">Туров: {toursCount}</p>
         )}
       </div>
-      <div className="w-1/4 h-full text-end">
+      <div className="w-full flex flex-col gap-2 items-center justify-center sm:w-1/4 h-full text-end">
         <Button as={Link} href={`hotels/${hotel.id}`} color="primary">
           Редактировать
         </Button>
@@ -55,7 +54,7 @@ export function AdminHotelWrapper({
             closeDelay={1000}
           >
             <Button
-              className="ml-4"
+              className="sm:ml-4"
               variant="bordered"
               disableRipple
               disableAnimation
@@ -74,7 +73,7 @@ export function AdminHotelWrapper({
                 await deleteHotel(hotel.id, hotel.image)
               }
             }}
-            className="ml-4"
+            className="sm:ml-4"
             color="danger"
             variant="bordered"
           >

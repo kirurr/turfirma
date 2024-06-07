@@ -5,9 +5,9 @@ import {
   fetchAllReviews,
   fetchNotAcceptedReviews
 } from '@/app/data/reviews-data'
-import { fetchAllTours, fetchTours } from '@/app/data/tours-data'
+import { fetchAllTours } from '@/app/data/tours-data'
 import { fetchUsers } from '@/app/data/users-data'
-import { Button, Spinner } from '@nextui-org/react'
+import { Button, Divider, Spinner } from '@nextui-org/react'
 import Link from 'next/link'
 import { Suspense } from 'react'
 
@@ -40,8 +40,8 @@ async function Main() {
     fetchCategories(null)
   ])
   return (
-    <div className="text-center grid grid-cols-2 grid-rows-2 size-full">
-      <div className="row-span-2">
+    <div className="text-center flex flex-col items-center sm:grid grid-cols-2 grid-rows-2 size-full">
+      <div className="row-span-2 w-full sm:w-auto">
         <h2 className="h2 mb-4">Статистика</h2>
         <p className="p font-semibold">Категории: {categories.length}</p>
         <p className="p font-semibold">Туры: {tours.length}</p>
@@ -49,6 +49,7 @@ async function Main() {
         <p className="p font-semibold">Пользователи: {users.length}</p>
         <p className="p font-semibold">Отзывы: {reviews.length}</p>
         <p className="p font-semibold">Заказы: {orders.length}</p>
+        <Divider className='my-8 block sm:hidden' />
       </div>
       <div>
         {notAcceptedReviews.length > 0 ? (
@@ -63,6 +64,7 @@ async function Main() {
         ) : (
           <h2 className="h2 mb-4">Нет не принятых отзывов</h2>
         )}
+        <Divider className='my-8 block sm:hidden' />
       </div>
       <div>
         {notPaidOrders.length > 0 ? (

@@ -12,17 +12,15 @@ export default function Page() {
   const [result, dispatch] = useFormState(createCategory, initialState)
 
   return (
-    <form action={dispatch} className="flex flex-col gap-4 w-2/3 mx-auto">
+    <form action={dispatch} className="flex flex-col gap-4 sm:w-2/3 mx-auto">
       <Input
         name="title"
         label="Название категории"
-        placeholder="Введите название категории"
         isRequired
       />
       <Textarea
         name="description"
         label="Описание категории"
-        placeholder="Введите описание категории"
         isRequired
       />
       <div>

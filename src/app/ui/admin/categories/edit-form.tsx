@@ -29,7 +29,7 @@ export default function EditForm({
   const image = images.find((image) => image.pathname.includes(category.image))
   return (
     <form action={dispatch} className="flex flex-col gap-4">
-      <div className="flex gap-4">
+      <div className="flex sm:flex-row flex-col-reverse gap-4">
         <div className="size-full flex flex-col gap-4">
           <Input
             name="title"
@@ -60,7 +60,7 @@ export default function EditForm({
         </div>
         <div>
           <p className="p">Текущее изображение:</p>
-          <div className="relative h-[20rem] w-[30rem] overflow-hidden rounded-lg mb-4">
+          <div className="relative h-[20rem] sm:w-[30rem] overflow-hidden rounded-lg mb-4">
             <Image
               src={image?.url!}
               fill
