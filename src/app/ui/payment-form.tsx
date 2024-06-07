@@ -14,7 +14,7 @@ export default function PaymentForm({ orderId }: { orderId: string }) {
         Оплатить
       </Button>
       <div>
-        {state?.status ? (
+        {state && state?.status ? (
           <>
             <p className="p font-semibold mt-4">{state.message}</p>
             <Link className='link text-xl' href="/profile">Личный кабинет</Link>
