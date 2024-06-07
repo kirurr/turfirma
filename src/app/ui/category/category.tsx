@@ -13,7 +13,7 @@ export async function CategoryList() {
   const toursImg = blobs.find((blob) => blob.pathname.includes('tours'))
   const categories = await fetchCategories()
   return (
-    <ul className="grid grid-cols-3 grid-rows-2 gap-8 py-8">
+    <ul className="grid grid-cols-1 auto-rows-auto sm:grid-cols-3 sm:grid-rows-2 gap-8 py-8">
       <CategoryItem
         img={toursImg?.url!}
         categoryData={

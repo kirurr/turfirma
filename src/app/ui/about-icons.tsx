@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 export default function AboutIcons() {
   return (
-    <ul className="flex items-center text-center py-8 justify-evenly">
+    <ul className="flex sm:flex-row flex-col gap-[4rem] sm:gap-0 items-center text-center py-8 justify-evenly">
       <li className="flex flex-col items-center w-1/4">
         <Image src={train} alt="Иконка поезд" />
         <h3 className="h3 !mb-2 mt-6">Комфортный транспорт</h3>

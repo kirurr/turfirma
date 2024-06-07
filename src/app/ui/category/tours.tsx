@@ -48,8 +48,8 @@ async function TourItem({
   const firstImage = images.find((img) => img.pathname.includes(tour.images[0]))
   const category = await fetchCategoryById(tour.category_id)
   return (
-    <li className="flex flex-1 items-center shadow-lg rounded-lg overflow-hidden mb-8">
-      <div className="relative w-1/4 min-h-[17rem]">
+    <li className="flex flex-1 flex-wrap items-center shadow-lg rounded-lg overflow-hidden mb-8">
+      <div className="relative w-full sm:w-1/4 min-h-[17rem]">
         <Image
           sizes="(max-width: 768px) 50vw, 33vw"
           className="object-cover"
@@ -58,7 +58,7 @@ async function TourItem({
           src={firstImage?.url!}
         />
       </div>
-      <div className="flex items-center p-4 w-2/4 h-full">
+      <div className="flex items-center p-4 sm:w-2/4 h-full">
         <div className="h-full flex flex-col gap-4">
           <h2 className="h2 !mb-0">{tour.title}</h2>
           <Link
@@ -82,7 +82,7 @@ async function TourItem({
           </div>
         </div>
       </div>
-      <div className="w-1/4 p-4 h-full flex flex-col gap-4">
+      <div className="sm:w-1/4 w-full p-4 h-full flex flex-col gap-4">
         <p className="text-xl">Цена на человека:</p>
         <p className="font-semibold text-xl text-primary-500">
           {tour.price} рублей

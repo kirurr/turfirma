@@ -13,8 +13,8 @@ export default async function Page() {
   return (
     <>
       <Hero />
-      <section className="section full-width flex items-center bg-secondary-color">
-        <h2 className="h2 text-2xl mb-0 w-1/3 text-text-secondary">
+      <section className="section sm:full-width flex flex-col sm:flex-row items-center bg-secondary-color">
+        <h2 className="h2 text-2xl sm:mb-0 w-full text-center sm:text-start sm:w-1/3 text-text-secondary">
           Куда вы хотите отправиться?
         </h2>
         <MainSearch categories={categories} />
@@ -23,14 +23,14 @@ export default async function Page() {
         <h2 className="h2">Популярные направления</h2>
         <CategoryList />
       </section>
-      <section className="section text-center full-width bg-secondary-color">
+      <section className="section text-center sm:full-width bg-secondary-color">
         <ContactForm />
       </section>
       <section className="section text-center">
         <h2 className="h2">Популярные туры</h2>
         <ToursList />
       </section>
-      <section className="section text-center full-width bg-triary-color">
+      <section className="section text-center sm:full-width bg-triary-color">
         <h2 className="h2">Последние отзывы</h2>
         <ReviewsList />
       </section>
@@ -38,7 +38,7 @@ export default async function Page() {
         <h2 className="h2">Почему мы?</h2>
         <AboutIcons />
       </section>
-      <section className="section text-center full-width bg-triary-color">
+      <section className="section text-center sm:full-width bg-triary-color">
         <h2 className="h2">О нас</h2>
         <AboutUs />
       </section>

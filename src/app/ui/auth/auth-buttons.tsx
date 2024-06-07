@@ -18,7 +18,7 @@ export default function AuthButtons({
     <div className={className}>
       {!isAuth ? (
         <>
-          <Button color="primary" className="mr-2" onClick={onSignInOpen}>
+          <Button color="primary" className="sm:mr-2" onClick={onSignInOpen}>
             Войти
           </Button>
           <Button onClick={onSignUpOpen} variant="bordered">
@@ -31,7 +31,7 @@ export default function AuthButtons({
             Личный кабинет
           </Button>
           {isAdmin && (
-            <Button className='ml-4' color="primary" as={Link} href="/admin">
+            <Button className='sm:ml-4' color="primary" as={Link} href="/admin">
               Панель администратора
             </Button>
           )}

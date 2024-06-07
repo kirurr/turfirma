@@ -1,12 +1,10 @@
 'use client'
 
-import { AdminLink } from '@/app/lib/definitions'
-import { checkForActiveLink } from '@/app/lib/utils'
 import { Button } from '@nextui-org/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-export default function Label({ links }: { links: AdminLink[] }) {
+export default function Label() {
   const pathname = usePathname()
 
   const splittedHref = pathname.split('/')
@@ -17,23 +15,21 @@ export default function Label({ links }: { links: AdminLink[] }) {
 
   const isNew = pathname.includes('new')
   const isEdit = pathname.split('/').length === 4 && !pathname.includes('new')
-  return (
-    <section className="relative col-start-2 text-2xl flex items-center justify-center p-2">
-      {href.includes('categories') && (
-        <CategoriesLabel isNew={isNew} isEdit={isEdit} />
-      )}
-      {href.includes('hotels') && <HotelsLabel isNew={isNew} isEdit={isEdit} />}
-      {href.includes('orders') && (
-        <h1 className="text-2xl font-bold">Заказы</h1>
-      )}
-      {href.includes('admin') && (
-        <h1 className="text-2xl font-bold">Панель администратора</h1>
-      )}
-      {href.includes('reviews') && <ReviewsLabel isEdit={isEdit} />}
-      {href.includes('tours') && <ToursLabel isNew={isNew} isEdit={isEdit} />}
-      {href.includes('users') && <UsersLabel isEdit={isEdit} />}
-    </section>
-  )
+
+  switch (href) {
+    case 'tours':
+      return <ToursLabel isNew={isNew} isEdit={isEdit} />
+    case 'hotels':
+      return <HotelsLabel isNew={isNew} isEdit={isEdit} />
+    case 'orders':
+      return <h1 className="text-2xl font-bold">Заказы</h1>
+    case 'users':
+      return <UsersLabel isEdit={isEdit} />
+    case 'categories':
+      return <CategoriesLabel isNew={isNew} isEdit={isEdit} />
+    default:
+      return <h1 className="text-2xl font-bold">Панель администратора</h1>
+  }
 }
 
 function UsersLabel({ isEdit }: { isEdit: boolean }) {
@@ -106,7 +102,7 @@ function CategoriesLabel({
 }) {
   return (
     <>
-      <h1 className="text-2xl font-bold">
+      <h1 className="sm:text-2xl text-xl font-bold">
         {isNew && 'Новая категория'}
         {isEdit && 'Редактирование категории'}
         {!isNew && !isEdit && 'Категории'}
@@ -116,7 +112,7 @@ function CategoriesLabel({
           as={Link}
           href="categories/new"
           color="primary"
-          className="absolute top-40% right-[1.5rem]"
+          className="sm:absolute sm:top-39% sm:right-[1.5rem]"
         >
           Создать
         </Button>

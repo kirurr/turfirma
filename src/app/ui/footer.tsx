@@ -7,8 +7,8 @@ export default async function Footer() {
   const isAuth = session?.user ? true : false
   const categories = await fetchCategories(null)
   return (
-    <footer className="flex items-start gap-8 section py-8 full-width bg-secondary-color">
-      <div className="w-1/3">
+    <footer className="flex sm:flex-row flex-col items-start gap-8 section py-8 sm:full-width bg-secondary-color">
+      <div className="sm:w-1/3 sm:mx-0">
         <h3 className="h3 text-text-secondary">Направления</h3>
         <ul className="flex flex-col gap-2 flex-grow-0 flex-shrink-0 flex-wrap max-h-[10rem]">
           {categories.map((category) => (
@@ -23,7 +23,7 @@ export default async function Footer() {
           ))}
         </ul>
       </div>
-      <div className="w-1/3 flex">
+      <div className="sm:w-1/3 mx-auto sm:mx-0 flex">
         <div className="w-full">
           <h3 className="h3 text-text-secondary">Навигация</h3>
           <nav>
@@ -94,7 +94,7 @@ export default async function Footer() {
           </div>
         </div>
       </div>
-      <div className="w-1/3">
+      <div className="sm:w-1/3 mx-auto">
         <h2 className="h2 text-text-secondary">Турфирма Travel</h2>
         <div className='relative'>
           <iframe

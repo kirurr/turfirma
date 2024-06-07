@@ -31,11 +31,10 @@ export default function OrdersAccordion({
             startContent={<OrderStatus status={order.status} />}
             className='py-8'
           >
-            <h3 className="h3">{orderTour?.title}</h3>
             {orderHotel && (
-              <p className="p"><strong className='font-semibold'>Выбранный отель: </strong>{orderHotel.title}</p>
+              <p className="p text-balance sm:text-start text-center my-4 sm:mt-0"><strong className='font-semibold'>Выбранный отель: </strong>{orderHotel.title}</p>
             )}
-            <div className='flex gap-2'>
+            <div className='flex sm:flex-row flex-col w-full sm:w-auto gap-2 items-center'>
               {order.status === 'pending' && (
                 <Button as={Link} href={`/profile/${order.id}`} color="primary">
                   Внести оплату

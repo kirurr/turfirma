@@ -8,7 +8,7 @@ import { Button, Divider } from '@nextui-org/react'
 export default async function ToursList() {
   const tours = await fetchPopularTours()
   return (
-    <ul className="grid grid-cols-3 gap-8 py-8">
+    <ul className="grid grid-cols-1 auto-rows-auto sm:grid-cols-3 gap-8 py-8">
       {tours.map((tour) => (
         <TourItem key={tour.id} tour={tour} />
       ))}
@@ -34,7 +34,7 @@ async function TourItem({
   const image = await fetchTourBlobs(tour.alias)
   const category = (await fetchCategoryById(tour.category_id)) as Category
   return (
-    <li className="flex flex-col rounded-lg shadow focus-within:outline-primary-500 focus-within:outline focus-within:outline-offset-2">
+    <li className="flex flex-col rounded-lg shadow-lg focus-within:outline-primary-500 focus-within:outline focus-within:outline-offset-2">
       <Link
         href={`/${category.alias}/${tour.alias}`}
         className="block size-full focus-visible:outline-none"

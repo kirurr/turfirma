@@ -10,9 +10,9 @@ export default function Page() {
         title="О нас"
 				imageUrl='/about.jpg'
       />
-      <section className="section flex flex-wrap">
-        <div className="w-1/2 flex flex-col gap-4">
-          <h2 className="h2 w-full">Контакты</h2>
+      <section className="section flex sm:flex-row flex-col flex-wrap">
+        <div className="sm:w-1/2 flex flex-col gap-4">
+          <h2 className="h2 w-full text-center sm:text-start">Контакты</h2>
           <p className="text-xl">
             <strong>Наш телефон: </strong>
             <a href="tel:+79991234567" className="link">
@@ -34,7 +34,7 @@ export default function Page() {
             ему рыбными имеет взгляд.
           </p>
         </div>
-        <div className="w-1/2">
+        <div className="sm:w-1/2 sm:m-0 my-8">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7439.121385491727!2d44.50204094184699!3d48.76037882622604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x411aca44eebb5507%3A0x86e160e79a3b5fd!2z0JzQsNC80LAg0J3QvtGA0LrQsCDQn9Cw0L_QsCDQkdC-0LHRkdGA!5e0!3m2!1sru!2sru!4v1717666806094!5m2!1sru!2sru"
             width="100%"

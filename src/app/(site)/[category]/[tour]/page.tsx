@@ -15,6 +15,7 @@ import { formatDateFromPostgreSQL } from '@/app/lib/utils'
 import TourHotels from '@/app/ui/tour/hotels'
 import Link from 'next/link'
 import { Button } from '@nextui-org/react'
+import Hero from '@/app/ui/hero'
 
 export async function generateStaticParams() {
   const tours = await fetchToursForParams()
@@ -53,11 +54,12 @@ export default async function Page({
   )
   return (
     <>
-      <article className="grid grid-cols-3 section gap-8">
+      <Hero isButton={false} isParagraph={false} isFullHeight={false} title={tour.title} />
+      <article className="sm:grid grid-cols-3 section gap-8 pt-8">
         <TourBreadcumbs
           category={category as Category}
           tour={tour}
-          className="col-span-3"
+          className="col-span-3 mb-4"
         />
         <TourSlider
           images={images as ListBlobResultBlob[]}
@@ -80,7 +82,7 @@ export default async function Page({
               as={Link}
               color="primary"
               size="lg"
-              className="w-full mt-4"
+              className="w-full my-4"
             >
               Забронировать
             </Button>
@@ -88,44 +90,57 @@ export default async function Page({
             <p className="p">Для покупки тура войдите</p>
           )}
         </section>
-        <section className="col-span-2">
-          <h2 className="h2">Описание тура</h2>
+        <section className="col-span-2 my-8 sm:m-0">
+          <h2 className="h2 mb-4">Описание тура</h2>
           <p className="p">{tour.description}</p>
         </section>
-        <section className="row-span-3">
+        <section className="row-span-3 my-8 sm:m-0">
           <div className="mb-7">
-            <h2 className="h2">Что включено в стоимость:</h2>
+            <h2 className="sm:h2 h3">Что включено в стоимость:</h2>
             <ul className="list-inside list-disc">
               {tour.included.map((item, index) => (
-                <li className="text-xl mt-2" key={index}>
+                <li className="sm:text-xl mt-2" key={index}>
                   {item}
                 </li>
               ))}
             </ul>
           </div>
           <div>
-            <h2 className="h2">Что не включено в стоимость:</h2>
+            <h2 className="sm:h2 h3">Что не включено в стоимость:</h2>
             <ul className="list-inside list-disc">
               {tour.excluded.map((item, index) => (
-                <li className="text-xl mt-2" key={index}>
+                <li className="sm:text-xl mt-2" key={index}>
                   {item}
                 </li>
               ))}
             </ul>
           </div>
         </section>
-        <section className="col-span-2">
-          <h2 className="h2">Программа тура</h2>
+        <section className="col-span-2 sm:my-0 my-8">
+          <h2 className="h2 mb-4">Программа тура</h2>
           <p className="p">{tour.program}</p>
         </section>
-        <section className="col-span-2">
+        <section className="col-span-2 sm:my-0 my-8">
           {tour.hotels_info.length > 0 ? (
             <>
-              <h2 className="h2">Проживание</h2>
+              <h2 className="h3 sm:h2">Проживание</h2>
               <TourHotels hotels={tour.hotels_info} />
             </>
           ) : (
-            <h2 className="h2">В этом туре нельзя выбрать проживание</h2>
+            <h2 className="h3 sm:h2">В этом туре нельзя выбрать проживание</h2>
+          )}
+          {signedIn ? (
+            <Button
+              href={`${tour.alias}/book`}
+              as={Link}
+              color="primary"
+              size="lg"
+              className="w-full my-4"
+            >
+              Забронировать
+            </Button>
+          ) : (
+            <p className="p">Для покупки тура войдите</p>
           )}
         </section>
       </article>

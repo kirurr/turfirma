@@ -16,7 +16,7 @@ export default async function Page() {
         title="Отзывы"
 				imageUrl='/reviews.jpg'
       />
-      <section className="section max-w-3xl">
+      <section className="section py-4 sm:py-[6rem] max-w-3xl">
         {reviews.length > 0 ? (
           <ReviewsWrapper reviews={reviews} />
         ) : (

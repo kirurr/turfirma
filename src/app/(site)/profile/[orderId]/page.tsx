@@ -26,8 +26,8 @@ export default async function Page({
   )
   return (
     <section className="section !max-w-lg text-center">
-      <h1 className="h1">Вы оплачиваете тур:<br />{tourData.title}.</h1>
-      <p className="p">Цена {tourData.price} рублей.</p>
+      <h1 className="sm:h1 h2">Вы оплачиваете тур:<br />{tourData.title}.</h1>
+      <p className="p text-primary-500 font-bold">Цена: {tourData.price} рублей.</p>
       {hotelData && <p className="p">Выбранный отель: {hotelData?.title}.</p>}
       <PaymentForm orderId={order.id} />
     </section>

@@ -17,13 +17,12 @@ export default function MainSearch({ categories }: { categories: Category[] }) {
     replace(`/${category}?${params.toString()}`)
   }
   return (
-    <form action={handleSearch} className="w-2/3 flex items-center gap-2">
-      <Input label="Поиск" name="query" placeholder="Тур в Магадан.." />
-      <Select
-        label="Категория"
-        name="category"
-        placeholder="Выберите категорию"
-      >
+    <form
+      action={handleSearch}
+      className="sm:w-2/3 flex flex-col sm:flex-row items-center gap-4"
+    >
+      <Input label="Поиск" name="query" />
+      <Select label="Категория" name="category">
         {categories.map((category) => (
           <SelectItem key={category.alias} value={category.alias}>
             {category.title}

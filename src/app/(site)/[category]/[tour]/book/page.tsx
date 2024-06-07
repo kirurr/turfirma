@@ -18,8 +18,8 @@ export default async function Page({
     tour_id: tourData.id
   }
   return (
-    <section className='section !max-w-lg'>
-      <h1 className='h1 text-center !mb-8'>Бронирование тура:<br />{tourData.title}</h1>
+    <section className='section max-w-lg'>
+      <h1 className='h2 sm:h1 text-center mb-8'>Бронирование тура:<br />{tourData.title}</h1>
       <BookForm ids={ids} tourData={tourData} />
     </section>
   )

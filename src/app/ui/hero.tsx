@@ -22,7 +22,7 @@ export default function Hero({
     <section
       className={clsx(
         'relative w-full flex justify-center items-center',
-        isFullHeight ? 'h-[calc(100vh-14rem)]' : 'h-[calc(100vh-40rem)]'
+        isFullHeight ? 'h-[calc(100vh-14rem)]' : 'h-[10rem] sm:h-[20rem]'
       )}
     >
       <div className="flex flex-col items-center justify-center relative size-full text-center">
@@ -35,12 +35,12 @@ export default function Hero({
           className="object-cover select-none pointer-events-none"
           quality={100}
         />
-        <div className="relative w-fit p-4 rounded-lg backdrop-blur-sm border-gray-50/10 border-2">
-          <h1 className="font-bold text-6xl block text-text-secondary">
+        <div className="relative w-fit max-w-full p-0 sm:p-4 rounded-lg backdrop-blur-sm border-gray-50/10 border-2">
+          <h1 className="font-bold text-4xl leading-normal sm:text-6xl block text-text-secondary">
             {title}
           </h1>
           {isParagraph && (
-            <p className="text-xl text-text-secondary mt-8">
+            <p className="hidden sm:block text-xl text-text-secondary mt-8">
               Не следует, однако забывать, что укрепление и развитие структуры
               обеспечивает.
             </p>

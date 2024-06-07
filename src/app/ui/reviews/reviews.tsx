@@ -17,11 +17,11 @@ function ReviewsItem({ review }: { review: Review }) {
   return (
     <li
       key={review.id}
-      className="p-4 shadow rounded-lg flex items-center gap-8"
+      className="p-4 shadow-xl rounded-lg flex sm:flex-row flex-col items-center gap-10"
     >
-      <h2 className="h2 !mb-0 w-1/4">{review.title} </h2>
-      <p className=" w-2/4 p">{review.content}</p>
-      <div className="w-1/4 text-end">
+      <h2 className="h2 mb-0 sm:w-1/4">{review.title} </h2>
+      <p className="sm:w-2/4 p">{review.content}</p>
+      <div className="sm:w-1/4 text-end">
         {review.is_positive ? (
           <Chip size="lg" color="success" variant="bordered">
             Позитивный

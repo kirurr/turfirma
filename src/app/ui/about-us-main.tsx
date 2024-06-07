@@ -6,13 +6,13 @@ import { Accordion, AccordionItem } from '@nextui-org/react'
 export default function AboutUs() {
   return (
     <Accordion
-      className="w-2/3 mx-auto"
+      className="sm:w-2/3 w-full mx-auto"
       variant="shadow"
       defaultExpandedKeys={['1']}
     >
       <AccordionItem
-        className="p-4 text-start font-semibold"
-        startContent={<span className="font-bold text-xl">О нас</span>}
+        className="p-4 text-start sm:font-semibold"
+        startContent={<span className="font-bold sm:text-xl">О нас</span>}
         key={'1'}
       >
         Мы - это компания, которая предлагает интересные и доступные туры в
@@ -22,9 +22,9 @@ export default function AboutUs() {
         туры, чтобы увеличить свой бизнес и увеличить свой доход.
       </AccordionItem>
       <AccordionItem
-        className="p-4 font-semibold text-start"
+        className="p-4 sm:font-semibold text-start"
         startContent={
-          <span className="font-bold text-xl">Как мы работаем</span>
+          <span className="font-bold sm:text-xl">Как мы работаем</span>
         }
         key={'2'}
       >
@@ -35,10 +35,10 @@ export default function AboutUs() {
         наших клиентов.
       </AccordionItem>
       <AccordionItem
-        className="p-4 font-semibold text-start"
+        className="p-4 sm:font-semibold text-start"
         key={'3'}
         startContent={
-          <span className="font-bold text-xl">Мы уверены в нашей работе</span>
+          <span className="font-bold sm:text-xl text-start">Уверены в нашей работе</span>
         }
       >
         Мы уверены в нашей работе и нашими возможностями. Мы всегда готовы

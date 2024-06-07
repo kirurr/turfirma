@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/carousel'
 import { ListBlobResultBlob } from '@vercel/blob'
 import Image from 'next/image'
+import Autoplay from 'embla-carousel-autoplay'
 
 export default function TourSlider({
   images,
@@ -19,10 +20,11 @@ export default function TourSlider({
   images: ListBlobResultBlob[]
   className?: string
 }) {
+  const isMultipleImages = images.length > 1
   return (
     <Carousel
       className={`${className} max-w-full rounded-lg mx-auto`}
-      opts={{ loop: true }}
+      opts={{ loop: true }} plugins={[Autoplay({ delay: 4000 })]}
     >
       <CarouselContent className="rounded-lg">
         {images.map((image, index) => (
@@ -38,8 +40,12 @@ export default function TourSlider({
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      {isMultipleImages && (
+        <>
+          <CarouselPrevious className="hidden sm:flex" />
+          <CarouselNext className="hidden sm:flex" />
+        </>
+      )}
     </Carousel>
   )
 }

@@ -7,11 +7,11 @@ import {
 } from '@nextui-org/react'
 export default function ContactForm() {
   return (
-    <div className="flex gap-4 items-center">
-      <h2 className="h2 !m-0 text-text-secondary w-2/4">
+    <div className="flex gap-4 sm:flex-row flex-col items-center">
+      <h2 className="h2 sm:m-0 text-text-secondary sm:w-2/4">
         Подпишитесь на нашу рассылку
       </h2>
-      <div className="w-2/4 flex items-center gap-4">
+      <div className="sm:w-2/4 flex sm:flex-row flex-col items-center gap-4">
         <Input label="Ваша почта" type="email" />
         <Popover>
           <PopoverTrigger>

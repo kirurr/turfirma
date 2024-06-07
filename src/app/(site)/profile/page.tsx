@@ -23,20 +23,22 @@ export default async function Page() {
         isFullHeight={false}
         title="Личный кабинет"
       />
-      <section className="section items-start flex gap-4">
+      <section className="section items-start flex sm:flex-row flex-col gap-4 py-8">
         <div className="w-full">
-            <h2 className="h2">{user?.name}</h2>
-            <p className="p">
-              <strong className="font-semibold">Электронная почта: </strong>
-              {user?.email}
-            </p>
-            <p className="p mb-8">
-              <strong className="font-semibold">Данные паспорта: </strong>
-              {user?.passport}
-            </p>
-          <SignOutForm />
+          <h2 className="h2 text-center sm:text-start">{user?.name}</h2>
+          <p className="p">
+            <strong className="font-semibold">Электронная почта: </strong>
+            {user?.email}
+          </p>
+          <p className="p mb-8">
+            <strong className="font-semibold">Данные паспорта: </strong>
+            {user?.passport}
+          </p>
+          <div className='text-center w-full sm:w-auto sm:text-start'>
+            <SignOutForm />
+          </div>
         </div>
-        <div className="w-full">
+        <div className="w-full py-8 sm:py-0">
           {orders.length > 0 ? (
             <>
               <h2 className="h2 text-center">Ваши заказы:</h2>
