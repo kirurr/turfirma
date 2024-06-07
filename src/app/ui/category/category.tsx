@@ -47,7 +47,7 @@ async function CategoryItem({
   else categoryTours = await fetchTourCountByCategory(categoryData.id)
 
   return (
-    <li className="relative shadow h-[16rem] rounded-lg flex flex-col justify-end items-start hover:-translate-y-5 transition-all group ">
+    <li className="relative shadow h-[16rem] rounded-lg flex flex-col justify-end items-start sm:hover:-translate-y-5 transition-all group ">
       <Image
         src={img}
         className="object-cover category-wrapper rounded-lg select-none pointer-events-none"
@@ -61,12 +61,12 @@ async function CategoryItem({
         className="size-full absolute z-50 rounded-lg focus-visible:outline-2 outline-primary-500 outline-offset-4"
       ></Link>
       <div className="p-2 flex items-center gap-4 border-2 absolute ml-4 mb-4 z-10 border-gray-50/10 rounded-lg backdrop-blur-sm">
-        <h3 className="h3 text-text-secondary !m-0 group-hover:text-primary-500 transition-all">
+        <h3 className="h3 text-text-secondary m-0 group-active:text-primary-500 sm:group-hover:text-primary-500 transition-all">
           {categoryData.title}
         </h3>
         <Chip
           variant="bordered"
-          className="border-text-secondary text-text-secondary mt-[0.2rem] group-hover:text-primary-500 transition-all group-hover:border-primary-500"
+          className="border-text-secondary text-text-secondary mt-[0.2rem] group-active:text-primary-500 sm:group-hover:text-primary-500 transition-all sm:group-hover:border-primary-500"
         >
           Туров: {categoryTours}
         </Chip>

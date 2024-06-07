@@ -55,7 +55,7 @@ export default async function Page({
   return (
     <>
       <Hero isButton={false} isParagraph={false} isFullHeight={false} title={tour.title} />
-      <article className="sm:grid grid-cols-3 section gap-8 pt-8">
+      <article className="sm:grid grid-cols-3 section gap-8 sm:pt-8">
         <TourBreadcumbs
           category={category as Category}
           tour={tour}

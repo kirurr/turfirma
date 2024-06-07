@@ -57,7 +57,7 @@ export default async function Page({
         isButton={false}
         isParagraph={false}
       />
-      <section className="section pb-8">
+      <section className="section py-8 sm:pb-8">
         <CategoryBreadcumbs category={category} />
         <Search className="mt-8" />
       </section>

@@ -55,8 +55,9 @@ export default function TopNav({
     <>
       <Navbar
         maxWidth="xl"
-        shouldHideOnScroll
         isBordered
+        isBlurred={false}
+        position='static'
         isMenuOpen={isMenuOpen}
         onMenuOpenChange={setIsMenuOpen}
       >
@@ -67,12 +68,12 @@ export default function TopNav({
         <NavbarBrand>
           <Link
             href="/"
-            className="font-bold text-2xl top-nav-link mx-auto sm:mx-0"
+            className="font-bold text-2xl top-nav-link"
           >
             Турфирма Travel
           </Link>
         </NavbarBrand>
-        <NavbarMenu className="min-h-full">
+        <NavbarMenu>
           <NavbarMenuItem key="tours">
             <Link href="/tours" className="p-0 top-nav-link">
               Все туры

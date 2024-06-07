@@ -13,22 +13,22 @@ export default function Page() {
       <section className="section flex sm:flex-row flex-col flex-wrap">
         <div className="sm:w-1/2 flex flex-col gap-4">
           <h2 className="h2 w-full text-center sm:text-start">Контакты</h2>
-          <p className="text-xl">
+          <p className="text-lg sm:text-xl">
             <strong>Наш телефон: </strong>
             <a href="tel:+79991234567" className="link">
               +7 (999) 123-45-67
             </a>
           </p>
-          <p className="text-xl">
+          <p className="text-lg sm:text-xl">
             <strong>Наша почта: </strong>
             <a href="mailto:info@travel.com" className="text-xl link">
               info@travel.com
             </a>
           </p>
-          <p className="text-xl p">
+          <p className="p text-balance text-lg sm:text-xl">
             <strong>Адрес: </strong>Москва, ул. Солнца, д. 1, кв. 1
           </p>
-          <p className="text-xl p">
+          <p className="p text-lg sm:text-xl">
             Далеко-далеко за, словесными горами в стране гласных и согласных
             живут рыбные тексты. Рукопись переписали страну путь текстами вопрос
             ему рыбными имеет взгляд.
