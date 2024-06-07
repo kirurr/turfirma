@@ -15,5 +15,7 @@ export function generateAlias(title: string): string {
 }
 
 export function checkForActiveLink(pathname: string, link: string) {
-    return pathname.split('/').at(-1) === link.split('/').at(-1)
+    if (pathname.split('/').length > 3)
+        return pathname.split('/')[2] === link.split('/')[2]
+    else return pathname.split('/').at(-1) === link.split('/').at(-1)
 }

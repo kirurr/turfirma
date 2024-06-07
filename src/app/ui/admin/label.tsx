@@ -9,34 +9,29 @@ import { usePathname } from 'next/navigation'
 export default function Label({ links }: { links: AdminLink[] }) {
   const pathname = usePathname()
 
-  const page = links.find((link) =>
-    checkForActiveLink(pathname, link.href)
-  ) as { name: string; href: string }
+  const splittedHref = pathname.split('/')
 
-  const splittedHref = page.href.split('/').at(-1) as string
-  page.href = splittedHref
+  let href
+  if (splittedHref.length > 3) href = splittedHref[2]
+  else href = splittedHref.at(-1) as string
 
   const isNew = pathname.includes('new')
   const isEdit = pathname.split('/').length === 4 && !pathname.includes('new')
   return (
     <section className="relative col-start-2 text-2xl flex items-center justify-center p-2">
-      {page.href.includes('categories') && (
+      {href.includes('categories') && (
         <CategoriesLabel isNew={isNew} isEdit={isEdit} />
       )}
-      {page.href.includes('hotels') && (
-        <HotelsLabel isNew={isNew} isEdit={isEdit} />
-      )}
-      {page.href.includes('orders') && (
+      {href.includes('hotels') && <HotelsLabel isNew={isNew} isEdit={isEdit} />}
+      {href.includes('orders') && (
         <h1 className="text-2xl font-bold">Заказы</h1>
       )}
-      {page.href.includes('admin') && (
+      {href.includes('admin') && (
         <h1 className="text-2xl font-bold">Панель администратора</h1>
       )}
-      {page.href.includes('reviews') && <ReviewsLabel isEdit={isEdit} />}
-      {page.href.includes('tours') && (
-        <ToursLabel isNew={isNew} isEdit={isEdit} />
-      )}
-      {page.href.includes('users') && <UsersLabel isEdit={isEdit} />}
+      {href.includes('reviews') && <ReviewsLabel isEdit={isEdit} />}
+      {href.includes('tours') && <ToursLabel isNew={isNew} isEdit={isEdit} />}
+      {href.includes('users') && <UsersLabel isEdit={isEdit} />}
     </section>
   )
 }
