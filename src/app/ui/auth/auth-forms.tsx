@@ -1,10 +1,6 @@
 'use client'
 
-import {
-  createUser,
-  authenticate,
-  UserState
-} from '@/app/actions/user-actions'
+import { createUser, authenticate, UserState } from '@/app/actions/user-actions'
 import { useFormState, useFormStatus } from 'react-dom'
 import React, { useEffect, useState } from 'react'
 import {
@@ -19,7 +15,7 @@ import {
 import { useRouter } from 'next/navigation'
 
 export function SignInModal({ isOpen, onOpen, onOpenChange, onClose }: any) {
-  const initialState = { status: false, message: '' }
+  const initialState = { status: true, message: '' }
   const [result, dispatch] = useFormState(authenticate, initialState)
   const [errorState, setErrorState] = useState(initialState)
   const router = useRouter()
@@ -97,11 +93,15 @@ export function SignUpModal({ isOpen, onOpen, onOpenChange, onClose }: any) {
   }
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-      <ModalContent>
+    <Modal
+      className="relative z-[100]"
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+    >
+      <ModalContent className="relative z-[100]">
         {(onClose) => (
           <>
-            <form action={dispatch}>
+            <form action={dispatch} className="relative z-100">
               <ModalHeader>Зарегистрироваться</ModalHeader>
               <ModalBody>
                 <Input
@@ -192,13 +192,20 @@ export function FormButton({
     | 'faded'
     | 'shadow'
     | 'ghost'
-    | undefined,
-    className?: string,
-    isBig?: boolean
+    | undefined
+  className?: string
+  isBig?: boolean
 }) {
   const { pending } = useFormStatus()
   return (
-    <Button className={`${className} ${isBig && 'text-xl'}`} size={isBig ? 'lg' : 'md'} type="submit" color={color} variant={variant} isLoading={pending}>
+    <Button
+      className={`${className} ${isBig && 'text-xl'}`}
+      size={isBig ? 'lg' : 'md'}
+      type="submit"
+      color={color}
+      variant={variant}
+      isLoading={pending}
+    >
       {title}
     </Button>
   )

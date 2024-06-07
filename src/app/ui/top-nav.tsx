@@ -120,6 +120,7 @@ export default function TopNav({
             <AuthButtons
               className="flex flex-col w-fit gap-2"
               isAuth={isAuth}
+              setIsMenuOpen={setIsMenuOpen}
               isAdmin={isAdmin}
               onSignInOpen={onSignInOpen}
               onSignUpOpen={onSignUpOpen}
@@ -174,6 +175,7 @@ export default function TopNav({
           <NavbarItem>
             <AuthButtons
               className="flex p-4"
+              setIsMenuOpen={setIsMenuOpen}
               isAuth={isAuth}
               isAdmin={isAdmin}
               onSignInOpen={onSignInOpen}

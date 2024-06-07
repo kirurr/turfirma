@@ -30,10 +30,9 @@ export default function Hero({
           priority
           sizes="100vw"
           src={imageUrl}
-          alt="Изображение на главной странице"
+          alt="Изображение в заголовке"
           fill
           className="object-cover select-none pointer-events-none"
-          quality={100}
         />
         <div className="relative w-fit max-w-full p-0 sm:p-4 rounded-lg backdrop-blur-sm border-gray-50/10 border-2">
           <h1 className="font-bold text-4xl leading-normal sm:text-6xl block text-text-secondary">
