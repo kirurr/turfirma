@@ -72,7 +72,7 @@ export default async function Page({
         title={tour.title}
         imageUrl={categoryImage ? categoryImage.url : undefined}
       />
-      <article className="lg:grid grid-cols-3 section gap-8 lg:pt-8">
+      <article className="lg:grid grid-cols-3 section gap-8 pt-4 lg:pt-8">
         <TourBreadcumbs
           category={category as Category}
           tour={tour}

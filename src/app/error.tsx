@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from '@nextui-org/react'
-import { useEffect } from 'react'
 
 export default function Error({
   error,
@@ -10,9 +9,9 @@ export default function Error({
   error: Error & { digest?: string }
   reset: () => void
 }) {
-  useEffect(() => {
-    console.log(error)
-  }, [error])
+  // useEffect(() => {
+  //   console.log(error)
+  // }, [error])
 
   return (
     <div className="flex flex-col items-center justify-center text-center h-screen">
@@ -20,7 +19,6 @@ export default function Error({
       <Button color="primary" onPress={() => reset()}>
         Попробовать снова
       </Button>
-      <pre>{error.message}</pre>
     </div>
   )
 }

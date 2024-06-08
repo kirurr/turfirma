@@ -40,6 +40,7 @@ export default async function Page({
     category === null ? null : category.id,
     searchParams.query
   )
+
   const title = category === null ? 'Все туры' : category.title
   let image
   if (category !== null) {

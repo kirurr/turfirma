@@ -2,7 +2,7 @@ import Navigation from '@/app/ui/admin/navigation'
 import Link from 'next/link'
 import Label from '@/app/ui/admin/label'
 import { AdminLink } from '@/app/lib/definitions'
-import NavDropdown from '../ui/admin/nav-dropdown'
+import NavDropdown from '@/app/ui/admin/nav-dropdown'
 
 const links: AdminLink[] = [
   {

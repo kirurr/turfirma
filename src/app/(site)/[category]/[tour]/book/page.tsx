@@ -10,16 +10,22 @@ export default async function Page({
 }) {
   const id = await fetchTourIdByAlias(params.tour)
   if (!id) notFound()
-  const tourData = await fetchTourAndHotels(id.id)
-  const session = await auth()
+  const [tourData, session] = await Promise.all([
+    fetchTourAndHotels(id.id),
+    auth()
+  ])
 
   const ids = {
     user_id: session?.user.user_id,
     tour_id: tourData.id
   }
   return (
-    <section className='section max-w-lg'>
-      <h1 className='h2 sm:h1 text-center mb-8'>Бронирование тура:<br />{tourData.title}</h1>
+    <section className="section max-w-lg">
+      <h1 className="h2 sm:h1 text-center mb-8">
+        Бронирование тура:
+        <br />
+        {tourData.title}
+      </h1>
       <BookForm ids={ids} tourData={tourData} />
     </section>
   )

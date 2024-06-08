@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Category } from '@/app/lib/definitions'
 import { Button, Divider } from '@nextui-org/react'
-import { createDays } from '../lib/utils';
+import { createDays } from '@/app/lib/utils';
 
 export default async function ToursList() {
   const tours = await fetchPopularTours()
@@ -40,7 +40,7 @@ async function TourItem({
         href={`/${category.alias}/${tour.alias}`}
         className="block size-full focus-visible:outline-none"
       >
-        <div className="relative size-full md:min-h-[20rem] lg:min-h-[15rem] rounded-t-lg overflow-hidden">
+        <div className="relative size-full min-h-[20rem] lg:min-h-[15rem] rounded-t-lg overflow-hidden">
           <Image
             src={image[0].url}
             alt={tour.title}
