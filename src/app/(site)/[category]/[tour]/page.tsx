@@ -8,7 +8,11 @@ import {
 import { notFound } from 'next/navigation'
 import { auth } from '@/auth'
 import TourBreadcumbs from '@/app/ui/tour/breadcrumbs'
-import { fetchCategories, fetchCategoryById } from '@/app/data/categories-data'
+import {
+  fetchCategories,
+  fetchCategoriesBlobs,
+  fetchCategoryById
+} from '@/app/data/categories-data'
 import { Category } from '@/app/lib/definitions'
 import TourSlider from '@/app/ui/tour/slider'
 import { ListBlobResultBlob } from '@vercel/blob'
@@ -47,6 +51,10 @@ export default async function Page({
   const tour = await fetchTourAndHotels(id.id)
 
   const category = await fetchCategoryById(tour.category_id)
+  const categoryImage = (await fetchCategoriesBlobs()).find((blob) =>
+    blob.pathname.includes(category.image)
+  )!
+
 
   const session = await auth()
   const signedIn = session?.user ? true : false
@@ -62,6 +70,7 @@ export default async function Page({
         isParagraph={false}
         isFullHeight={false}
         title={tour.title}
+        imageUrl={categoryImage ? categoryImage.url : undefined}
       />
       <article className="lg:grid grid-cols-3 section gap-8 lg:pt-8">
         <TourBreadcumbs
