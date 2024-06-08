@@ -11,8 +11,8 @@ export default function HotelsWrapper({ hotels }: { hotels: Hotel[] }) {
         <AccordionItem
           key={index}
           className="text-xl"
-          startContent={<span className="font-semibold">Название отеля:</span>}
-          title={hotel.title}
+          startContent={<span className="text-xl font-semibold">{hotel.title}</span>}
+          textValue={hotel.description}
         >
           <HotelItem hotel={hotel} />
         </AccordionItem>
@@ -23,20 +23,19 @@ export default function HotelsWrapper({ hotels }: { hotels: Hotel[] }) {
 
 function HotelItem({ hotel }: { hotel: Hotel }) {
   return (
-    <div className="p-2 grid grid-cols-2 gap-4">
-      <p className="mb-4 text-lg">
-        <span className="font-semibold">Описание отеля:</span>{' '}
+    <div className="p-2 flex flex-wrap">
+      <p className="mb-4 text-lg w-1/2">
         {hotel.description}
       </p>
-      <div className="relative h-36 aspect-video ">
+      <div className="relative h-36 w-1/2">
         <Image
           alt="изображение отеля"
-          className="object-cover"
+          className="object-contain"
           src={hotel.image}
           fill
         />
       </div>
-      <div className="col-span-2">
+      <div className="w-full mt-4">
         <iframe
           src={hotel.map_url}
           width="100%"
