@@ -55,7 +55,7 @@ export default async function Page({
   return (
     <>
       <Hero isButton={false} isParagraph={false} isFullHeight={false} title={tour.title} />
-      <article className="sm:grid grid-cols-3 section gap-8 sm:pt-8">
+      <article className="lg:grid grid-cols-3 section gap-8 lg:pt-8">
         <TourBreadcumbs
           category={category as Category}
           tour={tour}
@@ -90,44 +90,44 @@ export default async function Page({
             <p className="p">Для покупки тура войдите</p>
           )}
         </section>
-        <section className="col-span-2 my-8 sm:m-0">
+        <section className="col-span-2 my-8 lg:m-0">
           <h2 className="h2 mb-4">Описание тура</h2>
           <p className="p">{tour.description}</p>
         </section>
-        <section className="row-span-3 my-8 sm:m-0">
+        <section className="row-span-3 my-8 lg:m-0">
           <div className="mb-7">
-            <h2 className="sm:h2 h3">Что включено в стоимость:</h2>
+            <h2 className="lg:h2 h3">Что включено в стоимость:</h2>
             <ul className="list-inside list-disc">
               {tour.included.map((item, index) => (
-                <li className="sm:text-xl mt-2" key={index}>
+                <li className="lg:text-xl mt-2" key={index}>
                   {item}
                 </li>
               ))}
             </ul>
           </div>
           <div>
-            <h2 className="sm:h2 h3">Что не включено в стоимость:</h2>
+            <h2 className="lg:h2 h3">Что не включено в стоимость:</h2>
             <ul className="list-inside list-disc">
               {tour.excluded.map((item, index) => (
-                <li className="sm:text-xl mt-2" key={index}>
+                <li className="lg:text-xl mt-2" key={index}>
                   {item}
                 </li>
               ))}
             </ul>
           </div>
         </section>
-        <section className="col-span-2 sm:my-0 my-8">
+        <section className="col-span-2 lg:my-0 my-8">
           <h2 className="h2 mb-4">Программа тура</h2>
           <p className="p">{tour.program}</p>
         </section>
-        <section className="col-span-2 sm:my-0 my-8">
+        <section className="col-span-2 lg:my-0 my-8">
           {tour.hotels_info.length > 0 ? (
             <>
-              <h2 className="h3 sm:h2">Проживание</h2>
+              <h2 className="h3 lg:h2">Проживание</h2>
               <TourHotels hotels={tour.hotels_info} />
             </>
           ) : (
-            <h2 className="h3 sm:h2">В этом туре нельзя выбрать проживание</h2>
+            <h2 className="h3 lg:h2">В этом туре нельзя выбрать проживание</h2>
           )}
           {signedIn ? (
             <Button

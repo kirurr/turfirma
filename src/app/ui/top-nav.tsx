@@ -62,10 +62,10 @@ export default function TopNav({
         onMenuOpenChange={setIsMenuOpen}
       >
         <NavbarMenuToggle
-          className="sm:hidden"
+          className="lg:hidden"
           aria-label={isMenuOpen ? 'Заркыть меню' : 'Открыть меню'}
         />
-        <NavbarBrand>
+        <NavbarBrand className='justify-center lg:justify-normal'>
           <Link
             href="/"
             className="font-bold text-2xl top-nav-link"
@@ -127,7 +127,7 @@ export default function TopNav({
             />
           </NavbarMenuItem>
         </NavbarMenu>
-        <NavbarContent justify="center" className="hidden sm:flex gap-8">
+        <NavbarContent justify="center" className="hidden lg:flex gap-8">
           <NavbarItem>
             <Link href="/tours" className="p-0 top-nav-link">
               Все туры
@@ -171,7 +171,7 @@ export default function TopNav({
             </Link>
           </NavbarItem>
         </NavbarContent>
-        <NavbarContent className="hidden sm:block" justify="end">
+        <NavbarContent className="hidden lg:block" justify="end">
           <NavbarItem>
             <AuthButtons
               className="flex p-4"

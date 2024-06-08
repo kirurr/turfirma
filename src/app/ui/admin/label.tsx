@@ -24,14 +24,14 @@ export default function Label() {
     case 'hotels':
       return <HotelsLabel isNew={isNew} isEdit={isEdit} />
     case 'orders':
-      return <h1 className="hidden sm:block text-2xl font-bold">Заказы</h1>
+      return <h1 className="hidden lg:block text-2xl font-bold">Заказы</h1>
     case 'users':
       return <UsersLabel isEdit={isEdit} />
     case 'categories':
       return <CategoriesLabel isNew={isNew} isEdit={isEdit} />
     default:
       return (
-        <h1 className="hidden sm:block text-2xl font-bold">
+        <h1 className="hidden lg:block text-2xl font-bold">
           Панель администратора
         </h1>
       )
@@ -40,7 +40,7 @@ export default function Label() {
 
 function UsersLabel({ isEdit }: { isEdit: boolean }) {
   return (
-    <h1 className="hidden sm:block text-2xl font-bold">
+    <h1 className="hidden lg:block text-2xl font-bold">
       {isEdit && 'Редактирование пользователя'}
       {!isEdit && 'Пользователи'}
     </h1>
@@ -50,7 +50,7 @@ function UsersLabel({ isEdit }: { isEdit: boolean }) {
 function ToursLabel({ isNew, isEdit }: { isNew: boolean; isEdit: boolean }) {
   return (
     <>
-      <h1 className="hidden sm:block text-2xl font-bold">
+      <h1 className="hidden lg:block text-2xl font-bold">
         {isNew && 'Новый тур'}
         {isEdit && 'Редактирование тура'}
         {!isNew && !isEdit && 'Туры'}
@@ -60,7 +60,7 @@ function ToursLabel({ isNew, isEdit }: { isNew: boolean; isEdit: boolean }) {
           as={Link}
           href="tours/new"
           color="primary"
-          className="sm:absolute sm:top-40% sm:right-[1.5rem]"
+          className="lg:absolute lg:top-40% lg:right-[1.5rem]"
         >
           Создать
         </Button>
@@ -70,7 +70,7 @@ function ToursLabel({ isNew, isEdit }: { isNew: boolean; isEdit: boolean }) {
 }
 function ReviewsLabel({ isEdit }: { isEdit: boolean }) {
   return (
-    <h1 className="hidden sm:block text-2xl font-bold">
+    <h1 className="hidden lg:block text-2xl font-bold">
       {isEdit && 'Редактирование отеля'}
       {!isEdit && 'Отели'}
     </h1>
@@ -80,7 +80,7 @@ function ReviewsLabel({ isEdit }: { isEdit: boolean }) {
 function HotelsLabel({ isNew, isEdit }: { isNew: boolean; isEdit: boolean }) {
   return (
     <>
-      <h1 className="hidden sm:block text-2xl font-bold">
+      <h1 className="hidden lg:block text-2xl font-bold">
         {isNew && 'Новый отель'}
         {isEdit && 'Редактирование отеля'}
         {!isNew && !isEdit && 'Отели'}
@@ -90,7 +90,7 @@ function HotelsLabel({ isNew, isEdit }: { isNew: boolean; isEdit: boolean }) {
           as={Link}
           href="hotels/new"
           color="primary"
-          className="sm:absolute sm:top-40% sm:right-[1.5rem]"
+          className="lg:absolute lg:top-40% lg:right-[1.5rem]"
         >
           Создать
         </Button>
@@ -108,7 +108,7 @@ function CategoriesLabel({
 }) {
   return (
     <>
-      <h1 className="hidden sm:block text-2xl font-bold">
+      <h1 className="hidden lg:block text-2xl font-bold">
         {isNew && 'Новая категория'}
         {isEdit && 'Редактирование категории'}
         {!isNew && !isEdit && 'Категории'}
@@ -118,7 +118,7 @@ function CategoriesLabel({
           as={Link}
           href="categories/new"
           color="primary"
-          className="sm:absolute sm:top-39% sm:right-[1.5rem]"
+          className="lg:absolute lg:top-39% lg:right-[1.5rem]"
         >
           Создать
         </Button>

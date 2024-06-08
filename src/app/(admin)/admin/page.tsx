@@ -40,7 +40,7 @@ async function Main() {
     fetchCategories(null)
   ])
   return (
-    <div className="text-center flex flex-col items-center sm:grid grid-cols-2 grid-rows-2 size-full">
+    <div className="text-center flex flex-col lg:items-center items-baseline sm:grid grid-cols-2 grid-rows-[max-content_max-content] size-fit">
       <div className="row-span-2 w-full sm:w-auto">
         <h2 className="h2 mb-4">Статистика</h2>
         <p className="p font-semibold">Категории: {categories.length}</p>

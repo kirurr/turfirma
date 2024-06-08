@@ -43,7 +43,7 @@
   }
 
   .top-nav-link {
-    @apply p-2 rounded-lg text-xl font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-500 underline-offset-2 hover:underline active:text-primary-500 transition-all;
+    @apply xl:p-2 rounded-lg text-xl font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-500 underline-offset-2 hover:underline active:text-primary-500 transition-all;
   }
 
   .active {
@@ -54,6 +54,7 @@
     @apply transition-all file:transition-all block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:bg-primary-500 file:text-text-secondary hover:file:bg-primary-400;
   }
 }
+
 
 html {
   scroll-behavior: smooth;

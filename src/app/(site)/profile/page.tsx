@@ -5,7 +5,6 @@ import { auth } from '@/auth'
 import { fetchTourAndHotels } from '@/app/data/tours-data'
 import SignOutForm from '@/app/ui/auth/sign-out-button'
 import OrdersAccordion from '@/app/ui/profile/orders-accordion'
-import { Divider } from '@nextui-org/react'
 import Hero from '@/app/ui/hero'
 
 export default async function Page() {
@@ -23,9 +22,9 @@ export default async function Page() {
         isFullHeight={false}
         title="Личный кабинет"
       />
-      <section className="section items-start flex sm:flex-row flex-col gap-4 py-8">
+      <section className="section items-start flex lg:flex-row flex-col gap-4 py-8">
         <div className="w-full">
-          <h2 className="h2 text-center sm:text-start">{user?.name}</h2>
+          <h2 className="h2 text-center lg:text-start">{user?.name}</h2>
           <p className="p">
             <strong className="font-semibold">Электронная почта: </strong>
             {user?.email}
@@ -34,11 +33,11 @@ export default async function Page() {
             <strong className="font-semibold">Данные паспорта: </strong>
             {user?.passport}
           </p>
-          <div className='text-center w-full sm:w-auto sm:text-start'>
+          <div className='text-center w-full lg:w-auto lg:text-start'>
             <SignOutForm />
           </div>
         </div>
-        <div className="w-full py-8 sm:py-0">
+        <div className="w-full py-8 lg:py-0">
           {orders.length > 0 ? (
             <>
               <h2 className="h2 text-center">Ваши заказы:</h2>

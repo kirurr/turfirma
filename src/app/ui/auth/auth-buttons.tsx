@@ -28,7 +28,7 @@ export default function AuthButtons({
         <>
           <Button
             color="primary"
-            className="sm:mr-2"
+            className="lg:mr-2"
             onClick={async () => {
               setIsMenuOpen(false)
               await sleep(400)
@@ -54,7 +54,7 @@ export default function AuthButtons({
             Личный кабинет
           </Button>
           {isAdmin && (
-            <Button className="sm:ml-4" color="primary" as={Link} href="/admin">
+            <Button className="lg:ml-4" color="primary" as={Link} href="/admin">
               Панель администратора
             </Button>
           )}

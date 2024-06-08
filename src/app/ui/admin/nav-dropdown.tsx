@@ -10,15 +10,18 @@ import {
 } from '@nextui-org/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { Key } from 'react'
+import React from 'react'
 
 export default function NavDropdown({ links }: { links: AdminLink[] }) {
   const array = [{ href: '/', name: 'Домой' }].concat(links)
 
   const pathname = usePathname()
 
-  const page = array.find((link) => checkForActiveLink(pathname, link.href)) as AdminLink
+  const page = array.find((link) =>
+    checkForActiveLink(pathname, link.href)
+  ) as AdminLink
   const [selectedKey, setSelectedKey] = React.useState(new Set([page.name]))
+  console.log(selectedKey)
 
   return (
     <Dropdown>
@@ -34,12 +37,13 @@ export default function NavDropdown({ links }: { links: AdminLink[] }) {
       <DropdownMenu
         disallowEmptySelection
         selectionMode="single"
-        selectedKeys={selectedKey}
         onSelectionChange={(keys) => setSelectedKey(new Set(keys.toString()))}
       >
         {array.map((link) => (
-          <DropdownItem key={link.name} as={Link} href={link.href}>
-            {link.name}
+          <DropdownItem key={link.name}>
+            <Link href={link.href} className="text-text-primary size-full">
+              {link.name}
+            </Link>
           </DropdownItem>
         ))}
       </DropdownMenu>

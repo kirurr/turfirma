@@ -37,29 +37,29 @@ const links: AdminLink[] = [
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <main className=" max-w-screen-xl bg-primary-100 rounded-lg mx-auto sm:mt-16 flex flex-wrap sm:grid grid-cols-[20%_80%] grid-rows-[max-content_1fr] p-2">
-      <section className="col-start-1 py-2 sm:p-0 rounded-lg sm:bg-primary-300 sm:outline-2 sm:outline-primary-500 sm:outline w-full">
+    <main className="max-w-screen-xl bg-primary-100 xl:rounded-lg mx-auto xl:mt-16 flex flex-col lg:grid grid-cols-[20%_80%] grid-rows-[max-content_max-content] p-2">
+      <section className="col-start-1 py-2 lg:p-0 rounded-lg lg:bg-primary-300 lg:outline-2 lg:outline-primary-500 lg:outline w-full">
         <>
-          <div className="flex items-center gap-4 justify-between sm:hidden relative">
+          <div className="flex items-center gap-4 justify-between lg:hidden relative">
             <NavDropdown links={links} />
             <Label />
           </div>
           <Link
             href="/"
-            className="text-center hidden sm:block text-xl size-full p-2 link text-text-primary hover:text-text-secondary rounded-lg hover:bg-primary-500 no-underline"
+            className="text-center hidden lg:block text-xl size-full p-2 link text-text-primary hover:text-text-secondary rounded-lg lg:hover:bg-primary-500 no-underline active:bg-primary-500"
           >
             Турфирма Travel
           </Link>
         </>
       </section>
 
-      <section className="hidden sm:flex relative col-start-2 text-2xl items-center sm:justify-center p-2">
+      <section className="hidden lg:flex relative col-start-2 text-2xl items-center lg:justify-center p-2">
         <Label />
       </section>
-      <section className="hidden sm:block p-2">
+      <section className="hidden lg:block p-2">
         <Navigation links={links} />
       </section>
-      <section className="col-start-2 row-start-2 bg-primary-color rounded-lg p-2 w-full min-h-screen sm:w-auto sm:min-h-0">
+      <section className="col-start-2 row-start-2 min-h-[45vh] bg-primary-color rounded-lg p-2 w-full lg:w-auto lg:min-h-0">
         {children}
       </section>
     </main>
