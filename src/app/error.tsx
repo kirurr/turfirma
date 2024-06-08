@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@nextui-org/react'
 import { useEffect } from 'react'
 
 export default function Error({
@@ -14,9 +15,12 @@ export default function Error({
   }, [error])
 
   return (
-    <div>
-      <h2>ошибка 500</h2>
-      <button onClick={() => reset()}>попробовать снова</button>
+    <div className="flex flex-col items-center justify-center text-center h-screen">
+      <h1 className="h1">ошибка 500</h1>
+      <Button color="primary" onPress={() => reset()}>
+        Попробовать снова
+      </Button>
+      <pre>{error.message}</pre>
     </div>
   )
 }
