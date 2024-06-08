@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useFormState } from 'react-dom'
 import {
   Input,
@@ -55,6 +55,7 @@ export default function NewTourForm({
           name="hotels"
           selectionMode="multiple"
           description="Не обязательно"
+          defaultSelectedKeys=""
         >
           {(hotel) => (
             <SelectItem key={hotel.id} value={hotel.id} textValue={hotel.title}>

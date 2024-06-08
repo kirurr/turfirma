@@ -84,7 +84,7 @@ export default function EditTourForm({
           name="hotels"
           selectionMode="multiple"
           description="Не обязательно"
-          selectedKeys={tour.hotels_info.map((hotel) => hotel.id)}
+          defaultSelectedKeys={tour.hotels_info.map((hotel) => hotel.id)}
         >
           {(hotel) => (
             <SelectItem key={hotel.id} value={hotel.id} textValue={hotel.title}>
@@ -106,7 +106,7 @@ export default function EditTourForm({
           items={categories}
           label="Выберите категорию"
           name="category"
-          selectedKeys={new Set([tour.category_id])}
+          defaultSelectedKeys={new Set([tour.category_id])}
           isRequired
         >
           {categories.map((category) => (
