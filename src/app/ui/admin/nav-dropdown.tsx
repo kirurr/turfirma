@@ -21,7 +21,6 @@ export default function NavDropdown({ links }: { links: AdminLink[] }) {
     checkForActiveLink(pathname, link.href)
   ) as AdminLink
   const [selectedKey, setSelectedKey] = React.useState(new Set([page.name]))
-  console.log(selectedKey)
 
   return (
     <Dropdown>

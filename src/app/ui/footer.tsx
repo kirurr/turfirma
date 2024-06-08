@@ -14,7 +14,7 @@ export default async function Footer() {
           {categories.map((category) => (
             <li key={category.id}>
               <Link
-                href={`/tours/${category.alias}`}
+                href={`/${category.alias}`}
                 className="link text-text-secondary hover:text-primary-500"
               >
                 {category.title}

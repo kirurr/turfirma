@@ -1,5 +1,6 @@
 import '@/app/ui/globals.css'
 import { Inter as FontSans } from 'next/font/google'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import { cn } from '@/app/lib/utils'
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         )}
       >
         <Providers>{children}</Providers>
+        <SpeedInsights />
       </body>
     </html>
   )

@@ -18,8 +18,10 @@ import { Button } from '@nextui-org/react'
 import Hero from '@/app/ui/hero'
 
 export async function generateStaticParams() {
-  const tours = await fetchToursForParams()
-  const categories = await fetchCategories(null)
+  const [tours, categories] = await Promise.all([
+    fetchToursForParams(),
+    fetchCategories(null)
+  ])
 
   const result = tours.map((tour) => {
     const category = categories.find(
@@ -54,7 +56,12 @@ export default async function Page({
   )
   return (
     <>
-      <Hero isButton={false} isParagraph={false} isFullHeight={false} title={tour.title} />
+      <Hero
+        isButton={false}
+        isParagraph={false}
+        isFullHeight={false}
+        title={tour.title}
+      />
       <article className="lg:grid grid-cols-3 section gap-8 lg:pt-8">
         <TourBreadcumbs
           category={category as Category}
