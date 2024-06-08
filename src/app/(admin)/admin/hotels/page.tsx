@@ -1,5 +1,4 @@
 import {
-  fetchHotelBlob,
   fetchHotels,
   fetchToursWithHotel
 } from '@/app/data/hotels-data'
@@ -7,6 +6,10 @@ import { Hotel } from '../../../lib/definitions'
 import { AdminHotelWrapper } from '@/app/ui/admin/hotels/hotels'
 import { Suspense } from 'react'
 import { Spinner } from '@nextui-org/react'
+
+export const metadata = {
+  title: 'Отели'
+}
 
 export default function Page() {
   return (

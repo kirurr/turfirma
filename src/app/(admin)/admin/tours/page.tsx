@@ -5,6 +5,10 @@ import { AdminToursWrapper } from '@/app/ui/admin/tours/tours'
 import { Spinner } from '@nextui-org/react'
 import { Suspense } from 'react'
 
+export const metadata = {
+  title: 'Туры'
+}
+
 export default function Page() {
   return (
     <Suspense fallback={<Spinner size="lg" className="size-full" />}>

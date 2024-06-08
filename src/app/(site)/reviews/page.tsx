@@ -4,6 +4,10 @@ import ReviewsForm from '@/app/ui/reviews-form'
 import ReviewsWrapper from '@/app/ui/reviews/reviews'
 import Hero from '@/app/ui/hero'
 
+export const metadata = {
+  title: 'Отзывы',
+}
+
 export default async function Page() {
   const reviews = await fetchReviews()
   const session = await auth()

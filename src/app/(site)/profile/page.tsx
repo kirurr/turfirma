@@ -7,6 +7,10 @@ import SignOutForm from '@/app/ui/auth/sign-out-button'
 import OrdersAccordion from '@/app/ui/profile/orders-accordion'
 import Hero from '@/app/ui/hero'
 
+export const metadata = {
+  title: 'Личный кабинет',
+}
+
 export default async function Page() {
   const session = await auth()
   const userEmail = session?.user.email

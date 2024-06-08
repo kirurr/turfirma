@@ -21,6 +21,23 @@ import TourHotels from '@/app/ui/tour/hotels'
 import Link from 'next/link'
 import { Button } from '@nextui-org/react'
 import Hero from '@/app/ui/hero'
+import { Metadata, ResolvingMetadata } from 'next'
+
+type Props = {
+  params: { tour: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const id = await fetchTourIdByAlias(params.tour)
+  const tour = await fetchTourAndHotels(id.id)
+  
+  return { title: tour.title }
+
+}
 
 export async function generateStaticParams() {
   const [tours, categories] = await Promise.all([

@@ -4,6 +4,10 @@ import { CategoriesWrapper } from '@/app/ui/admin/categories/categories'
 import { Suspense } from 'react'
 import { Spinner } from '@nextui-org/react'
 
+export const metadata = {
+  title: 'Категории'
+}
+
 export default function Page() {
   return (
     <Suspense fallback={<Spinner size='lg' className='size-full' />}>

@@ -4,6 +4,13 @@ import Label from '@/app/ui/admin/label'
 import { AdminLink } from '@/app/lib/definitions'
 import NavDropdown from '@/app/ui/admin/nav-dropdown'
 
+export const metadata = {
+  title: {
+    default: 'Панель администратора',
+    template: '%s | Панель администратора'
+  }
+}
+
 const links: AdminLink[] = [
   {
     name: 'Админ',

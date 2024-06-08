@@ -12,6 +12,27 @@ import ToursWrapper from '@/app/ui/category/tours'
 import CategoryBreadcumbs from '@/app/ui/category/breadcrumbs'
 import { Category } from '@/app/lib/definitions'
 import Hero from '@/app/ui/hero'
+import { Metadata, ResolvingMetadata } from 'next'
+import { Suspense } from 'react'
+import { Spinner } from '@nextui-org/react'
+import ToursFallback from '@/app/ui/category/tours-fallback'
+
+type Props = {
+  params: { category: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const alias = params.category === 'tours' ? 'tours' : params.category
+
+  const id = await fetchCategoryIdByAlias(alias)
+  if (id === null) return { title: 'Все туры' }
+  const category = await fetchCategoryById(id.id)
+  return { title: category?.title }
+}
 
 export async function generateStaticParams() {
   const categories = await fetchCategories(null)
@@ -63,7 +84,9 @@ export default async function Page({
         <Search className="mt-8" />
       </section>
       <section className="section pt-4">
-        <ToursWrapper params={params} searchParams={searchParams} />
+        <Suspense fallback={<ToursFallback />}>
+          <ToursWrapper params={params} searchParams={searchParams} />
+        </Suspense>
         {pages > 1 && (
           <Pagination className="mx-auto my-16 size-fit" totalPages={pages} />
         )}

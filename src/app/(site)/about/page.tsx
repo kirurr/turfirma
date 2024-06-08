@@ -1,5 +1,9 @@
 import Hero from '@/app/ui/hero'
 
+export const metadata = {
+  title: 'О нас',
+}
+
 export default function Page() {
   return (
     <>
