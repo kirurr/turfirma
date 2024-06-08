@@ -7,6 +7,8 @@ import ContactForm from '@/app/ui/contact-form'
 import AboutIcons from '@/app/ui/about-icons'
 import ReviewsList from '@/app/ui/reviews-list'
 import AboutUs from '@/app/ui/about-us-main'
+import { Suspense } from 'react'
+import { Spinner } from '@nextui-org/react'
 
 export default async function Page() {
   const categories = await fetchCategories(null)
@@ -28,11 +30,15 @@ export default async function Page() {
       </section>
       <section className="section text-center">
         <h2 className="h2">Популярные туры</h2>
-        <ToursList />
+        <Suspense fallback={<Spinner size="lg" className="size-full" />}>
+          <ToursList />
+        </Suspense>
       </section>
       <section className="section text-center sm:full-width bg-triary-color">
         <h2 className="h2">Последние отзывы</h2>
-        <ReviewsList />
+        <Suspense fallback={<Spinner size="lg" className="size-full" />}>
+          <ReviewsList />
+        </Suspense>
       </section>
       <section className="section text-center">
         <h2 className="h2">Почему мы?</h2>
