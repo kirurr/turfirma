@@ -1,3 +1,4 @@
+import { createDays } from '@/app/lib/utils'
 import {
   fetchTourAndHotels,
   fetchTourBlobs,
@@ -78,7 +79,8 @@ export default async function Page({
             <strong>Дата:</strong> {formatDateFromPostgreSQL(tour.date)}
           </p>
           <p className="text-xl">
-            <strong>Продолжительность:</strong> {tour.duration} день
+            <strong>Продолжительность: </strong>
+            {`${tour.duration} ${createDays(tour.duration)}`}
           </p>
           <p className="text-xl">
             <strong>Цена с человека:</strong> {tour.price} рублей

@@ -8,6 +8,7 @@ import {
   fetchCategoryById,
   fetchCategoryIdByAlias
 } from '@/app/data/categories-data'
+import { createDays } from '@/app/lib/utils'
 
 export default async function ToursWrapper({
   params,
@@ -77,7 +78,7 @@ async function TourItem({
             </p>
             <p className="text-xl">
               <strong>Продолжительность: </strong>
-              {tour.duration} день
+              {`${tour.duration} ${createDays(tour.duration)}`}
             </p>
           </div>
         </div>

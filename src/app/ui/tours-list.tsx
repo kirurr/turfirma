@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Category } from '@/app/lib/definitions'
 import { Button, Divider } from '@nextui-org/react'
+import { createDays } from '../lib/utils';
 
 export default async function ToursList() {
   const tours = await fetchPopularTours()
@@ -72,7 +73,7 @@ async function TourItem({
               #{category.title}
             </Link>
           </p>
-          <p className="text-lg ml-auto">{tour.duration} дней</p>
+          <p className="text-lg ml-auto">{`${tour.duration} ${createDays(tour.duration)}`}</p>
         </div>
         <Divider />
         <p className="text-xl mt-4 mb-8">{tour.description}</p>
