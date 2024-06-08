@@ -50,7 +50,7 @@ export default async function Page({
   if (!id) notFound()
   const tour = await fetchTourAndHotels(id.id)
 
-  const category = await fetchCategoryById(tour.category_id)
+  const category = await fetchCategoryById(tour.category_id) as Category
   const categoryImage = (await fetchCategoriesBlobs()).find((blob) =>
     blob.pathname.includes(category.image)
   )!
