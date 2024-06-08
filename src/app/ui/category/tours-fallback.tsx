@@ -13,7 +13,7 @@ export default function ToursFallback() {
 function FallbackItem() {
   return (
     <li className="flex flex-1 flex-wrap items-center shadow-lg rounded-lg overflow-hidden mb-8">
-      <Skeleton className="w-full lg:w-1/4 min-h-[17rem]" />
+      <Skeleton className="w-full lg:w-1/4 min-h-[20rem]" />
       <div className="flex items-center p-4 lg:w-2/4 h-full">
         <div className="h-full flex flex-col gap-4">
           <Skeleton className="w-[10rem] h-9 rounded-xl" />

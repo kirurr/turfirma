@@ -6,7 +6,7 @@ import bcrypt from 'bcryptjs'
 import { signIn } from '@/auth'
 import { AuthError } from 'next-auth'
 import { revalidatePath } from 'next/cache'
-import { User } from '../lib/definitions'
+import { User } from '@/app/lib/definitions'
 import { redirect } from 'next/navigation'
 
 const UserSchema = z.object({
@@ -124,7 +124,7 @@ export async function deleteUser(id: string) {
     }
 }
 
-const UpdateUser = UserSchema.omit({ id: true, password: true})
+const UpdateUser = UserSchema.omit({ id: true, password: true })
 
 export async function updateUser(
     prevData: User,

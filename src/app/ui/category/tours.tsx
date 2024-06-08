@@ -50,7 +50,7 @@ async function TourItem({
   const category = await fetchCategoryById(tour.category_id)
   return (
     <li className="flex flex-1 flex-wrap items-center shadow-lg rounded-lg overflow-hidden mb-8">
-      <div className="relative w-full lg:w-1/4 min-h-[17rem]">
+      <div className="relative w-full lg:w-1/4 min-h-[20rem]">
         <Image
           sizes="(max-width: 768px) 50vw, 33vw"
           className="object-cover"

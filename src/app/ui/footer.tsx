@@ -15,7 +15,7 @@ export default async function Footer() {
             <li key={category.id}>
               <Link
                 href={`/${category.alias}`}
-                className="link text-text-secondary hover:text-primary-500"
+                className="link text-text-secondary hover:text-primary-500 active:text-text-secondary"
               >
                 {category.title}
               </Link>
@@ -31,7 +31,7 @@ export default async function Footer() {
               <li>
                 <Link
                   href="/#"
-                  className="link text-text-secondary hover:text-primary-500"
+                  className="link text-text-secondary hover:text-primary-500 active:text-text-secondary"
                 >
                   Главная
                 </Link>
@@ -39,7 +39,7 @@ export default async function Footer() {
               <li>
                 <Link
                   href="/tours"
-                  className="link text-text-secondary hover:text-primary-500"
+                  className="link text-text-secondary hover:text-primary-500 active:text-text-secondary"
                 >
                   Все туры
                 </Link>
@@ -47,7 +47,7 @@ export default async function Footer() {
               <li>
                 <Link
                   href="/about"
-                  className="link text-text-secondary hover:text-primary-500"
+                  className="link text-text-secondary hover:text-primary-500 active:text-text-secondary"
                 >
                   О нас
                 </Link>
@@ -55,7 +55,7 @@ export default async function Footer() {
               <li>
                 <Link
                   href="/reviews"
-                  className="link text-text-secondary hover:text-primary-500"
+                  className="link text-text-secondary hover:text-primary-500 active:text-text-secondary"
                 >
                   Отзывы
                 </Link>
@@ -64,7 +64,7 @@ export default async function Footer() {
                 <li>
                   <Link
                     href="/profile"
-                    className="link text-text-secondary hover:text-primary-500"
+                    className="link text-text-secondary hover:text-primary-500 active:text-text-secondary"
                   >
                     Личный кабинет
                   </Link>
@@ -77,13 +77,13 @@ export default async function Footer() {
           <h3 className="h3 text-text-secondary">Наши контакты</h3>
           <div className="flex flex-col gap-2">
             <a
-              className="link p-0 text-text-secondary hover:text-primary-500"
+              className="link text-text-secondary hover:text-primary-500 active:text-text-secondary p-0"
               href="tel:+79991234567"
             >
               +7 (999) 123-45-67
             </a>
             <a
-              className="link p-0 text-text-secondary hover:text-primary-500"
+              className="link text-text-secondary hover:text-primary-500 active:text-text-secondary p-0"
               href="mailto:info@travel.com"
             >
               info@travel.com

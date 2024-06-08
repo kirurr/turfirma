@@ -14,8 +14,8 @@ import {
 } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 
-export function SignInModal({ isOpen, onOpen, onOpenChange, onClose }: any) {
-  const initialState = { status: true, message: '' }
+export function SignInModal({ isOpen, onOpenChange, onClose }: any) {
+  const initialState = { status: false, message: '' }
   const [result, dispatch] = useFormState(authenticate, initialState)
   const [errorState, setErrorState] = useState(initialState)
   const router = useRouter()
@@ -24,7 +24,7 @@ export function SignInModal({ isOpen, onOpen, onOpenChange, onClose }: any) {
     if (result.status) {
       onClose()
       router.refresh()
-    } else {
+    } else if(result.message !== '') {
       setErrorState({ status: true, message: result.message })
     }
   }, [result, onClose, router])
@@ -73,7 +73,7 @@ export function SignInModal({ isOpen, onOpen, onOpenChange, onClose }: any) {
     </Modal>
   )
 }
-export function SignUpModal({ isOpen, onOpen, onOpenChange, onClose }: any) {
+export function SignUpModal({ isOpen, onOpenChange, onClose }: any) {
   const initialState: UserState = { message: '', errors: undefined }
   const [state, dispatch] = useFormState(createUser, initialState)
   const [errorState, setErrorState] = useState(initialState)

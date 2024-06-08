@@ -56,7 +56,7 @@ async function TourItem({
             href={`/${category.alias}/${tour.alias}`}
             className="focus-visible:outline-none"
           >
-            <h3 className="h3 text-2xl mb-1 hover:text-primary-500 transition-all">
+            <h3 className="h3 text-2xl mb-1 hover:text-primary-500 transition-all active:text-text-primary">
               {tour.title}
             </h3>
           </Link>
@@ -68,7 +68,7 @@ async function TourItem({
           <p>
             <Link
               href={`/${category.alias}`}
-              className="hover:text-primary-500 transition-all focus-visible:outline-primary-500 outline-2  rounded-lg text-lg"
+              className="hover:text-primary-500 transition-all focus-visible:outline-primary-500 outline-2  rounded-lg text-lg active:text-text-primary"
             >
               #{category.title}
             </Link>
