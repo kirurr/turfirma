@@ -43,6 +43,20 @@ export const fetchCategoryById = cache(async (id: string) => {
     }
 })
 
+export const fetchCategoryByAlias = cache(async (alias: string) => {
+    if (alias === 'tours') {
+        return null
+    }
+    try {
+        const category =
+            await sql<Category>`SELECT * FROM categories WHERE alias = ${alias}`
+        return category.rows[0]
+    } catch (error) {
+        console.log(error)
+        throw new Error('failed to fetch category')
+    }
+})
+
 export const fetchCategoriesBlobs = cache(async () => {
     try {
         const { blobs } = await list({ prefix: 'categories/' })

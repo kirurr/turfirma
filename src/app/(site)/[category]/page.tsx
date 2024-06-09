@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import {
   fetchCategories,
   fetchCategoriesBlobs,
+  fetchCategoryByAlias,
   fetchCategoryById,
   fetchCategoryIdByAlias
 } from '@/app/data/categories-data'
@@ -49,25 +50,23 @@ export default async function Page({
   params: { category: string }
   searchParams: { query: string; page?: string }
 }) {
-  const id = await fetchCategoryIdByAlias(params.category)
-  const category = await fetchCategoryById(
-    params.category === 'tours' ? 'tours' : id?.id!
-  )
+  const category = await fetchCategoryByAlias(params.category)
 
   if (category === undefined) notFound()
 
   const pages = await fetchToursPages(
-    category === null ? null : category.id,
+    category !== null ? category.id : null,
     searchParams.query
   )
 
   const title = category === null ? 'Все туры' : category.title
-  let image
-  if (category !== null) {
-    image = (await fetchCategoriesBlobs()).find((blob) =>
-      blob.pathname.includes(category!.image)
-    )?.url
-  }
+
+  const image =
+    category !== null
+      ? (await fetchCategoriesBlobs()).find((blob) =>
+          blob.pathname.includes(category!.image)
+        )?.url
+      : undefined
 
   return (
     <>
