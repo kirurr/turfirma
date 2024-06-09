@@ -2,6 +2,8 @@ import '@/app/ui/globals.css'
 import { Inter as FontSans } from 'next/font/google'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
+export const revalidate = 3600
+
 export const metadata = {
   title: 'Турфирма Travel',
   description:

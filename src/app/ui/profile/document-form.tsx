@@ -3,7 +3,6 @@
 import { useFormState } from 'react-dom'
 import { Order, TourWithHotel, User } from '@/app//lib/definitions'
 import { generateTourDocument } from '@/app/actions/order-actions'
-import { Button } from '@nextui-org/react'
 import { FormButton } from '@/app/ui/auth/auth-forms'
 import Link from 'next/link'
 
@@ -32,11 +31,21 @@ export default function DocumentForm({
   return (
     <>
       {!state.status ? (
-        <form action={dispatch}>
-          <FormButton title='Получить документ по туру' />
-        </form>
+        <>
+          <form action={dispatch}>
+            <FormButton title="Получить документ по туру" />
+          </form>
+          {state.message && <p className="p">{state.message}</p>}
+        </>
       ) : (
-        <Link className='link' target='_blank' href={state.message} download={`document-${tourData.alias}.pdf`}>Скачать документ</Link>
+        <Link
+          className="link"
+          target="_blank"
+          href={state.message}
+          download={`document-${tourData.alias}.pdf`}
+        >
+          Скачать документ
+        </Link>
       )}
     </>
   )

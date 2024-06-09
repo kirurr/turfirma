@@ -45,7 +45,9 @@ export async function generateTourDocument(
         const pdfDoc = await PDFDocument.create()
         const fontUrl =
             'https://db.onlinewebfonts.com/t/3edeef062ebe872bf42d67f609604cf0.ttf'
-        const fontBytes = await fetch(fontUrl).then((res) => res.arrayBuffer())
+        const fontBytes = await fetch(fontUrl, { cache: 'force-cache' }).then(
+            (res) => res.arrayBuffer()
+        )
 
         pdfDoc.registerFontkit(fontkit)
         await pdfDoc.embedFont(fontBytes)
@@ -80,7 +82,9 @@ export async function generateTourDocument(
             ООО "Турфирма Travel", именуемое в дальнейшем "Исполнитель", в лице
             генерального директора Забуборника Афанасия Белоозерского,
             действующего на основании Устава, с одной стороны,
-            и гражданин(ка) ${userData.name}, именуемый(ая) в дальнейшем "Заказчик",
+            и гражданин(ка) ${
+                userData.name
+            }, именуемый(ая) в дальнейшем "Заказчик",
             с другой стороны, заключили настоящий договор о нижеследующем:
 
             1. Предмет договора
@@ -142,6 +146,6 @@ export async function generateTourDocument(
         return { status: true, message: resultURI }
     } catch (error) {
         console.log(error)
-        return { status: false, message: 'ошибка' }
+        return { status: false, message: 'Ошибка. Попробуйте позже.' }
     }
 }

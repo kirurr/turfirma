@@ -23,6 +23,8 @@ import { Button } from '@nextui-org/react'
 import Hero from '@/app/ui/hero'
 import { Metadata, ResolvingMetadata } from 'next'
 
+export const revalidate = 3600
+
 type Props = {
   params: { tour: string }
   searchParams: { [key: string]: string | string[] | undefined }

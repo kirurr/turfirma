@@ -10,6 +10,8 @@ import AboutUs from '@/app/ui/about-us-main'
 import { Suspense } from 'react'
 import { Spinner } from '@nextui-org/react'
 
+export const revalidate = 3600
+
 export default async function Page() {
   const categories = await fetchCategories(null)
   return (

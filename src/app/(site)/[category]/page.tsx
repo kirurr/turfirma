@@ -14,8 +14,9 @@ import { Category } from '@/app/lib/definitions'
 import Hero from '@/app/ui/hero'
 import { Metadata, ResolvingMetadata } from 'next'
 import { Suspense } from 'react'
-import { Spinner } from '@nextui-org/react'
 import ToursFallback from '@/app/ui/category/tours-fallback'
+
+export const revalidate = 3600
 
 type Props = {
   params: { category: string }

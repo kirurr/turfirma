@@ -8,7 +8,7 @@ import OrdersAccordion from '@/app/ui/profile/orders-accordion'
 import Hero from '@/app/ui/hero'
 
 export const metadata = {
-  title: 'Личный кабинет',
+  title: 'Личный кабинет'
 }
 
 export default async function Page() {
@@ -37,7 +37,20 @@ export default async function Page() {
             <strong className="font-semibold">Данные паспорта: </strong>
             {user?.passport}
           </p>
-          <div className='text-center w-full lg:w-auto lg:text-start'>
+          {orders.length > 0 && (
+            <div>
+              <h3 className="h3">Порядок действий:</h3>
+              <ol className="list-decimal list-inside pl-4 mb-8 ">
+                <li className="mb-2 text-lg">Оплатить заказ</li>
+                <li className="mb-2 text-lg">Скачать договор</li>
+                <li className="mb-2 text-lg">Поставить подпись</li>
+                <li className="mb-2 text-lg">
+                  Не забыть принести договор на посадку
+                </li>
+              </ol>
+            </div>
+          )}
+          <div className="text-center w-full lg:w-auto lg:text-start">
             <SignOutForm />
           </div>
         </div>
