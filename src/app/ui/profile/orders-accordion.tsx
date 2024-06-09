@@ -4,6 +4,7 @@ import { Order, TourWithHotel, User } from '@/app/lib/definitions'
 import { Accordion, AccordionItem, Button, Chip } from '@nextui-org/react'
 import Link from 'next/link'
 import DocumentForm from '@/app/ui/profile/document-form'
+import { formatDateFromPostgreSQL } from '../../lib/utils';
 
 export default function OrdersAccordion({
   orders,
@@ -34,6 +35,7 @@ export default function OrdersAccordion({
             {orderHotel && (
               <p className="p text-balance sm:text-start text-center my-4 sm:mt-0"><strong className='font-semibold'>Выбранный отель: </strong>{orderHotel.title}</p>
             )}
+              <p className="p text-balance sm:text-start text-center my-4 sm:mt-0"><strong className='font-semibold'>Дата заказа: </strong>{formatDateFromPostgreSQL(order.date)}</p>
             <div className='flex sm:flex-row flex-col w-full sm:w-auto gap-2 items-center'>
               {order.status === 'pending' && (
                 <Button as={Link} href={`/profile/${order.id}`} color="primary">

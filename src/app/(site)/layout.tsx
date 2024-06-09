@@ -13,6 +13,7 @@ export default async function Layout({
   const session = await auth()
   const isAuth = session?.user ? true : false
   const isAdmin = session?.user.role === 'admin'
+
   const categories = await fetchCategories(null)
   return (
     <>

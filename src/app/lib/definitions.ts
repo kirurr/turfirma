@@ -55,6 +55,7 @@ export type Order = {
     tour_id: string
     hotel_id: string
     status: 'canceled' | 'paid' | 'pending'
+    date: Date
 }
 
 export type Review = {

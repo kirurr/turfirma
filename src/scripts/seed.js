@@ -106,7 +106,8 @@ async function seedOrders(client) {
 			user_id UUID NOT NULL,
 			tour_id UUID NOT NULL,
 			hotel_id UUID,
-			status TEXT NOT NULL DEFAULT 'pending'
+			status TEXT NOT NULL DEFAULT 'pending',
+            date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 			);`
         console.log('orders table created!')
     } catch (error) {

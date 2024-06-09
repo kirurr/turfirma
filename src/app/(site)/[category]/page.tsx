@@ -53,9 +53,7 @@ export default async function Page({
     params.category === 'tours' ? 'tours' : id?.id!
   )
 
-  if (category === undefined) {
-    notFound()
-  }
+  if (category === undefined) notFound()
 
   const pages = await fetchToursPages(
     category === null ? null : category.id,

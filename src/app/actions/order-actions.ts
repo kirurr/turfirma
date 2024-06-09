@@ -42,52 +42,99 @@ export async function generateTourDocument(
     _formData: FormData
 ) {
     try {
-        const url =
-            'https://db.onlinewebfonts.com/t/643e59524d730ce6c6f2384eebf945f8.ttf'
-        const fontBytes = await fetch(url).then((res) => res.arrayBuffer())
         const pdfDoc = await PDFDocument.create()
+        const fontUrl =
+            'https://db.onlinewebfonts.com/t/3edeef062ebe872bf42d67f609604cf0.ttf'
+        const fontBytes = await fetch(fontUrl).then((res) => res.arrayBuffer())
 
-        let customFont
-        if (fontBytes) {
-            pdfDoc.registerFontkit(fontkit)
-            await pdfDoc.embedFont(fontBytes)
-            customFont = await pdfDoc.embedFont(fontBytes)
-        }
+        pdfDoc.registerFontkit(fontkit)
+        await pdfDoc.embedFont(fontBytes)
 
-        // Add a blank page to the document
+        const customFont = await pdfDoc.embedFont(fontBytes)
+
         const page = pdfDoc.addPage()
-
-        // Get the width and height of the page
         const { width, height } = page.getSize()
 
-        // Draw a string of text toward the top of the page
-        const fontSize = 30
-        page.drawText(`документ по туру ${tourData.title}`, {
-            x: 50,
-            y: height - 4 * fontSize,
-            size: fontSize,
+        const title = 'Договор о реализации туристского продукта'
+        const titleFontSize = 24
+        const textWidth = customFont.widthOfTextAtSize(title, titleFontSize)
+        const x = (width - textWidth) / 2
+
+        page.drawText(title, {
+            x: x,
+            y: height - 50,
+            size: titleFontSize,
             font: customFont,
-            color: rgb(0, 0.53, 0.71)
+            color: rgb(0, 0, 0)
         })
-        const hotelData = tourData.hotels_info?.find(
-            (hotel) => hotel.id === orderData.hotel_id
-        )
-        if (hotelData) {
-            page.drawText(`отель ${hotelData?.title}`, {
-                x: 50,
-                y: height - 6 * fontSize,
+
+        const fontSize = 12
+        const date = new Date(orderData.date)
+        const text = `
+            Договор: № ${orderData.id} от ${date.toLocaleDateString('ru-RU', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        })}
+
+            ООО "Турфирма Travel", именуемое в дальнейшем "Исполнитель", в лице
+            генерального директора Забуборника Афанасия Белоозерского,
+            действующего на основании Устава, с одной стороны,
+            и гражданин(ка) ${userData.name}, именуемый(ая) в дальнейшем "Заказчик",
+            с другой стороны, заключили настоящий договор о нижеследующем:
+
+            1. Предмет договора
+            1.1. Исполнитель обязуется оказать Заказчику туристские услуги, а Заказчик
+            обязуется оплатить указанные услуги.
+            
+            2. Обязанности сторон
+            2.1. Исполнитель обязуется:
+            2.1.1. Организовать и обеспечить качественное оказание туристских услуг.
+            2.1.2. Предоставить Заказчику всю необходимую информацию о туристском продукте.
+            
+            2.2. Заказчик обязуется:
+            2.2.1. Оплатить туристские услуги в полном объеме.
+            2.2.2. Соблюдать правила поведения и требования безопасности.
+
+            3. Ответственность сторон
+            3.1. В случае неисполнения или ненадлежащего исполнения обязательств по
+            настоящему договору стороны несут ответственность в соответствии с
+            действующим законодательством.
+
+            4. Прочие условия
+            4.1. Все споры и разногласия, возникающие из настоящего договора, решаются
+            путем переговоров.
+            4.2. Настоящий договор составлен в двух экземплярах, по одному для каждой
+            из сторон.
+
+            Реквизиты сторон:
+
+            Исполнитель: ООО "Турфирма Travel"
+            Телефон: +7 (495) 123-45-67
+            Электронная почта: info@travel.ru
+
+            Заказчик: ${userData.name}
+            Данные паспорта: ${userData.passport}
+            Электронная почта: ${userData.email}
+
+            Подписи сторон:
+
+            Исполнитель: _____________________ / _______________
+            Заказчик: ________________________ / _______________
+          `
+
+        // Добавление текста на страницу
+        const lines = text.split('\n')
+        let y = height - 70
+        lines.forEach((line) => {
+            page.drawText(line, {
+                x: 30,
+                y,
                 size: fontSize,
                 font: customFont,
                 color: rgb(0, 0, 0)
             })
-        }
-
-        page.drawText(`турист ${userData.name}`, {
-            x: 50,
-            y: height - 8 * fontSize,
-            size: fontSize,
-            font: customFont,
-            color: rgb(0, 0, 0)
+            y -= fontSize + 4
         })
 
         // Serialize the PDFDocument to bytes (a Uint8Array)

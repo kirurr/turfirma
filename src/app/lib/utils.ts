@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
 }
 
-export function formatDateFromPostgreSQL(date: string): string {
+export function formatDateFromPostgreSQL(date: string | Date): string {
     return new Intl.DateTimeFormat('ru-RU').format(new Date(date))
 }
 
